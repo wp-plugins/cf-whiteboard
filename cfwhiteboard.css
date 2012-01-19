@@ -692,8 +692,8 @@ body, button, input, select, textarea { font-family: sans-serif; color: #222; }
 }
 
 .cfwhiteboard.cleanslate .cfw-pane, .cfwhiteboard.cleanslate .cfw-pane > div, .cfwhiteboard.cleanslate .cfw-window {
-    -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
     border-radius: 5px;
 }
 .cfwhiteboard.cleanslate .cfw-pane {
@@ -1206,7 +1206,8 @@ body, button, input, select, textarea { font-family: sans-serif; color: #222; }
     background-image: url('images/loading.gif');
     background-position: 23px center;
     background-repeat: no-repeat;
-    text-indent: 100px;
+    overflow: hidden;
+    text-indent: 100%;
 }
 
 .cfwhiteboard.cleanslate .cfw-window form label.cfw-invalid {
