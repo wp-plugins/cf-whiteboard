@@ -111,6 +111,7 @@ function cfwhiteboard_bind_actions_and_filters() {
     add_action('wp_print_styles', 'cfwhiteboard_stylesheet', 999999);
     add_action('wp_enqueue_scripts', 'cfwhiteboard_scripts', 999999);
     add_action('wp_enqueue_scripts', 'cfwhiteboard_scripts_data', 1000000);
+    add_action('wp_enqueue_scripts', 'cfwhiteboard_latest_jquery', 1);
 
     if ($options['position'] == cfwhiteboard_Position::CustomSelector) {
         add_filter('the_content', 'cfwhiteboard_add_to_post', 999999, 2);
@@ -162,7 +163,18 @@ function cfwhiteboard_scripts() {
     wp_enqueue_script('cfwhiteboard',
         plugins_url('cfwhiteboard.js', __FILE__),
         array('jquery'),
-        $CFWHITEBOARD_VERSION );
+        $CFWHITEBOARD_VERSION
+    );
+}
+
+function cfwhiteboard_latest_jquery($version) {
+    wp_deregister_script('jquery'); 
+    wp_register_script('jquery',
+        plugins_url('jquery.js', __FILE__),
+        false,
+        '1.7.1'
+    );
+    wp_enqueue_script('jquery');
 }
 
 function cfwhiteboard_scripts_data() {
