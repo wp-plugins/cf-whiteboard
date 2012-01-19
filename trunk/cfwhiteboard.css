@@ -1,0 +1,1268 @@
+.cfwhiteboard div, .cfwhiteboard span, .cfwhiteboard object, .cfwhiteboard iframe,
+.cfwhiteboard h1, .cfwhiteboard h2, .cfwhiteboard h3, .cfwhiteboard h4, .cfwhiteboard h5, .cfwhiteboard h6, .cfwhiteboard p, .cfwhiteboard blockquote, .cfwhiteboard pre,
+.cfwhiteboard abbr, .cfwhiteboard address, .cfwhiteboard cite, .cfwhiteboard code,
+.cfwhiteboard del, .cfwhiteboard dfn, .cfwhiteboard em, .cfwhiteboard img, .cfwhiteboard ins, .cfwhiteboard kbd, .cfwhiteboard q, .cfwhiteboard samp,
+.cfwhiteboard small, .cfwhiteboard strong, .cfwhiteboard sub, .cfwhiteboard sup, .cfwhiteboard var,
+.cfwhiteboard b, .cfwhiteboard i,
+.cfwhiteboard dl, .cfwhiteboard dt, .cfwhiteboard dd, .cfwhiteboard ol, .cfwhiteboard ul, .cfwhiteboard li,
+.cfwhiteboard fieldset, .cfwhiteboard form, .cfwhiteboard label, .cfwhiteboard legend,
+.cfwhiteboard table, .cfwhiteboard caption, .cfwhiteboard tbody, .cfwhiteboard tfoot, .cfwhiteboard thead, .cfwhiteboard tr, .cfwhiteboard th, .cfwhiteboard td,
+.cfwhiteboard article, .cfwhiteboard aside, .cfwhiteboard canvas, .cfwhiteboard details, .cfwhiteboard figcaption, .cfwhiteboard figure,
+.cfwhiteboard footer, .cfwhiteboard header, .cfwhiteboard hgroup, .cfwhiteboard menu, .cfwhiteboard nav, .cfwhiteboard section, .cfwhiteboard summary,
+.cfwhiteboard time, .cfwhiteboard mark, .cfwhiteboard audio, .cfwhiteboard video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+.cfwhiteboard article, .cfwhiteboard aside, .cfwhiteboard details, .cfwhiteboard figcaption, .cfwhiteboard figure,
+.cfwhiteboard footer, .cfwhiteboard header, .cfwhiteboard hgroup, .cfwhiteboard menu, .cfwhiteboard nav, .cfwhiteboard section { 
+    display:block;
+}
+
+.cfwhiteboard blockquote:before, .cfwhiteboard blockquote:after,
+.cfwhiteboard q:before, .cfwhiteboard q:after {
+    content:'';
+    content:none;
+}
+
+.cfwhiteboard a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+/* change colours to suit your needs */
+.cfwhiteboard ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+.cfwhiteboard mark {
+    background-color:#ff9;
+    color:#000; 
+    font-style:italic;
+    font-weight:bold;
+}
+
+.cfwhiteboard del {
+    text-decoration: line-through;
+}
+
+.cfwhiteboard abbr[title], .cfwhiteboard dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+.cfwhiteboard table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+.cfwhiteboard hr {
+    display:block;
+    height:1px;
+    border:0;   
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+.cfwhiteboard input, .cfwhiteboard select {
+    vertical-align:middle;
+}
+
+
+
+/* 
+ * HTML5 ✰ Boilerplate
+ *
+ * What follows is the result of much research on cross-browser styling. 
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ *
+ * Detailed information about this CSS: h5bp.com/css
+ * 
+ * ==|== normalize ==========================================================
+ */
+
+
+/* =============================================================================
+   HTML5 display definitions
+   ========================================================================== */
+
+.cfwhiteboard article, .cfwhiteboard aside, .cfwhiteboard details, .cfwhiteboard figcaption, .cfwhiteboard figure, .cfwhiteboard footer, .cfwhiteboard header, .cfwhiteboard hgroup, .cfwhiteboard nav, .cfwhiteboard section { display: block; }
+.cfwhiteboard audio, .cfwhiteboard canvas, .cfwhiteboard video { display: inline-block; *display: inline; *zoom: 1; }
+.cfwhiteboard audio:not([controls]) { display: none; }
+.cfwhiteboard [hidden] { display: none; }
+
+/* =============================================================================
+   Base
+   ========================================================================== */
+
+/*
+ * 1. Correct text resizing oddly in IE6/7 when body font-size is set using em units
+ * 2. Force vertical scrollbar in non-IE
+ * 3. Prevent iOS text size adjust on device orientation change, without disabling user zoom: h5bp.com/g
+ */
+/*
+html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+body { margin: 0; font-size: 13px; line-height: 1.231; }
+
+body, button, input, select, textarea { font-family: sans-serif; color: #222; }
+*/
+/* 
+ * Remove text-shadow in selection highlight: h5bp.com/i
+ * These selection declarations have to be separate
+ * Also: hot pink! (or customize the background color to match your design)
+ */
+/*
+::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
+::selection { background: #fe57a1; color: #fff; text-shadow: none; }
+*/
+
+/* =============================================================================
+   Links
+   ========================================================================== */
+
+.cfwhiteboard a { color: #00e; }
+.cfwhiteboard a:visited { color: #551a8b; }
+.cfwhiteboard a:hover { color: #06e; }
+.cfwhiteboard a:focus { outline: thin dotted; }
+
+/* Improve readability when focused and hovered in all browsers: h5bp.com/h */
+.cfwhiteboard a:hover, .cfwhiteboard a:active { outline: 0; }
+
+
+/* =============================================================================
+   Typography
+   ========================================================================== */
+
+.cfwhiteboard abbr[title] { border-bottom: 1px dotted; }
+
+.cfwhiteboard b, .cfwhiteboard strong { font-weight: bold; }
+
+.cfwhiteboard blockquote { margin: 1em 40px; }
+
+.cfwhiteboard dfn { font-style: italic; }
+
+.cfwhiteboard hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+
+.cfwhiteboard ins { background: #ff9; color: #000; text-decoration: none; }
+
+.cfwhiteboard mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
+
+/* Redeclare monospace font family: h5bp.com/j */
+.cfwhiteboard pre, .cfwhiteboard code, .cfwhiteboard kbd, .cfwhiteboard samp { font-family: monospace, monospace; _font-family: 'courier new', monospace; font-size: 1em; }
+
+/* Improve readability of pre-formatted text in all browsers */
+.cfwhiteboard pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+
+.cfwhiteboard q { quotes: none; }
+.cfwhiteboard q:before, .cfwhiteboard q:after { content: ""; content: none; }
+
+.cfwhiteboard small { font-size: 85%; }
+
+/* Position subscript and superscript content without affecting line-height: h5bp.com/k */
+.cfwhiteboard sub, .cfwhiteboard sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+.cfwhiteboard sup { top: -0.5em; }
+.cfwhiteboard sub { bottom: -0.25em; }
+
+
+/* =============================================================================
+   Lists
+   ========================================================================== */
+
+.cfwhiteboard ul, .cfwhiteboard ol { margin: 1em 0; padding: 0 0 0 40px; }
+.cfwhiteboard dd { margin: 0 0 0 40px; }
+.cfwhiteboard nav ul, .cfwhiteboard nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+
+
+/* =============================================================================
+   Embedded content
+   ========================================================================== */
+
+/*
+ * 1. Improve image quality when scaled in IE7: h5bp.com/d
+ * 2. Remove the gap between images and borders on image containers: h5bp.com/e 
+ */
+
+.cfwhiteboard img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+
+/*
+ * Correct overflow not hidden in IE9 
+ */
+
+.cfwhiteboard svg:not(:root) { overflow: hidden; }
+
+
+/* =============================================================================
+   Figures
+   ========================================================================== */
+
+.cfwhiteboard figure { margin: 0; }
+
+
+/* =============================================================================
+   Forms
+   ========================================================================== */
+
+.cfwhiteboard form { margin: 0; }
+.cfwhiteboard fieldset { border: 0; margin: 0; padding: 0; }
+
+/* Indicate that 'label' will shift focus to the associated form element */
+.cfwhiteboard label { cursor: pointer; }
+
+/* 
+ * 1. Correct color not inheriting in IE6/7/8/9 
+ * 2. Correct alignment displayed oddly in IE6/7 
+ */
+
+.cfwhiteboard legend { border: 0; *margin-left: -7px; padding: 0; }
+
+/*
+ * 1. Correct font-size not inheriting in all browsers
+ * 2. Remove margins in FF3/4 S5 Chrome
+ * 3. Define consistent vertical alignment display in all browsers
+ */
+
+.cfwhiteboard button, .cfwhiteboard input, .cfwhiteboard select, .cfwhiteboard textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; }
+
+/*
+ * 1. Define line-height as normal to match FF3/4 (set using !important in the UA stylesheet)
+ * 2. Correct inner spacing displayed oddly in IE6/7
+ */
+
+.cfwhiteboard button, .cfwhiteboard input { line-height: normal; *overflow: visible; }
+
+/*
+ * Reintroduce inner spacing in 'table' to avoid overlap and whitespace issues in IE6/7
+ */
+
+.cfwhiteboard table button, .cfwhiteboard table input { *overflow: auto; }
+
+/*
+ * 1. Display hand cursor for clickable form elements
+ * 2. Allow styling of clickable form elements in iOS
+ */
+
+.cfwhiteboard button, .cfwhiteboard input[type="button"], .cfwhiteboard input[type="reset"], .cfwhiteboard input[type="submit"] { cursor: pointer; -webkit-appearance: button; }
+
+/*
+ * Consistent box sizing and appearance
+ */
+
+.cfwhiteboard input[type="checkbox"], .cfwhiteboard input[type="radio"] { box-sizing: border-box; }
+.cfwhiteboard input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
+.cfwhiteboard input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+
+/* 
+ * Remove inner padding and border in FF3/4: h5bp.com/l 
+ */
+
+.cfwhiteboard button::-moz-focus-inner, .cfwhiteboard input::-moz-focus-inner { border: 0; padding: 0; }
+
+/* 
+ * 1. Remove default vertical scrollbar in IE6/7/8/9 
+ * 2. Allow only vertical resizing
+ */
+
+.cfwhiteboard textarea { overflow: auto; vertical-align: top; resize: vertical; }
+
+/* Colors for form validity */
+.cfwhiteboard input:valid, .cfwhiteboard textarea:valid {  }
+.cfwhiteboard input:invalid, .cfwhiteboard textarea:invalid { background-color: #f0dddd; }
+
+
+/* =============================================================================
+   Tables
+   ========================================================================== */
+
+.cfwhiteboard table { border-collapse: collapse; border-spacing: 0; }
+.cfwhiteboard td { vertical-align: top; }
+
+
+/* ==|== primary styles =====================================================
+   Author: 
+   ========================================================================== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==|== non-semantic helper classes ========================================
+   Please define your styles before this section.
+   ========================================================================== */
+
+/* For image replacement */
+/*
+.ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; }
+.ir br { display: none; }
+*/
+/* Hide from both screenreaders and browsers: h5bp.com/u */
+/*.cfwhiteboard .hidden { display: none !important; visibility: hidden; }*/
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+/*
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+*/
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p */
+/*
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+*/
+
+/* Hide visually and from screenreaders, but maintain layout */
+/*
+.invisible { visibility: hidden; }
+*/
+
+/* Contain floats: h5bp.com/q */ 
+/*
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+*/
+
+
+/* ==|== media queries ======================================================
+   PLACEHOLDER Media Queries for Responsive Design.
+   These override the primary ('mobile first') styles
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 480px) {
+  /* Style adjustments for viewports 480px and over go here */
+
+}
+
+@media only screen and (min-width: 768px) {
+  /* Style adjustments for viewports 768px and over go here */
+
+}
+
+
+
+/* ==|== print styles =======================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+ 
+@media print {
+  * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: h5bp.com/s */
+  a, a:visited { text-decoration: underline; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }  /* Don't show links for images, or javascript/internal links */
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; } /* h5bp.com/t */
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page { margin: 0.5cm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+}
+/*!
+* CleanSlate
+*   github.com/premasagar/cleanslate
+*
+*//*
+    An extreme CSS reset stylesheet, for normalising the styling of a container element and its children.
+
+    by Premasagar Rose
+        dharmafly.com
+
+    license
+        opensource.org/licenses/mit-license.php
+
+    **
+        
+    v0.9.2
+        
+*/
+
+/* == BLANKET RESET RULES == */
+
+/* HTML 4.01 */
+.cfwhiteboard.cleanslate, .cfwhiteboard.cleanslate h1, .cfwhiteboard.cleanslate h2, .cfwhiteboard.cleanslate h3, .cfwhiteboard.cleanslate h4, .cfwhiteboard.cleanslate h5, .cfwhiteboard.cleanslate h6, .cfwhiteboard.cleanslate p, .cfwhiteboard.cleanslate table tr td, .cfwhiteboard.cleanslate dl, .cfwhiteboard.cleanslate table tr, .cfwhiteboard.cleanslate dt, .cfwhiteboard.cleanslate ol, .cfwhiteboard.cleanslate form, .cfwhiteboard.cleanslate select, .cfwhiteboard.cleanslate option, .cfwhiteboard.cleanslate pre, .cfwhiteboard.cleanslate div, .cfwhiteboard.cleanslate table,  .cfwhiteboard.cleanslate table tr th, .cfwhiteboard.cleanslate table tbody, .cfwhiteboard.cleanslate table tfoot, .cfwhiteboard.cleanslate caption, .cfwhiteboard.cleanslate table thead, .cfwhiteboard.cleanslate ul, .cfwhiteboard.cleanslate li, .cfwhiteboard.cleanslate address, .cfwhiteboard.cleanslate blockquote, .cfwhiteboard.cleanslate dd, .cfwhiteboard.cleanslate fieldset, .cfwhiteboard.cleanslate li, .cfwhiteboard.cleanslate iframe, .cfwhiteboard.cleanslate strong, .cfwhiteboard.cleanslate legend, .cfwhiteboard.cleanslate em, .cfwhiteboard.cleanslate s, .cfwhiteboard.cleanslate cite, .cfwhiteboard.cleanslate span, .cfwhiteboard.cleanslate input, .cfwhiteboard.cleanslate sup, .cfwhiteboard.cleanslate label, .cfwhiteboard.cleanslate dfn, .cfwhiteboard.cleanslate object, .cfwhiteboard.cleanslate big, .cfwhiteboard.cleanslate q, .cfwhiteboard.cleanslate font, .cfwhiteboard.cleanslate samp, .cfwhiteboard.cleanslate acronym, .cfwhiteboard.cleanslate small, .cfwhiteboard.cleanslate img, .cfwhiteboard.cleanslate strike, .cfwhiteboard.cleanslate code, .cfwhiteboard.cleanslate sub, .cfwhiteboard.cleanslate ins, .cfwhiteboard.cleanslate textarea, .cfwhiteboard.cleanslate var, .cfwhiteboard.cleanslate a, .cfwhiteboard.cleanslate abbr, .cfwhiteboard.cleanslate applet, .cfwhiteboard.cleanslate del, .cfwhiteboard.cleanslate kbd, .cfwhiteboard.cleanslate tt, .cfwhiteboard.cleanslate b, .cfwhiteboard.cleanslate i, .cfwhiteboard.cleanslate hr,
+
+/* HTML5 */
+.cfwhiteboard.cleanslate article, .cfwhiteboard.cleanslate aside, .cfwhiteboard.cleanslate dialog, .cfwhiteboard.cleanslate figure, .cfwhiteboard.cleanslate footer, .cfwhiteboard.cleanslate header, .cfwhiteboard.cleanslate hgroup, .cfwhiteboard.cleanslate menu, .cfwhiteboard.cleanslate nav, .cfwhiteboard.cleanslate section, .cfwhiteboard.cleanslate time, .cfwhiteboard.cleanslate mark, .cfwhiteboard.cleanslate audio, .cfwhiteboard.cleanslate video {
+	background-attachment:scroll;
+	background-color:transparent;
+	background-image:none; /* This rule affects the use of pngfix JavaScript http://dillerdesign.com/experiment/DD_BelatedPNG for IE6, which is used to force the browser to recognise alpha-transparent PNGs files that replace the IE6 lack of PNG transparency. (The rule overrides the VML image that is used to replace the given CSS background-image). If you don't know what that means, then you probably haven't used the pngfix script, and this comment may be ignored :) */
+	background-position:0 0;
+	background-repeat:repeat;
+	border-color:black;
+	border-color:currentColor; /* `border-color` should match font color. Modern browsers (incl. IE9) allow the use of "currentColor" to match the current font 'color' value <http://www.w3.org/TR/css3-color/#currentcolor>. For older browsers, a default of 'black' is given before this rule. Guideline to support older browsers: if you haven't already declared a border-color for an element, be sure to do so, e.g. when you first declare the border-width. */
+	border-radius:0;
+	border-style:none;
+	border-width:medium;
+	bottom:auto;
+	clear:none;
+/*  clip:auto;*/
+	color:inherit;
+	counter-increment:none;
+	counter-reset:none;
+	cursor:auto;
+	direction:inherit;
+	display:inline;
+	float:none;
+	font-family: inherit; /* As with other inherit values, this needs to be set on the root container element */
+	font-size: inherit;
+	font-style:inherit;
+	font-variant:normal;
+	font-weight:inherit;
+	height:auto;
+	left:auto;
+	letter-spacing:normal;
+	line-height:inherit;
+	list-style-type: inherit; /* Could set list-style-type to none */
+	list-style-position: outside;
+	list-style-image: none;
+	margin:0;
+	max-height:none;
+	max-width:none;
+	min-height:0;
+	min-width:0;
+	opacity:1;
+	outline:invert none medium;
+	overflow:visible;
+	padding:0;
+	position:static;
+	quotes: "" "";
+	right:auto;
+	table-layout:auto;
+	text-align:inherit;
+	text-decoration:inherit;
+	text-indent:0;
+	text-transform:none;
+	top:auto;
+	unicode-bidi:normal;
+	vertical-align:baseline;
+	visibility:inherit;
+	white-space:normal;
+	width:auto;
+	word-spacing:normal;
+	z-index:auto;
+	
+	/* Proprietary and draft rules */
+    /* This section needs extending */
+	-moz-border-radius:0;
+	-webkit-border-radius:0;
+}
+
+/* == BLOCK-LEVEL == */
+/* Actually, some of these should be inline-block and other values, but block works fine (TODO: rigorously verify this) */
+/* HTML 4.01 */
+.cfwhiteboard.cleanslate, .cfwhiteboard.cleanslate h3, .cfwhiteboard.cleanslate h5, .cfwhiteboard.cleanslate p, .cfwhiteboard.cleanslate h1, .cfwhiteboard.cleanslate dl, .cfwhiteboard.cleanslate dt, .cfwhiteboard.cleanslate h6, .cfwhiteboard.cleanslate ol, .cfwhiteboard.cleanslate form, .cfwhiteboard.cleanslate select, .cfwhiteboard.cleanslate option, .cfwhiteboard.cleanslate pre, .cfwhiteboard.cleanslate div, .cfwhiteboard.cleanslate h2, .cfwhiteboard.cleanslate caption, .cfwhiteboard.cleanslate h4, .cfwhiteboard.cleanslate ul, .cfwhiteboard.cleanslate address, .cfwhiteboard.cleanslate blockquote, .cfwhiteboard.cleanslate dd, .cfwhiteboard.cleanslate fieldset, .cfwhiteboard.cleanslate textarea, .cfwhiteboard.cleanslate hr,
+/* HTML5 new elements */
+.cfwhiteboard.cleanslate article, .cfwhiteboard.cleanslate aside, .cfwhiteboard.cleanslate dialog, .cfwhiteboard.cleanslate figure, .cfwhiteboard.cleanslate footer, .cfwhiteboard.cleanslate header, .cfwhiteboard.cleanslate hgroup, .cfwhiteboard.cleanslate menu, .cfwhiteboard.cleanslate nav, .cfwhiteboard.cleanslate section {
+    display:block; 
+}
+.cfwhiteboard.cleanslate table {
+    display: table;
+}
+.cfwhiteboard.cleanslate table thead {
+    display: table-header-group;
+}
+.cfwhiteboard.cleanslate table tbody {
+    display: table-row-group;
+}
+.cfwhiteboard.cleanslate table tfoot {
+    display: table-footer-group;
+}
+.cfwhiteboard.cleanslate table tr {
+    display: table-row;
+}
+.cfwhiteboard.cleanslate table tr th, .cfwhiteboard.cleanslate table tr td {
+    display: table-cell;
+}
+/* == SPECIFIC ELEMENTS == */
+/* Some of these are browser defaults; some are just useful resets */
+
+.cfwhiteboard.cleanslate nav ul, .cfwhiteboard.cleanslate nav ol {
+	list-style-type:none;
+}
+.cfwhiteboard.cleanslate ul, .cfwhiteboard.cleanslate menu {
+	list-style-type:disc;
+}
+.cfwhiteboard.cleanslate ol {
+	list-style-type:decimal;
+}
+.cfwhiteboard.cleanslate ol ul, .cfwhiteboard.cleanslate ul ul, .cfwhiteboard.cleanslate menu ul, .cfwhiteboard.cleanslate ol menu, .cfwhiteboard.cleanslate ul menu, .cfwhiteboard.cleanslate menu menu {
+	list-style-type:circle;
+}
+.cfwhiteboard.cleanslate ol ol ul, .cfwhiteboard.cleanslate ol ul ul, .cfwhiteboard.cleanslate ol menu ul, .cfwhiteboard.cleanslate ol ol menu, .cfwhiteboard.cleanslate ol ul menu, .cfwhiteboard.cleanslate ol menu menu, .cfwhiteboard.cleanslate ul ol ul, .cfwhiteboard.cleanslate ul ul ul, .cfwhiteboard.cleanslate ul menu ul, .cfwhiteboard.cleanslate ul ol menu, .cfwhiteboard.cleanslate ul ul menu, .cfwhiteboard.cleanslate ul menu menu, .cfwhiteboard.cleanslate menu ol ul, .cfwhiteboard.cleanslate menu ul ul, .cfwhiteboard.cleanslate menu menu ul, .cfwhiteboard.cleanslate menu ol menu, .cfwhiteboard.cleanslate menu ul menu, .cfwhiteboard.cleanslate menu menu menu {
+	list-style-type:square;
+}
+.cfwhiteboard.cleanslate li {	
+	display:list-item;
+	/* Fixes IE7 issue with positioning of nested bullets */
+	min-height:auto;
+	min-width:auto;
+}
+.cfwhiteboard.cleanslate strong {
+	font-weight:bold;
+}
+.cfwhiteboard.cleanslate em {
+	font-style:italic;
+}
+.cfwhiteboard.cleanslate kbd, .cfwhiteboard.cleanslate samp, .cfwhiteboard.cleanslate code {
+  font-family:monospace;
+}
+.cfwhiteboard.cleanslate a, .cfwhiteboard.cleanslate a *, .cfwhiteboard.cleanslate input[type=submit], .cfwhiteboard.cleanslate input[type=radio], .cfwhiteboard.cleanslate input[type=checkbox], .cfwhiteboard.cleanslate select {
+	cursor:pointer;
+}
+.cfwhiteboard.cleanslate a:hover {
+	text-decoration:none;
+}
+.cfwhiteboard.cleanslate button, .cfwhiteboard.cleanslate input[type=submit] {
+  text-align: center;
+}
+.cfwhiteboard.cleanslate input[type=hidden] {
+	display:none;
+}
+.cfwhiteboard.cleanslate abbr[title], .cfwhiteboard.cleanslate acronym[title], .cfwhiteboard.cleanslate dfn[title] {
+	cursor:help;
+    border-bottom-width:1px;
+	border-bottom-style:dotted;
+}
+.cfwhiteboard.cleanslate ins {
+	background-color:#ff9;
+	color:black;
+}
+.cfwhiteboard.cleanslate del {
+	text-decoration: line-through;
+}
+.cfwhiteboard.cleanslate blockquote, .cfwhiteboard.cleanslate q  {
+	quotes:none; /* HTML5 */
+}
+.cfwhiteboard.cleanslate blockquote:before, .cfwhiteboard.cleanslate blockquote:after, .cfwhiteboard.cleanslate q:before, .cfwhiteboard.cleanslate q:after, .cfwhiteboard.cleanslate li:before, .cfwhiteboard.cleanslate li:after  {
+	content:"";
+}
+.cfwhiteboard.cleanslate input, .cfwhiteboard.cleanslate select {
+	vertical-align:middle;
+}
+.cfwhiteboard.cleanslate select, .cfwhiteboard.cleanslate textarea, .cfwhiteboard.cleanslate input {
+	border:1px solid #ccc;
+}
+.cfwhiteboard.cleanslate table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+.cfwhiteboard.cleanslate hr {
+	display:block;
+	height:1px;
+	border:0;
+	border-top:1px solid #ccc;
+	margin:1em 0;
+}
+.cfwhiteboard.cleanslate *[dir=rtl] {
+	direction: rtl;
+}
+.cfwhiteboard.cleanslate mark {
+	background-color:#ff9;
+	color:black;
+	font-style:italic;
+	font-weight:bold;
+}
+
+
+
+/* == ROOT CONTAINER ELEMENT == */
+/* This contains default values for child elements to inherit  */
+.cfwhiteboard.cleanslate {
+	font-size: medium;
+	line-height: 1;
+	direction:ltr;
+	text-align:left;
+	font-family: "Times New Roman", Times, serif; /* Override this with whatever font-family is required */
+	color: black;
+	font-style:normal;
+	font-weight:normal;
+	text-decoration:none;
+	list-style-type:disc;
+}
+/* whiteboard.css */
+.cfwhiteboard.cleanslate {
+    float: right;
+    font-family: Helvetica;
+    margin-left: 10px;
+    position: relative;
+}
+/* override defaults */
+.cfwhiteboard.cleanslate.position-inline,
+.cfwhiteboard.cleanslate.position-block,
+.cfwhiteboard.cleanslate.position-floatleft {
+    float: none;
+    margin: 0;
+}
+.cfwhiteboard.cleanslate.position-inline {
+    display: inline-block;
+    *zoom: 1;
+    *display: inline;
+}
+.cfwhiteboard.cleanslate.position-block {
+    display: block;
+}
+.cfwhiteboard.cleanslate.position-floatleft {
+    float: left;
+}
+
+.cfwhiteboard.cleanslate .cfw-preload-images {
+    position: absolute;
+    left: -999999px;
+    top: -999999px;
+}
+.cfwhiteboard.cleanslate .cfw-preload-images span {
+    display: inline-block;
+    height: 1px;
+    width: 1px;
+    *zoom: 1;
+    *display: inline;
+}
+.cfwhiteboard.cleanslate .cfw-preload-images .cfw-metal-tile-jpg {
+    background: url('images/metal-tile.jpg') no-repeat transparent;
+}
+.cfwhiteboard.cleanslate .cfw-preload-images .cfw-white-water-paper-jpg {
+    background: url('images/white-water-paper.png') no-repeat transparent;
+}
+.cfwhiteboard.cleanslate .cfw-preload-images .cfw-loading-gif {
+    background: url('images/loading.gif') no-repeat transparent;
+}
+.cfwhiteboard.cleanslate > h1, .cfwhiteboard.cleanslate > h1 * {
+    cursor: pointer;
+    text-decoration: none;
+}
+.cfwhiteboard.cleanslate > h1 {
+    background: url('images/white-water-paper.png') no-repeat center 20% #fafafa;
+	border: 1px solid #aaa;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+    color: #000;
+    display: inline-block;
+    font-size: 14px;
+	font-family: Helvetica;
+	font-weight: normal;
+	font-variant: small-caps;
+	line-height: 1;
+	margin: 0;
+	padding: 10px 10px;
+	position: relative;
+	text-shadow: 0 1px 0 white;
+    -webkit-transition: 300ms all;
+    -moz-transition: 300ms all;
+    -ms-transition: 300ms all;
+    -o-transition: 300ms all;
+    transition: 300ms all;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    z-index: 99999;
+    *zoom: 1;
+    *display: inline;
+}
+.cfwhiteboard.cleanslate > h1:first-letter {
+    font-size: 13px;
+}
+.cfwhiteboard.cleanslate > h1 .cfw-entry-count {
+    margin-left: 4px;
+}
+
+.cfwhiteboard.cleanslate .cfw-pane, .cfwhiteboard.cleanslate .cfw-pane > div, .cfwhiteboard.cleanslate .cfw-window {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.cfwhiteboard.cleanslate .cfw-pane {
+    background: url('images/metal-tile.jpg') repeat top left #4d4d4b;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #929491 #3d3c3a #121210 #666865;
+	-moz-box-shadow: 1px 2px 1px rgba(0,0,0,0.4);
+	-webkit-box-shadow: 1px 2px 1px rgba(0,0,0,0.4);
+	box-shadow: 1px 2px 1px rgba(0,0,0,0.4);
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    z-index: 100000;
+}
+.cfwhiteboard.cleanslate.position-inline    .cfw-pane,
+.cfwhiteboard.cleanslate.position-block     .cfw-pane,
+.cfwhiteboard.cleanslate.position-floatleft .cfw-pane {
+    right: auto;
+    left: 0;
+}
+
+.cfwhiteboard.cleanslate .cfw-window {
+    -moz-box-shadow: inset 0 1px 3px #fff, inset 0 -1px 1px #000;
+    -webkit-box-shadow: inset 0 1px 3px #fff, inset 0 -1px 1px #000;
+    box-shadow: inset 0 1px 3px #fff, inset 0 -1px 1px #000;
+    padding: 11px 10px 0;
+/*    width: 300px;*/
+}
+.cfwhiteboard.cleanslate .cfw-window h2 {
+    color: #f5f5f5;
+    font-size: 20px;
+	font-weight: bold;
+	line-height: 1.3;
+	margin: 0 0 7px;
+	padding: 0 9px;
+	text-shadow: 0 -1px 0 #121210;
+}
+
+.cfwhiteboard.cleanslate .cfw-window > a.cfw-new-entry {
+    background: #f3f0eb !important;
+    border-color: #fff #ddd #bbb #fafafa !important;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 1px;
+    -moz-box-shadow: 1px 1px 1px #000;
+    -webkit-box-shadow: 1px 1px 1px #000;
+    box-shadow: 1px 1px 1px #000;
+    color: #d64a0d;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 2px 6px 3px 6px;
+    position: absolute;
+    right: 10px;
+    text-shadow: 0 -1px 0 #111;
+    top: 9px;
+}
+.cfwhiteboard.cleanslate .cfw-window > a.cfw-new-entry:hover {
+    color: #333;
+    text-decoration: none;
+}
+.cfwhiteboard.cleanslate .cfw-window > a.cfw-new-entry:active {
+    -webkit-box-shadow: 1px 1px 0 #000;
+    -moz-box-shadow: 1px 1px 0 #000;
+    box-shadow: 1px 1px 0 #000;
+}
+.cfwhiteboard.cleanslate .cfw-window > a.cfw-new-entry[disabled] {
+    color: #333;
+    cursor: default;
+    opacity: .45;
+    text-decoration: none;
+}
+
+
+
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents {
+    background: url('images/white-water-paper.png') no-repeat center bottom #fafafa;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #fff #ddd #bbb #fafafa;
+    -webkit-box-shadow: 1px 1px 1px #000;
+    -moz-box-shadow: 1px 1px 1px #000;
+    box-shadow: 1px 1px 1px #000;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    width: 298px;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents, .cfwhiteboard.cleanslate .cfw-window .cfw-contents > * {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents .cfw-page {
+    display: inline-block;
+    height: 378px;
+    min-width: 100%;
+    overflow: hidden;
+    -webkit-transition: 300ms all;
+    -moz-transition: 300ms all;
+    -ms-transition: 300ms all;
+    -o-transition: 300ms all;
+    transition: 300ms all;
+    vertical-align: top;
+    width: 100%;
+    *zoom: 1;
+    *display: inline;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents .cfw-scrollable {
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-right: 20px;
+    margin-right: -20px;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents .cfw-page .cfw-scrollable {
+    height: 350px;
+}
+
+
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents a {
+    color: #d64a0d;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents a:hover {
+    color: #333;
+}
+
+
+/* entry list view */
+.cfwhiteboard.cleanslate .cfw-window .cfw-page table {
+    border-collapse: separate;
+    width: 100%;
+}
+.cfwhiteboard.cleanslate .cfw-window table thead th {
+    color: #1d1a13;
+    font-size: 12px;
+	font-weight: bold;
+}
+.cfwhiteboard.cleanslate .cfw-window table tbody {
+    font-size: 13px;
+    margin: -1px 0;
+}
+
+.cfwhiteboard.cleanslate .cfw-window table tbody tr:hover {
+    background: #fbfbfb;
+    background: rgba(255,255,255,.6);
+}
+
+.cfwhiteboard.cleanslate .cfw-window table th, .cfwhiteboard.cleanslate .cfw-window table td {
+    border-color: #fff transparent #ebebeb;
+    border-style: solid none;
+    border-width: 1px;
+    color: #434343;
+    overflow: hidden;
+    padding: 7px 5px;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 0 #fff;
+    white-space: nowrap;
+}
+.cfwhiteboard.cleanslate .cfw-window table th *, .cfwhiteboard.cleanslate .cfw-window table td * {
+    text-shadow: 0 1px 0 #fff;
+    white-space: nowrap;
+}
+.cfwhiteboard.cleanslate .cfw-window table tbody td, .cfwhiteboard.cleanslate .cfw-window table tbody td * {
+    cursor: pointer;
+}
+
+.cfwhiteboard.cleanslate .cfw-window table tr.cfw-no-entries td {
+    line-height: 1.2;
+    text-align: center;
+    white-space: wrap;
+}
+.cfwhiteboard.cleanslate .cfw-window table th.cfw-known-as, .cfwhiteboard.cleanslate .cfw-window table td.cfw-known-as {
+    text-align: left;
+    padding-left: 8px;
+    min-width: 80px;
+    max-width: 80px; 
+}
+.cfwhiteboard.cleanslate .cfw-window table td.cfw-known-as {
+    color: #1d1a13;
+}
+
+.cfwhiteboard.cleanslate .cfw-window table th.cfw-result, .cfwhiteboard.cleanslate .cfw-window table td.cfw-result {
+    text-align: right;
+    min-width: 91px;
+    width: 91px;
+    max-width: 91px;  
+}
+.cfwhiteboard.cleanslate .cfw-window table td.cfw-result {
+    color: #d64a0d;
+}
+
+.cfwhiteboard.cleanslate .cfw-window table th.cfw-mods, .cfwhiteboard.cleanslate .cfw-window table td.cfw-mods {
+    text-align: left;
+}
+.cfwhiteboard.cleanslate .cfw-window table th.cfw-mods {
+    padding-right: 8px;
+    min-width: 91px;
+    width: 91px;
+    max-width: 91px;
+}
+.cfwhiteboard.cleanslate .cfw-window table td.cfw-mods {
+    color: #6d6a63;
+    min-width: 104px;
+    width: 104px;
+    max-width: 104px;
+    padding: 0;
+    vertical-align: middle;
+}
+.cfwhiteboard.cleanslate .cfw-window table td.cfw-mods > div {
+    margin: 0;
+    min-height: 13px;
+    overflow: hidden;
+    padding: 5px 8px 5px 5px;
+    position: relative;
+    text-overflow: ellipsis;
+}
+.cfwhiteboard.cleanslate .cfw-window table td.cfw-mods strong {
+    border: 1px solid;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 1px 2px 0;
+    position: relative;
+    z-index: 1;
+}
+.cfwhiteboard.cleanslate .cfw-window table td.cfw-mods strong:after {
+    bottom: -2px;
+    border: 1px solid #fff;
+    left: -1px;
+    position: absolute;
+    right: -1px;
+    top: 0;
+    z-index: -1;
+}
+.cfwhiteboard.cleanslate .cfw-window table tr span.cfw-more {
+    font-size: 16px;
+    height: 10px;
+    line-height: 12px;
+    opacity: 0;
+    padding: 0 2px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    -webkit-transition: 300ms all;
+    -moz-transition: 300ms all;
+    -ms-transition: 300ms all;
+    -o-transition: 300ms all;
+    transition: 300ms all;
+}
+.cfwhiteboard.cleanslate .cfw-window table tr span.cfw-more.cfw-notes-hint {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    color: #ccc;
+    opacity: 1;
+}
+.cfwhiteboard.cleanslate .cfw-window table tbody:hover span.cfw-more {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
+.cfwhiteboard.cleanslate .cfw-window table tr:hover span.cfw-more {
+    background: white;
+    border: 1px solid #ccc;
+    color: #aaa;
+    opacity: 1;
+}
+.cfwhiteboard.cleanslate .cfw-window table tr.cfw-selected span.cfw-more {
+    background: #f3f0eb;
+    border-color: #d64a0d;
+    color: #e5a58c;
+    opacity: 1;
+}
+
+.cfwhiteboard.cleanslate .cfw-window table tr.cfw-highlighted {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+
+/* entry detail view */
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents .cfw-entry-detail {
+    line-height: 1.3;
+    padding: 8px;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents .cfw-entry-detail a.cfw-edit {
+    float: right;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents dl {
+    padding: 8px 0;
+    text-align: center;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents dt {
+    font-size: 12px;
+    font-weight: bold;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents dd {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents dd.cfw-known-as {
+    color: #1d1a13;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents dd.cfw-result {
+    color: #d64a0d;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents dd.cfw-mods {
+    color: #6d6a63;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents dd.cfw-mods strong {
+    border: 2px solid;
+    display: inline-block;
+    font-size: 16px;
+    padding: 2px 3px 0;
+    position: relative;
+    vertical-align: baseline;
+    z-index: 1;
+    *zoom: 1;
+    *display: inline;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents dd.cfw-mods strong:after {
+    bottom: -2px;
+    border: 1px solid #fff;
+    left: -2px;
+    position: absolute;
+    right: -2px;
+    top: 0;
+    z-index: -1;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents dd.cfw-notes {
+    color: #6d6a63;
+}
+
+
+/* entry form view */
+.cfwhiteboard.cleanslate .cfw-window form {
+    background: url('images/white-water-paper.png') no-repeat left bottom #fafafa;
+    bottom: -100%;
+    /*display: none;*/
+    /*height: 362px;*/
+    left: 0;
+    padding: 8px;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    -webkit-transition: 300ms all;
+    -moz-transition: 300ms all;
+    -ms-transition: 300ms all;
+    -o-transition: 300ms all;
+    transition: 300ms all;
+    width: 282px;
+    z-index: 1000;
+}
+.cfwhiteboard.cleanslate .cfw-window .cfw-contents form.cfw-scrollable {
+    padding-right: 28px;
+}
+.cfwhiteboard.cleanslate .cfw-window form.cfw-translate3d {
+    -webkit-transform: translate3d(0,-100%,0);
+    -moz-transform: translate3d(0,-100%,0);
+    -ms-transform: translate3d(0,-100%,0);
+    -o-transform: translate3d(0,-100%,0);
+    transform: translate3d(0,-100%,0);
+}
+.cfwhiteboard.cleanslate .cfw-window form.cfw-translate {
+    -webkit-transform: translate(0,-100%);
+    -moz-transform: translate(0,-100%);
+    -ms-transform: translate(0,-100%);
+    -o-transform: translate(0,-100%);
+    transform: translate(0,-100%);
+}
+.cfwhiteboard.cleanslate .cfw-window form h2 {
+    color: #1d1a13;
+    font-size: 15px;
+	font-weight: bold;
+	line-height: 1;
+	margin: 0 0 13px;
+	padding: 0;
+	text-shadow: 0 1px 0 #fff;
+}
+.cfwhiteboard.cleanslate .cfw-window form label, .cfwhiteboard.cleanslate .cfw-window form input, .cfwhiteboard.cleanslate .cfw-window form textarea {
+    display: block;
+    font-size: 15px;
+    width: 274px;
+}
+.cfwhiteboard.cleanslate .cfw-window form input, .cfwhiteboard.cleanslate .cfw-window form textarea {
+    padding: 3px;
+}
+.cfwhiteboard.cleanslate .cfw-window form label {
+    color: #6d6a63;
+    font-size: 13px;
+    margin: 3px 0 0;
+    padding: 4px;
+    text-shadow: 0 1px 0 #fff;
+}
+.cfwhiteboard.cleanslate .cfw-window form input[type="checkbox"] {
+    margin: 9px 5px 9px 3px;
+}
+.cfwhiteboard.cleanslate .cfw-window form em {
+    color: #888;
+    font-style: italic;
+}
+.cfwhiteboard.cleanslate .cfw-window form .cfw-half {
+    display: inline-block;
+    width: 131px;
+    *zoom: 1;
+    *display: inline;
+}
+.cfwhiteboard.cleanslate .cfw-window form .cfw-minority {
+    display: inline-block;
+    width: 41px;
+    *zoom: 1;
+    *display: inline;
+}
+.cfwhiteboard.cleanslate .cfw-window form input.cfw-minority[type="checkbox"] {
+    vertical-align: top;
+    width: 18px;
+}
+.cfwhiteboard.cleanslate .cfw-window form input.cfw-minority[type="checkbox"] + span {
+    color: #919191;
+    display: inline-block;
+    font-size: 11px;
+    font-style: italic;
+    line-height: 29px;
+    margin-right: 2px;
+    text-align: center;
+    text-shadow: 0 1px 0 #fff;
+    vertical-align: top;
+    width: 21px;
+    *zoom: 1;
+    *display: inline;
+}
+.cfwhiteboard.cleanslate .cfw-window form .cfw-majority {
+    display: inline-block;
+    width: 221px;
+    *zoom: 1;
+    *display: inline;
+}
+.cfwhiteboard.cleanslate .cfw-window form input[type="text"], .cfwhiteboard.cleanslate .cfw-window form input[type="email"], .cfwhiteboard.cleanslate .cfw-window form textarea {
+    background: #fff !important;
+    border-color: #8D8A83 !important;
+    border-style: solid;
+    border-width: 1px;
+    color: #1d1a13;
+    cursor: text;
+    font-size: 14px;
+    line-height: 21px;
+    margin: 0 0 10px;
+}
+.cfwhiteboard.cleanslate .cfw-window form input[disabled="disabled"] {
+    cursor: default;
+    opacity: 0.35;
+}
+.cfwhiteboard.cleanslate .cfw-window form input[type="text"], .cfwhiteboard.cleanslate .cfw-window form input[type="email"] {
+    height: 21px;
+}
+.cfwhiteboard.cleanslate .cfw-window form .cfw-half + .cfw-half, .cfwhiteboard.cleanslate .cfw-window form label.cfw-majority, .cfwhiteboard.cleanslate .cfw-window form input.cfw-majority {
+    margin-left: 4px;
+}
+.cfwhiteboard.cleanslate .cfw-window form div.cfw-footer {
+    text-align: right;
+}
+.cfwhiteboard.cleanslate .cfw-window form input[type="checkbox"] + label {
+    display: inline;
+}
+.cfwhiteboard.cleanslate .cfw-window form input[type="submit"],
+.cfwhiteboard.cleanslate .cfw-window form input[type="reset"] {
+    background: #3c3e3f;
+    border-color: #5c5e5f #2c2e2f #0c0e0f #4c4e4f;
+    border-style: solid;
+    border-width: 1px;
+    -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.6);
+    -moz-box-shadow: 1px 1px 1px rgba(0,0,0,.6);
+    box-shadow: 1px 1px 1px rgba(0,0,0,.6);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #01A1EE;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 10px;
+    padding: 5px 0;
+    text-align: center;
+    text-shadow: 0 -1px 0 #001;
+    width: 62px;
+    *zoom: 1;
+    *display: inline;
+}
+.cfwhiteboard.cleanslate .cfw-window form input[type="submit"]:active,
+.cfwhiteboard.cleanslate .cfw-window form input[type="submit"].loading,
+.cfwhiteboard.cleanslate .cfw-window form input[type="reset"]:active {
+    -webkit-box-shadow: 1px 1px 0 rgba(0,0,0,.4);
+    -moz-box-shadow: 1px 1px 0 rgba(0,0,0,.4);
+    box-shadow: 1px 1px 0 rgba(0,0,0,.4);
+}
+.cfwhiteboard.cleanslate .cfw-window form input[type="reset"] {
+    color: #d74131;
+    margin-left: 1px;
+    text-shadow: 0 -1px 0 #100;
+}
+.cfwhiteboard.cleanslate .cfw-window form input[type="submit"].loading {
+    background-image: url('images/loading.gif');
+    background-position: 23px center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    text-indent: 100%;
+}
+
+.cfwhiteboard.cleanslate .cfw-window form label.cfw-invalid {
+    color: #d74131;
+}
+.cfwhiteboard.cleanslate .cfw-window form input.cfw-invalid,
+.cfwhiteboard.cleanslate .cfw-window form input:invalid {
+    border-color: #d74131 !important;
+}
+
+.cfwhiteboard.cleanslate .cfw-hidden {
+    display: none;
+}
+.cfwhiteboard.cleanslate .cfw-nobr {
+    white-space: nowrap;
+}
+.cfwhiteboard.cleanslate .cfw-window form .cfw-notes textarea {
+    resize: vertical;
+}
+.cfwhiteboard.cleanslate .cfw-window form a.cfw-add-notes {
+    color: #6d6a63;
+    display: inline-block;
+    float: left;
+    font-size: 13px;
+    line-height: 27px;
+    margin-left: 4px;
+    *zoom: 1;
+    *display: inline;
+}
+.cfwhiteboard.cleanslate .cfw-window form a.cfw-add-notes:hover {
+    color: #d64a0d;
+    text-decoration: none;
+}
+.cfwhiteboard.cleanslate .cfw-window form a.cfw-add-notes.cfw-hidden {
+    display: none;
+}
+.cfwhiteboard.cleanslate .cfw-window form a.cfw-add-notes strong {
+    font-size: 115%;
+    font-weight: normal;
+}
+
+.cfwhiteboard.cleanslate .cfw-window > .cfw-footer a {
+    color: #ebebeb;
+    display: inline-block;
+    font-size: 12px;
+    margin: 3px 0 0;
+    padding: 3px 6px 6px;
+    text-shadow: 0 -1px 0 #121210;
+    *zoom: 1;
+    *display: inline;
+}
+.cfwhiteboard.cleanslate .cfw-window > .cfw-footer a + a {
+    float: right;
+}
+.cfwhiteboard.cleanslate .cfw-window > .cfw-footer a:hover {
+    color: #fff;
+}
+
