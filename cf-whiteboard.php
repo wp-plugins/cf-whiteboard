@@ -3,10 +3,10 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog.
-Version: 1.2
+Version: 1.3
 Author: CF Whiteboard
 */
-$CFWHITEBOARD_VERSION = '1.2';
+$CFWHITEBOARD_VERSION = '1.3';
 
 abstract class cfwhiteboard_Visibility
 {
