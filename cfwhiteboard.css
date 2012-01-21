@@ -409,68 +409,68 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 
 /* HTML5 */
 .cleanslate article, .cleanslate aside, .cleanslate dialog, .cleanslate figure, .cleanslate footer, .cleanslate header, .cleanslate hgroup, .cleanslate menu, .cleanslate nav, .cleanslate section, .cleanslate time, .cleanslate mark, .cleanslate audio, .cleanslate video {
-	background-attachment:scroll;
-	background-color:transparent;
-	background-image:none; /* This rule affects the use of pngfix JavaScript http://dillerdesign.com/experiment/DD_BelatedPNG for IE6, which is used to force the browser to recognise alpha-transparent PNGs files that replace the IE6 lack of PNG transparency. (The rule overrides the VML image that is used to replace the given CSS background-image). If you don't know what that means, then you probably haven't used the pngfix script, and this comment may be ignored :) */
-	background-position:0 0;
-	background-repeat:repeat;
-	border-color:black;
-	border-color:currentColor; /* `border-color` should match font color. Modern browsers (incl. IE9) allow the use of "currentColor" to match the current font 'color' value <http://www.w3.org/TR/css3-color/#currentcolor>. For older browsers, a default of 'black' is given before this rule. Guideline to support older browsers: if you haven't already declared a border-color for an element, be sure to do so, e.g. when you first declare the border-width. */
-	border-radius:0;
-	border-style:none;
-	border-width:medium;
-	bottom:auto;
-	clear:none;
-/*  clip:auto;*/
-	color:inherit;
-	counter-increment:none;
-	counter-reset:none;
-	cursor:auto;
-	direction:inherit;
-	display:inline;
-	float:none;
-	font-family: inherit; /* As with other inherit values, this needs to be set on the root container element */
-	font-size: inherit;
-	font-style:inherit;
-	font-variant:normal;
-	font-weight:inherit;
-	height:auto;
-	left:auto;
-	letter-spacing:normal;
-	line-height:inherit;
-	list-style-type: inherit; /* Could set list-style-type to none */
-	list-style-position: outside;
-	list-style-image: none;
-	margin:0;
-	max-height:none;
-	max-width:none;
-	min-height:0;
-	min-width:0;
-	opacity:1;
-	outline:invert none medium;
-	overflow:visible;
-	padding:0;
-	position:static;
-	quotes: "" "";
-	right:auto;
-	table-layout:auto;
-	text-align:inherit;
-	text-decoration:inherit;
-	text-indent:0;
-	text-transform:none;
-	top:auto;
-	unicode-bidi:normal;
-	vertical-align:baseline;
-	visibility:inherit;
-	white-space:normal;
-	width:auto;
-	word-spacing:normal;
-	z-index:auto;
+	background-attachment:scroll !important;
+	background-color:transparent !important;
+	background-image:none !important; /* This rule affects the use of pngfix JavaScript http://dillerdesign.com/experiment/DD_BelatedPNG for IE6, which is used to force the browser to recognise alpha-transparent PNGs files that replace the IE6 lack of PNG transparency. (The rule overrides the VML image that is used to replace the given CSS background-image). If you don't know what that means, then you probably haven't used the pngfix script, and this comment may be ignored :) */
+	background-position:0 0 !important;
+	background-repeat:repeat !important;
+	border-color:black !important;
+	border-color:currentColor !important; /* `border-color` should match font color. Modern browsers (incl. IE9) allow the use of "currentColor" to match the current font 'color' value <http://www.w3.org/TR/css3-color/#currentcolor>. For older browsers, a default of 'black' is given before this rule. Guideline to support older browsers: if you haven't already declared a border-color for an element, be sure to do so, e.g. when you first declare the border-width. */
+	border-radius:0 !important;
+	border-style:none !important;
+	border-width:medium !important;
+	bottom:auto !important;
+	clear:none !important;
+/*  clip:auto !important;*/
+	color:inherit !important;
+	counter-increment:none !important;
+	counter-reset:none !important;
+	cursor:auto !important;
+	direction:inherit !important;
+	display:inline !important;
+	float:none !important;
+	font-family: inherit !important; /* As with other inherit values, this needs to be set on the root container element */
+	font-size: inherit !important;
+	font-style:inherit !important;
+	font-variant:normal !important;
+	font-weight:inherit !important;
+	height:auto !important;
+	left:auto !important;
+	letter-spacing:normal !important;
+	line-height:inherit !important;
+	list-style-type: inherit !important; /* Could set list-style-type to none */
+	list-style-position: outside !important;
+	list-style-image: none !important;
+	margin:0 !important;
+	max-height:none !important;
+	max-width:none !important;
+	min-height:0 !important;
+	min-width:0 !important;
+	opacity:1 !important;
+	outline:invert none medium !important;
+	overflow:visible !important;
+	padding:0 !important;
+	position:static !important;
+	quotes: "" "" !important;
+	right:auto !important;
+	table-layout:auto !important;
+	text-align:inherit !important;
+	text-decoration:inherit !important;
+	text-indent:0 !important;
+	text-transform:none !important;
+	top:auto !important;
+	unicode-bidi:normal !important;
+	vertical-align:baseline !important;
+	visibility:inherit !important;
+	white-space:normal !important;
+	width:auto !important;
+	word-spacing:normal !important;
+	z-index:auto !important;
 	
 	/* Proprietary and draft rules */
     /* This section needs extending */
-	-moz-border-radius:0;
-	-webkit-border-radius:0;
+	-moz-border-radius:0 !important;
+	-webkit-border-radius:0 !important;
 }
 
 /* == BLOCK-LEVEL == */
@@ -479,114 +479,114 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cleanslate, .cleanslate h3, .cleanslate h5, .cleanslate p, .cleanslate h1, .cleanslate dl, .cleanslate dt, .cleanslate h6, .cleanslate ol, .cleanslate form, .cleanslate select, .cleanslate option, .cleanslate pre, .cleanslate div, .cleanslate h2, .cleanslate caption, .cleanslate h4, .cleanslate ul, .cleanslate address, .cleanslate blockquote, .cleanslate dd, .cleanslate fieldset, .cleanslate textarea, .cleanslate hr,
 /* HTML5 new elements */
 .cleanslate article, .cleanslate aside, .cleanslate dialog, .cleanslate figure, .cleanslate footer, .cleanslate header, .cleanslate hgroup, .cleanslate menu, .cleanslate nav, .cleanslate section {
-    display:block; 
+    display:block !important; 
 }
 .cleanslate table {
-    display: table;
+    display: table !important;
 }
 .cleanslate table thead {
-    display: table-header-group;
+    display: table-header-group !important;
 }
 .cleanslate table tbody {
-    display: table-row-group;
+    display: table-row-group !important;
 }
 .cleanslate table tfoot {
-    display: table-footer-group;
+    display: table-footer-group !important;
 }
 .cleanslate table tr {
-    display: table-row;
+    display: table-row !important;
 }
 .cleanslate table tr th, .cleanslate table tr td {
-    display: table-cell;
+    display: table-cell !important;
 }
 /* == SPECIFIC ELEMENTS == */
-/* Some of these are browser defaults; some are just useful resets */
+/* Some of these are browser defaults !important; some are just useful resets */
 
 .cleanslate nav ul, .cleanslate nav ol {
-	list-style-type:none;
+	list-style-type:none !important;
 }
 .cleanslate ul, .cleanslate menu {
-	list-style-type:disc;
+	list-style-type:disc !important;
 }
 .cleanslate ol {
-	list-style-type:decimal;
+	list-style-type:decimal !important;
 }
 .cleanslate ol ul, .cleanslate ul ul, .cleanslate menu ul, .cleanslate ol menu, .cleanslate ul menu, .cleanslate menu menu {
-	list-style-type:circle;
+	list-style-type:circle !important;
 }
 .cleanslate ol ol ul, .cleanslate ol ul ul, .cleanslate ol menu ul, .cleanslate ol ol menu, .cleanslate ol ul menu, .cleanslate ol menu menu, .cleanslate ul ol ul, .cleanslate ul ul ul, .cleanslate ul menu ul, .cleanslate ul ol menu, .cleanslate ul ul menu, .cleanslate ul menu menu, .cleanslate menu ol ul, .cleanslate menu ul ul, .cleanslate menu menu ul, .cleanslate menu ol menu, .cleanslate menu ul menu, .cleanslate menu menu menu {
-	list-style-type:square;
+	list-style-type:square !important;
 }
 .cleanslate li {	
-	display:list-item;
+	display:list-item !important;
 	/* Fixes IE7 issue with positioning of nested bullets */
-	min-height:auto;
-	min-width:auto;
+	min-height:auto !important;
+	min-width:auto !important;
 }
 .cleanslate strong {
-	font-weight:bold;
+	font-weight:bold !important;
 }
 .cleanslate em {
-	font-style:italic;
+	font-style:italic !important;
 }
 .cleanslate kbd, .cleanslate samp, .cleanslate code {
-  font-family:monospace;
+  font-family:monospace !important;
 }
 .cleanslate a, .cleanslate a *, .cleanslate input[type=submit], .cleanslate input[type=radio], .cleanslate input[type=checkbox], .cleanslate select {
-	cursor:pointer;
+	cursor:pointer !important;
 }
 .cleanslate a:hover {
-	text-decoration:none;
+	text-decoration:none !important;
 }
 .cleanslate button, .cleanslate input[type=submit] {
-  text-align: center;
+  text-align: center !important;
 }
 .cleanslate input[type=hidden] {
-	display:none;
+	display:none !important;
 }
 .cleanslate abbr[title], .cleanslate acronym[title], .cleanslate dfn[title] {
-	cursor:help;
-    border-bottom-width:1px;
-	border-bottom-style:dotted;
+	cursor:help !important;
+    border-bottom-width:1px !important;
+	border-bottom-style:dotted !important;
 }
 .cleanslate ins {
-	background-color:#ff9;
-	color:black;
+	background-color:#ff9 !important;
+	color:black !important;
 }
 .cleanslate del {
-	text-decoration: line-through;
+	text-decoration: line-through !important;
 }
 .cleanslate blockquote, .cleanslate q  {
-	quotes:none; /* HTML5 */
+	quotes:none !important; /* HTML5 */
 }
 .cleanslate blockquote:before, .cleanslate blockquote:after, .cleanslate q:before, .cleanslate q:after, .cleanslate li:before, .cleanslate li:after  {
-	content:"";
+	content:"" !important;
 }
 .cleanslate input, .cleanslate select {
-	vertical-align:middle;
+	vertical-align:middle !important;
 }
 .cleanslate select, .cleanslate textarea, .cleanslate input {
-	border:1px solid #ccc;
+	border:1px solid #ccc !important;
 }
 .cleanslate table {
-	border-collapse:collapse;
-	border-spacing:0;
+	border-collapse:collapse !important;
+	border-spacing:0 !important;
 }
 .cleanslate hr {
-	display:block;
-	height:1px;
-	border:0;
-	border-top:1px solid #ccc;
-	margin:1em 0;
+	display:block !important;
+	height:1px !important;
+	border:0 !important;
+	border-top:1px solid #ccc !important;
+	margin:1em 0 !important;
 }
 .cleanslate *[dir=rtl] {
-	direction: rtl;
+	direction: rtl !important;
 }
 .cleanslate mark {
-	background-color:#ff9;
-	color:black;
-	font-style:italic;
-	font-weight:bold;
+	background-color:#ff9 !important;
+	color:black !important;
+	font-style:italic !important;
+	font-weight:bold !important;
 }
 
 
@@ -594,16 +594,16 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 /* == ROOT CONTAINER ELEMENT == */
 /* This contains default values for child elements to inherit  */
 .cleanslate {
-	font-size: medium;
-	line-height: 1;
-	direction:ltr;
-	text-align:left;
-	font-family: "Times New Roman", Times, serif; /* Override this with whatever font-family is required */
-	color: black;
-	font-style:normal;
-	font-weight:normal;
-	text-decoration:none;
-	list-style-type:disc;
+	font-size: medium !important;
+	line-height: 1 !important;
+	direction:ltr !important;
+	text-align:left !important;
+	font-family: "Times New Roman", Times, serif !important; /* Override this with whatever font-family is required */
+	color: black !important;
+	font-style:normal !important;
+	font-weight:normal !important;
+	text-decoration:none !important;
+	list-style-type:disc !important;
 }
 /* whiteboard.css */
 .cfwhiteboard {
@@ -684,6 +684,9 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     *zoom: 1 !important;
     *display: inline !important;
 }
+.cfwhiteboard.active > h1 {
+    box-shadow: 1px 2px 1px rgba(0,0,0,0.2) !important;
+}
 .cfwhiteboard > h1:first-letter {
     font-size: 13px !important;
 }
@@ -701,14 +704,43 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 	border-width: 1px !important;
 	border-style: solid !important;
 	border-color: #929491 #3d3c3a #121210 #666865 !important;
-	-moz-box-shadow: 1px 2px 1px rgba(0,0,0,0.4) !important;
 	-webkit-box-shadow: 1px 2px 1px rgba(0,0,0,0.4) !important;
+    -moz-box-shadow: 1px 2px 1px rgba(0,0,0,0.4) !important;
 	box-shadow: 1px 2px 1px rgba(0,0,0,0.4) !important;
     display: none !important;
+    max-height: 0px !important;
+    opacity: 1 !important;
+    filter: alpha(opacity = 100) !important;
+    overflow: hidden !important;
     position: absolute !important;
     right: 0 !important;
     top: 40px !important;
     z-index: 100000 !important;
+}
+.cfwhiteboard.preactive .cfw-pane,
+.cfwhiteboard.active .cfw-pane,
+.cfwhiteboard.postactive .cfw-pane {
+    display: block !important;
+}
+.cfwhiteboard.preactive .cfw-pane {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+.cfwhiteboard.active .cfw-pane,
+.cfwhiteboard.postactive .cfw-pane {
+    max-height: 1000px !important;
+    -webkit-transition: 300ms all !important;
+    -moz-transition: 300ms all !important;
+    -ms-transition: 300ms all !important;
+    -o-transition: 300ms all !important;
+    transition: 300ms all !important;
+}
+.cfwhiteboard.postactive .cfw-pane {
+    opacity: 0 !important;
+    filter: alpha(opacity = 0) !important;
 }
 .cfwhiteboard.position-inline    .cfw-pane,
 .cfwhiteboard.position-block     .cfw-pane,
@@ -767,6 +799,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     color: #333 !important;
     cursor: default !important;
     opacity: .45 !important;
+    filter: alpha(opacity = 45) !important;
     text-decoration: none !important;
 }
 
@@ -794,6 +827,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard .cfw-window .cfw-contents .cfw-page {
     display: inline-block !important;
     height: 378px !important;
+    margin: 0 0 0 -100% !important;
     min-width: 100% !important;
     overflow: hidden !important;
     -webkit-transition: 300ms all !important;
@@ -805,6 +839,16 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     width: 100% !important;
     *zoom: 1 !important;
     *display: inline !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page.active {
+    margin: 0 0 0 0 !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page + .cfw-page,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page + .cfw-page + .cfw-page,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page + .cfw-page + .cfw-page + .cfw-page,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page + .cfw-page + .cfw-page + .cfw-page + .cfw-page {
+    margin: 0 -100% 0 0 !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-scrollable {
     overflow: auto !important;
@@ -937,6 +981,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     height: 10px !important;
     line-height: 12px !important;
     opacity: 0 !important;
+    filter: alpha(opacity = 0) !important;
     padding: 0 2px !important;
     position: absolute !important;
     right: 5px !important;
@@ -952,6 +997,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     border: 1px solid #ddd !important;
     color: #ccc !important;
     opacity: 1 !important;
+    filter: alpha(opacity = 100) !important;
 }
 .cfwhiteboard .cfw-window table tbody:hover span.cfw-more {
     -webkit-transition: none !important;
@@ -965,12 +1011,14 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     border: 1px solid #ccc !important;
     color: #aaa !important;
     opacity: 1 !important;
+    filter: alpha(opacity = 100) !important;
 }
 .cfwhiteboard .cfw-window table tr.cfw-selected span.cfw-more {
     background: #f3f0eb !important;
     border-color: #d64a0d !important;
     color: #e5a58c !important;
     opacity: 1 !important;
+    filter: alpha(opacity = 100) !important;
 }
 
 .cfwhiteboard .cfw-window table tr.cfw-highlighted {
@@ -1153,6 +1201,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard .cfw-window form input[disabled="disabled"] {
     cursor: default !important;
     opacity: 0.35 !important;
+    filter: alpha(opacity = 35) !important;
 }
 .cfwhiteboard .cfw-window form input[type="text"], .cfwhiteboard .cfw-window form input[type="email"] {
     height: 21px !important;
