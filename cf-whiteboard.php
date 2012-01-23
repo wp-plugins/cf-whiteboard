@@ -3,10 +3,10 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog.
-Version: 1.5
+Version: 1.6
 Author: CF Whiteboard
 */
-$CFWHITEBOARD_VERSION = '1.5';
+$CFWHITEBOARD_VERSION = '1.6';
 
 abstract class cfwhiteboard_Visibility
 {
@@ -101,7 +101,9 @@ function cfwhiteboard_generate_placeholder($post_id, $options) {
     $affiliateId = !empty($options['affiliate_id']) ? $options['affiliate_id'] : 'testaffiliate';
     if (cfwhiteboard_is_preview_mode($options)) $affiliateId .= '_preview';
     
-    return '<div class="cfwhiteboard cleanslate" data-affiliate-id="' . $affiliateId . '" data-post-id="' . $post_id . '"></div>';
+    $authorization = is_user_logged_in() ? 'data-authorization="admin"' : '';
+
+    return '<div class="cfwhiteboard cleanslate" data-affiliate-id="'. $affiliateId .'" data-post-id="'. $post_id .'" '. $authorization .'></div>';
 }
 
 
@@ -158,7 +160,11 @@ function cfwhiteboard_add_to_post($titleOrContent, $id = NULL) {
 }
 
 function cfwhiteboard_stylesheet() {
-    wp_register_style('cfwhiteboard', plugins_url('cfwhiteboard.css', __FILE__));
+    wp_register_style('cfwhiteboard',
+        plugins_url('cfwhiteboard.css', __FILE__),
+        false,
+        $CFWHITEBOARD_VERSION
+    );
     wp_enqueue_style( 'cfwhiteboard');
 }
 
