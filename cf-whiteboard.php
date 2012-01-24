@@ -160,6 +160,9 @@ function cfwhiteboard_add_to_post($titleOrContent, $id = NULL) {
 }
 
 function cfwhiteboard_stylesheet() {
+    global $CFWHITEBOARD_VERSION;
+    if (!isset($CFWHITEBOARD_VERSION)) $CFWHITEBOARD_VERSION = '0.0';
+    
     wp_register_style('cfwhiteboard',
         plugins_url('cfwhiteboard.css', __FILE__),
         false,
