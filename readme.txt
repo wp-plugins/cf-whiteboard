@@ -2,7 +2,7 @@
 Contributors: collindo
 Tags: crossfit, wod, fitness, workout, tracking, sports, excercise
 Tested up to: 3.3.1
-Stable tag: 1.3
+Stable tag: 1.9
 
 CF Whiteboard is a CrossFit&trade; workout tracker that integrates with your affiliate website.
 
@@ -24,8 +24,26 @@ The whiteboard contains external links for athlete support purposes.  By install
 
 == Changelog ==
 
+= 1.9 =
+* Added scrollbar to workout tracker.
+* Improved scrolling on iPhone/iPad.
+* Athletes can now close the whiteboard by clicking elsewhere on the page.
+* Fixed issue where double-clicking the Submit button will create two entries.
+
+= 1.8 =
+* Improved support for older browsers.
+
+= 1.6 =
+* Added **Print** button for WP admin users.
+
+= 1.5 =
+* Improved styling compatibility.
+
+= 1.4 =
+* Added settings to control which post categories the whiteboard is attached to.
+
 = 1.3 =
-* Added support for older versions of WordPress (< 3.2)
+* Added support for older versions of WordPress (< 3.2).
 
 = 1.2 =
 * Added **Preview Mode** so affiliates can try out the whiteboard before letting their athletes see it.
