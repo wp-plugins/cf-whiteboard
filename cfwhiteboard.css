@@ -959,22 +959,25 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     background: rgba(255,255,255,.6) !important;
 }
 
-.cfwhiteboard .cfw-window table th, .cfwhiteboard .cfw-window table td {
+.cfwhiteboard .cfw-window table th,
+.cfwhiteboard .cfw-window table td {
     border-color: #fff transparent #ebebeb !important;
     border-style: solid none !important;
     border-width: 1px !important;
     color: #434343 !important;
     overflow: hidden !important;
-    padding: 7px 5px !important;
+    padding: 7px 0 !important;
     text-overflow: ellipsis !important;
     text-shadow: 0 1px 0 #fff !important;
     white-space: nowrap !important;
 }
-.cfwhiteboard .cfw-window table th *, .cfwhiteboard .cfw-window table td * {
+.cfwhiteboard .cfw-window table th *,
+.cfwhiteboard .cfw-window table td * {
     text-shadow: 0 1px 0 #fff !important;
     white-space: nowrap !important;
 }
-.cfwhiteboard .cfw-window table tbody td, .cfwhiteboard .cfw-window table tbody td * {
+.cfwhiteboard .cfw-window table tbody td,
+.cfwhiteboard .cfw-window table tbody td * {
     cursor: pointer !important;
 }
 
@@ -983,19 +986,22 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     text-align: center !important;
     white-space: wrap !important;
 }
-.cfwhiteboard .cfw-window table th.cfw-known-as, .cfwhiteboard .cfw-window table td.cfw-known-as {
+.cfwhiteboard .cfw-window table th.cfw-known-as,
+.cfwhiteboard .cfw-window table td.cfw-known-as {
     text-align: left !important;
-    padding-left: 8px !important;
-    min-width: 90px !important;
-    width: 90px !important;
-    max-width: 90px !important; 
+    text-indent: 8px !important;
+    min-width: 85px !important;
+    width: 85px !important;
+    max-width: 85px !important; 
 }
 .cfwhiteboard .cfw-window table td.cfw-known-as {
     color: #1d1a13 !important;
 }
 
-.cfwhiteboard .cfw-window table th.cfw-result, .cfwhiteboard .cfw-window table td.cfw-result {
+.cfwhiteboard .cfw-window table th.cfw-result,
+.cfwhiteboard .cfw-window table td.cfw-result {
     text-align: right !important;
+    text-indent: 10px !important;
     min-width: 104px !important;
     width: 104px !important;
     max-width: 104px !important;  
@@ -1004,20 +1010,16 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     color: #d64a0d !important;
 }
 
-.cfwhiteboard .cfw-window table th.cfw-mods, .cfwhiteboard .cfw-window table td.cfw-mods {
+.cfwhiteboard .cfw-window table th.cfw-mods,
+.cfwhiteboard .cfw-window table td.cfw-mods {
     text-align: left !important;
-}
-.cfwhiteboard .cfw-window table th.cfw-mods {
-    padding-right: 8px !important;
-    min-width: 104px !important;
-    width: 104px !important;
-    max-width: 104px !important;
+    text-indent: 10px !important;
+    min-width: 109px !important;
+    width: 109px !important;
+    max-width: 109px !important;
 }
 .cfwhiteboard .cfw-window table td.cfw-mods {
     color: #6d6a63 !important;
-    min-width: 104px !important;
-    width: 104px !important;
-    max-width: 104px !important;
     padding: 0 !important;
     vertical-align: middle !important;
 }
@@ -1025,8 +1027,9 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     margin: 0 !important;
     min-height: 13px !important;
     overflow: hidden !important;
-    padding: 5px 8px 5px 5px !important;
+    padding: 5px 8px 5px 0 !important;
     position: relative !important;
+    text-indent: 10px !important;
     text-overflow: ellipsis !important;
 }
 .cfwhiteboard .cfw-window table td.cfw-mods strong {
@@ -1085,7 +1088,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 .cfwhiteboard .cfw-window table tr.cfw-selected span.cfw-more {
     background: #f3f0eb !important;
-    border-color: #d64a0d !important;
+    border: 1px solid #d64a0d !important;
     color: #e5a58c !important;
     opacity: 1 !important;
     filter: alpha(opacity = 100) !important;
