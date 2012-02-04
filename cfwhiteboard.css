@@ -884,7 +884,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     overflow: hidden !important;
     position: relative !important;
     white-space: nowrap !important;
-    width: 298px !important;
+    width: 298px !important; /* this width is also hard-coded for the entry list table */
 }
 .cfwhiteboard .cfw-window .cfw-contents, .cfwhiteboard .cfw-window .cfw-contents > * {
     -webkit-border-radius: 3px !important;
@@ -941,7 +941,8 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 /* entry list view */
 .cfwhiteboard .cfw-window .cfw-page table {
     border-collapse: separate !important;
-    width: 100% !important;
+    table-layout: fixed !important;
+    width: 298px !important;
 }
 .cfwhiteboard .cfw-window table thead th {
     color: #1d1a13 !important;
@@ -985,8 +986,9 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard .cfw-window table th.cfw-known-as, .cfwhiteboard .cfw-window table td.cfw-known-as {
     text-align: left !important;
     padding-left: 8px !important;
-    min-width: 80px !important;
-    max-width: 80px !important; 
+    min-width: 90px !important;
+    width: 90px !important;
+    max-width: 90px !important; 
 }
 .cfwhiteboard .cfw-window table td.cfw-known-as {
     color: #1d1a13 !important;
@@ -994,9 +996,9 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 
 .cfwhiteboard .cfw-window table th.cfw-result, .cfwhiteboard .cfw-window table td.cfw-result {
     text-align: right !important;
-    min-width: 91px !important;
-    width: 91px !important;
-    max-width: 91px !important;  
+    min-width: 104px !important;
+    width: 104px !important;
+    max-width: 104px !important;  
 }
 .cfwhiteboard .cfw-window table td.cfw-result {
     color: #d64a0d !important;
@@ -1007,9 +1009,9 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 .cfwhiteboard .cfw-window table th.cfw-mods {
     padding-right: 8px !important;
-    min-width: 91px !important;
-    width: 91px !important;
-    max-width: 91px !important;
+    min-width: 104px !important;
+    width: 104px !important;
+    max-width: 104px !important;
 }
 .cfwhiteboard .cfw-window table td.cfw-mods {
     color: #6d6a63 !important;
