@@ -3,10 +3,10 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog.
-Version: 1.3
+Version: 1.10
 Author: CF Whiteboard
 */
-$CFWHITEBOARD_VERSION = '1.3';
+$CFWHITEBOARD_VERSION = '1.10';
 
 abstract class cfwhiteboard_Visibility
 {
@@ -41,6 +41,7 @@ $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectortarget'] = '';
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectorparent'] = '';
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectoralignment'] = cfwhiteboard_Position::CustomSelectorAlignmentFloatLeft;
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectormargin'] = '0';
+$CFWHITEBOARD_DEFAULT_OPTIONS['categories'] = array();
 
 function cfwhiteboard_get_options() {
     global $CFWHITEBOARD_DEFAULT_OPTIONS;
@@ -80,11 +81,16 @@ function cfwhiteboard_is_preview_mode($options) {
 function cfwhiteboard_is_proper_post($id = -1, $options) {
     $currentId = get_the_ID();
     
+
     return ($id == $currentId) &&
         !is_feed() &&
         !is_page() &&
         in_the_loop() &&
-        (get_post_type() == 'post');
+        (get_post_type() == 'post') &&
+        (
+            empty($options['categories']) ||
+            in_category($options['categories'])
+        );
 }
 
 function cfwhiteboard_generate_placeholder($post_id, $options) {
@@ -95,7 +101,9 @@ function cfwhiteboard_generate_placeholder($post_id, $options) {
     $affiliateId = !empty($options['affiliate_id']) ? $options['affiliate_id'] : 'testaffiliate';
     if (cfwhiteboard_is_preview_mode($options)) $affiliateId .= '_preview';
     
-    return '<div class="cfwhiteboard cleanslate" data-affiliate-id="' . $affiliateId . '" data-post-id="' . $post_id . '"></div>';
+    $authorization = is_user_logged_in() ? 'data-authorization="admin"' : '';
+
+    return '<div class="cfwhiteboard cleanslate" data-affiliate-id="'. $affiliateId .'" data-post-id="'. $post_id .'" '. $authorization .'></div>';
 }
 
 
@@ -152,7 +160,14 @@ function cfwhiteboard_add_to_post($titleOrContent, $id = NULL) {
 }
 
 function cfwhiteboard_stylesheet() {
-    wp_register_style('cfwhiteboard', plugins_url('cfwhiteboard.css', __FILE__));
+    global $CFWHITEBOARD_VERSION;
+    if (!isset($CFWHITEBOARD_VERSION)) $CFWHITEBOARD_VERSION = '0.0';
+    
+    wp_register_style('cfwhiteboard',
+        plugins_url('cfwhiteboard.css', __FILE__),
+        false,
+        $CFWHITEBOARD_VERSION
+    );
     wp_enqueue_style( 'cfwhiteboard');
 }
 
@@ -202,7 +217,7 @@ function cfwhiteboard_options_page() {
 		return false;
 	
 
-    // $namespace = 'A2A_SHARE_SAVE_';
+    $category_prefix = 'CFWHITEBOARD_category_';
   
     // Make available services extensible via plugins, themes (functions.php), etc.
     // $A2A_SHARE_SAVE_services = apply_filters('A2A_SHARE_SAVE_services', $A2A_SHARE_SAVE_services);
@@ -237,6 +252,15 @@ function cfwhiteboard_options_page() {
             $new_options['position_customselectoralignment'] = @$_POST['CFWHITEBOARD_position_customselectoralignment'];
         if (!empty($_POST['CFWHITEBOARD_position_customselectormargin']))
             $new_options['position_customselectormargin'] = @$_POST['CFWHITEBOARD_position_customselectormargin'];
+
+        // Categories
+        $new_options['categories'] = array();
+        $categories = get_categories($category_args);
+        foreach($categories as $category) {
+            if (!empty($_POST[$category_prefix . $category->cat_ID])) {
+                array_push($new_options['categories'], $category->cat_ID);
+            }
+        } 
 
         // Preview Only (Whiteboard is only visible to logged-in WordPress users.  Workout entries will not be saved.)
         // Active (Whiteboard is visible to anyone who visits your website.  Workout entries will be saved.)
@@ -310,6 +334,16 @@ function cfwhiteboard_options_page() {
 
     $options = cfwhiteboard_get_options();
 
+    // Get info for the categories options
+    $category_args = array(
+        'orderby' => 'name',
+        'hide_empty' => 0
+    );
+    $categories = get_categories($category_args);
+    foreach($categories as $category) {
+        $category->selected = empty($options['categories']) ? true : in_array($category->cat_ID, $options['categories']);
+    } 
+
     // function position_in_content($options, $option_box = FALSE) {
     //  
     //  if ( ! isset($options['position'])) {
@@ -374,6 +408,9 @@ function cfwhiteboard_options_page() {
         form > fieldset > ul > li > * {
             text-indent: 0;
         }
+        fieldset h1 {
+            font-size: 1em;
+        }
 
         fieldset ul li fieldset {
             background: #f5f5f5;
@@ -391,10 +428,12 @@ function cfwhiteboard_options_page() {
             *display: inline;
         }
 
-        input[type="radio"] {
+        input[type="radio"],
+        input[type="checkbox"] {
             font-size: 19px;
         }
-        input[type="radio"] + label {
+        input[type="radio"] + label,
+        input[type="checkbox"] + label {
             line-height: 19px;
             margin-left: 5px;
         }
@@ -510,9 +549,24 @@ function cfwhiteboard_options_page() {
                 </li>
             </ul>
         </fieldset>
-        
+
+        <fieldset>
+            <legend><?php _e('WOD Blog Category', 'cf-whiteboard'); ?></legend>
+            <h1><?php _e('Which post categories should the whiteboard be added to?', 'cf-whiteboard'); ?></h1>
+            <ul>
+                <?php foreach($categories as $category) { ?>
+                    <li>
+                        <input type="checkbox" id="<?php echo $category_prefix . $category->cat_ID; ?>" name="<?php echo $category_prefix . $category->cat_ID; ?>" <?php echo $category->selected ? 'checked="checked"' : ''; ?> />
+                        <label for="<?php echo $category_prefix . $category->cat_ID; ?>">
+                            <?php echo $category->cat_name; ?>
+                        </label>
+                    </li>
+                <?php } ?>
+            </ul>
+        </fieldset>
+                
         <p class="submit">
-            <input class="button-primary" type="submit" name="Submit" value="<?php _e('Save Changes', 'cf-whiteboard' ) ?>" />
+            <input class="button-primary" type="submit" name="Submit" value="<?php _e('Save Changes', 'cf-whiteboard' ); ?>" />
             <!-- <input id="A2A_SHARE_SAVE_reset_options" type="submit" name="Reset" onclick="return confirm('<!php _e('Are you sure you want to delete all CF Whiteboard options?', 'add-to-any' ) ?>')" value="<!php _e('Reset', 'add-to-any' ) ?>" /> -->
         </p>
     
