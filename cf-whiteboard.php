@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog.
-Version: 1.12
+Version: 1.15
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '1.12';
+$CFWHITEBOARD_VERSION = '1.15';
 
 abstract class cfwhiteboard_Visibility
 {
@@ -660,7 +660,7 @@ add_action('load-post-new.php', 'cfwhiteboard_setup_post_meta_boxes');
 /* Save post meta on the 'save_post' hook. */
 add_action('save_post', 'cfwhiteboard_save_post_meta_boxes', 10, 2);
 /* Clean post meta on the 'publish_post' hook. */
-add_action('publish_post', 'cfwhiteboard_clean_post_meta', 10, 1);
+// add_action('publish_post', 'cfwhiteboard_clean_post_meta', 10, 1);
 
 /* Meta box setup function. */
 function cfwhiteboard_setup_post_meta_boxes() {
