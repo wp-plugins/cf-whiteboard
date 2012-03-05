@@ -747,9 +747,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard > h1:first-letter {
     font-size: 13px !important;
 }
-.cfwhiteboard > h1 .cfw-entry-count {
-    margin-left: 4px !important;
-}
 
 .cfwhiteboard .cfw-pane, .cfwhiteboard .cfw-pane > div, .cfwhiteboard .cfw-window {
     -webkit-border-radius: 5px !important;
@@ -760,7 +757,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     background: url('images/metal-tile.jpg') repeat top left #4d4d4b !important;
 	border-width: 1px !important;
 	border-style: solid !important;
-	border-color: #929491 #3d3c3a #121210 #666865 !important;
+	border-color: #727471 #3d3c3a #121210 #666865 !important;
 	-webkit-box-shadow: 1px 2px 1px rgba(0,0,0,0.4) !important;
     -moz-box-shadow: 1px 2px 1px rgba(0,0,0,0.4) !important;
 	box-shadow: 1px 2px 1px rgba(0,0,0,0.4) !important;
@@ -784,6 +781,10 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard.cfw-postactive .cfw-pane {
     display: block !important;
 }
+.cfwhiteboard.cfw-active .cfw-pane.cfw-hidden,
+.cfwhiteboard.cfw-postactive .cfw-pane.cfw-hidden {
+    display: none !important;
+}
 .cfwhiteboard.cfw-postactive .cfw-pane {
     opacity: 0 !important;
     filter: alpha(opacity = 0) !important;
@@ -797,29 +798,153 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 
 
-.cfwhiteboard .cfw-pane .cfw-print {
-    background-color: #ddd !important;
-    border-color: #ccc !important;
-    border-style: solid solid none solid !important;
-    border-width: 1px !important;
+.cfwhiteboard .cfw-pane ul.cfw-classes {
+    background: rgba(30, 30, 30, .65) !important;
+    border-top-left-radius: 4px !important;
+    border-top-right-radius: 4px !important;
+    -webkit-box-shadow: inset 1px 2px 5px black !important;
+    -moz-box-shadow: inset 1px 2px 5px black !important;
+    box-shadow: inset 1px 2px 5px black !important;
+    list-style: none !important;
+    margin-bottom: -3px !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li {
+    display: inline-block !important;
+    padding: 0 !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li > div {
     border-top-left-radius: 3px !important;
     border-top-right-radius: 3px !important;
+    margin: 0 !important;
+    padding: 0 0 2px !important;
+    position: relative !important;
+}
+
+.cfwhiteboard .cfw-pane ul.cfw-1-classes li {
+    max-width: 65% !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-2-classes li {
+    width: 50% !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-3-classes li {
+    width: 33.333333% !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-4-classes li {
+    width: 25% !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-5-classes li {
+    width: 20% !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-6-classes li {
+    width: 16.666666% !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-7-classes li {
+    width: 14.285714% !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-8-classes li {
+    width: 12.5% !important;
+}
+
+.cfwhiteboard .cfw-pane ul.cfw-classes li a {
+    border-top-left-radius: 2px !important;
+    border-top-right-radius: 2px !important;
+    color: #bbb !important;
+    display: block !important;
+    font-size: 13px !important;
+    line-height: 27px !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    padding: 0 8px 1px !important;
+    text-align: center !important;
+    text-overflow: ellipsis !important;
+    text-shadow: 1px 2px 1px black !important;
+    white-space: nowrap !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li a:hover {
+    color: #D64A0D !important;
+    text-shadow: 1px 1px 0 black !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li .cfw-centered {
+    display: inline-block !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li .cfw-entry-count {
+    float: right !important;
+    margin-left: 3px !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li .cfw-link-text {
+    display: block !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li .cfw-separator {
+    border-bottom: 1px solid #fff !important;
+    border-top: 1px solid #ebebeb !important;
+    bottom: 0px !important;
+    display: none !important;
+    height: 0 !important;
+    left: 0 !important;
+    line-height: 0 !important;
+    position: absolute !important;
+    right: 0 !important;
+    text-shadow: 0 1px 0 #fff !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li.cfw-selected .cfw-separator {
+    display: block !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li.cfw-selected > div {
+    background: #fafafa !important;
+    border-style: solid solid none solid !important;
+    border-width: 1px !important;
+    border-color: #fff #ddd #f5f5f5 #fafafa !important;
+    -webkit-box-shadow: 1px 1px 5px #000 !important;
+    -moz-box-shadow: 1px 1px 5px #000 !important;
+    box-shadow: 1px 1px 5px #000 !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li.cfw-selected a {
+    background: url('images/white-water-paper.png') repeat-x center -80px #FAFAFA !important;
+    color: #999 !important;
+    position: relative !important;
+    z-index: 1 !important;
+    text-shadow: 0 1px 0 #fff !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-1-classes li a {
+    padding: 0 20px 3px !important;
+}
+
+
+.cfwhiteboard .cfw-pane .cfw-print {
+    background-color: #ddd !important;
+    border-color: #aaa !important;
+    border-style: none solid solid solid !important;
+    border-width: 1px !important;
+    border-bottom-left-radius: 3px !important;
+    border-bottom-right-radius: 3px !important;
+    bottom: -29px !important;
     color: #444 !important;
     font-size: 15px !important;
-    line-height: 27px !important;
     left: 10px !important;
+    line-height: 27px !important;
     padding: 0 8px !important;
     position:  absolute !important;
-    top: -29px !important;
+    -webkit-box-shadow: 1px 2px 1px rgba(0,0,0,0.2) !important;
+    -moz-box-shadow: 1px 2px 1px rgba(0,0,0,0.2) !important;
+    box-shadow: 1px 2px 1px rgba(0,0,0,0.2) !important;
 }
 .cfwhiteboard .cfw-pane .cfw-print:hover {
     background-color: #ccc !important;
 }
 
 .cfwhiteboard .cfw-window {
-    -moz-box-shadow: inset 0 1px 3px #fff, inset 0 -1px 1px #000 !important;
-    -webkit-box-shadow: inset 0 1px 3px #fff, inset 0 -1px 1px #000 !important;
-    box-shadow: inset 0 1px 3px #fff, inset 0 -1px 1px #000 !important;
+    -webkit-box-shadow: inset 0 1px 3px #bbb, inset 0 -1px 1px #000 !important;
+    -moz-box-shadow: inset 0 1px 3px #bbb, inset 0 -1px 1px #000 !important;
+    box-shadow: inset 0 1px 3px #bbb, inset 0 -1px 1px #000 !important;
     padding: 11px 19px 0 10px !important;
     position: relative !important;
 /*    width: 300px !important;*/
@@ -874,7 +999,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 
 
 .cfwhiteboard .cfw-window .cfw-contents {
-    background: url('images/white-water-paper.png') no-repeat center bottom #fafafa !important;
+    background: url('images/white-water-paper.png') repeat-x center bottom #fafafa !important;
     border-width: 1px !important;
     border-style: solid !important;
     border-color: #fff #ddd #bbb #fafafa !important;
@@ -886,10 +1011,27 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     white-space: nowrap !important;
     width: 298px !important; /* this width is also hard-coded for the entry list table */
 }
-.cfwhiteboard .cfw-window .cfw-contents, .cfwhiteboard .cfw-window .cfw-contents > * {
+.cfwhiteboard .cfw-window .cfw-contents,
+.cfwhiteboard .cfw-window .cfw-contents > * {
     -webkit-border-radius: 3px !important;
     -moz-border-radius: 3px !important;
     border-radius: 3px !important;
+}
+/* 3 components */
+.cfwhiteboard .cfw-window .cfw-contents.cfw-components-3 {
+    width: 402px !important; 
+}
+/* 4 components */
+.cfwhiteboard .cfw-window .cfw-contents.cfw-components-4 {
+    width: 506px !important; 
+}
+/* 5 components */
+.cfwhiteboard .cfw-window .cfw-contents.cfw-components-5 {
+    width: 610px !important; 
+}
+/* 6 components */
+.cfwhiteboard .cfw-window .cfw-contents.cfw-components-6 {
+    width: 714px !important; 
 }
 
 .cfwhiteboard .cfw-window .cfw-contents .cfw-page {
@@ -928,6 +1070,9 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard .cfw-window .cfw-contents .cfw-page table + .cfw-scrollable {
     height: 350px !important;
 }
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page table + .cfw-scrollable table {
+    width: 100% !important;
+}
 
 
 .cfwhiteboard .cfw-window .cfw-contents a {
@@ -948,6 +1093,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     color: #1d1a13 !important;
     font-size: 12px !important;
 	font-weight: bold !important;
+    border-style: none none solid !important;
 }
 .cfwhiteboard .cfw-window table tbody {
     font-size: 13px !important;
@@ -998,31 +1144,83 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     color: #1d1a13 !important;
 }
 
-.cfwhiteboard .cfw-window table th.cfw-result,
-.cfwhiteboard .cfw-window table td.cfw-result {
-    text-align: right !important;
+/* multi-component columns */
+.cfwhiteboard .cfw-window table th.cfw-component,
+.cfwhiteboard .cfw-window table td.cfw-component {
+    text-align: left !important;
     text-indent: 10px !important;
     min-width: 104px !important;
     width: 104px !important;
     max-width: 104px !important;  
 }
-.cfwhiteboard .cfw-window table td.cfw-result {
+
+/* single component column */
+.cfwhiteboard .cfw-window table.cfw-components-1 th.cfw-component {
+    text-align: center !important;
+    text-indent: 0 !important;
+    min-width: 213px !important;
+    width: 213px !important;
+    max-width: 213px !important;
+}
+.cfwhiteboard .cfw-window table .cfw-result {
     color: #d64a0d !important;
 }
-
-.cfwhiteboard .cfw-window table th.cfw-mods,
+.cfwhiteboard .cfw-window table td.cfw-result {
+    text-align: right !important;
+    text-indent: 10px !important;
+    min-width: 104px !important;
+    width: 104px !important;
+    max-width: 104px !important;
+}
+.cfwhiteboard .cfw-window table .cfw-mods {
+    color: #6d6a63 !important;
+}
 .cfwhiteboard .cfw-window table td.cfw-mods {
+    padding: 0 !important;
     text-align: left !important;
     text-indent: 10px !important;
+    vertical-align: middle !important;
     min-width: 109px !important;
     width: 109px !important;
     max-width: 109px !important;
 }
-.cfwhiteboard .cfw-window table td.cfw-mods {
-    color: #6d6a63 !important;
-    padding: 0 !important;
-    vertical-align: middle !important;
+
+/* 2 components */
+.cfwhiteboard .cfw-window table.cfw-components-2 th.cfw-component + th.cfw-component,
+.cfwhiteboard .cfw-window table.cfw-components-2 td.cfw-component + td.cfw-component,
+/* 3 components */
+.cfwhiteboard .cfw-window table.cfw-components-3 th.cfw-component + th.cfw-component + th.cfw-component,
+.cfwhiteboard .cfw-window table.cfw-components-3 td.cfw-component + td.cfw-component + td.cfw-component,
+/* 4 components */
+.cfwhiteboard .cfw-window table.cfw-components-4 th.cfw-component + th.cfw-component + th.cfw-component + th.cfw-component,
+.cfwhiteboard .cfw-window table.cfw-components-4 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component,
+/* 5 components */
+.cfwhiteboard .cfw-window table.cfw-components-5 th.cfw-component + th.cfw-component + th.cfw-component + th.cfw-component + th.cfw-component,
+.cfwhiteboard .cfw-window table.cfw-components-5 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component,
+/* 6 components */
+.cfwhiteboard .cfw-window table.cfw-components-6 th.cfw-component + th.cfw-component + th.cfw-component + th.cfw-component + th.cfw-component + th.cfw-component,
+.cfwhiteboard .cfw-window table.cfw-components-6 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component {
+    text-align: left !important;
+    text-indent: 10px !important;
+    min-width: 109px !important;
+    width: 109px !important;
+    max-width: 109px !important;  
 }
+/* 2 components */
+.cfwhiteboard .cfw-window table.cfw-components-2 td.cfw-component + td.cfw-component,
+/* 3 components */
+.cfwhiteboard .cfw-window table.cfw-components-3 td.cfw-component + td.cfw-component + td.cfw-component,
+/* 4 components */
+.cfwhiteboard .cfw-window table.cfw-components-4 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component,
+/* 5 components */
+.cfwhiteboard .cfw-window table.cfw-components-5 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component,
+/* 6 components */
+.cfwhiteboard .cfw-window table.cfw-components-6 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component {
+    padding: 0 !important; 
+}
+
+/* Rx */
+.cfwhiteboard .cfw-window table td.cfw-component > div,
 .cfwhiteboard .cfw-window table td.cfw-mods > div {
     margin: 0 !important;
     min-height: 13px !important;
@@ -1032,6 +1230,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     text-indent: 10px !important;
     text-overflow: ellipsis !important;
 }
+.cfwhiteboard .cfw-window table td.cfw-component strong,
 .cfwhiteboard .cfw-window table td.cfw-mods strong {
     border: 1px solid !important;
     font-size: 11px !important;
@@ -1040,6 +1239,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     position: relative !important;
     z-index: 1 !important;
 }
+.cfwhiteboard .cfw-window table td.cfw-component strong:after,
 .cfwhiteboard .cfw-window table td.cfw-mods strong:after {
     bottom: -2px !important;
     border: 1px solid #fff !important;
@@ -1049,6 +1249,8 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     top: 0 !important;
     z-index: -1 !important;
 }
+
+/* dot dot dot */
 .cfwhiteboard .cfw-window table tr span.cfw-more {
     font-size: 16px !important;
     height: 10px !important;
@@ -1064,6 +1266,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     -ms-transition: 300ms all !important;
     -o-transition: 300ms all !important;
     transition: 300ms all !important;
+    z-index: 1 !important;
 }
 .cfwhiteboard .cfw-window table tr span.cfw-more.cfw-notes-hint {
     background: #fafafa !important;
@@ -1129,28 +1332,40 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     right: 0 !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dl {
-    padding: 24px 28px 24px 8px !important;
+    padding: 34px 20px 14px 0px !important;
     height: 330px !important;
     text-align: center !important;
 }
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dt,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd {
+    padding: 0 8px !important;
+}
 .cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dt {
-    font-size: 12px !important;
+    font-size: 14px !important;
     font-weight: bold !important;
+    padding-top: 10px !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail * + dt {
+    border-top: 1px solid #fff !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd {
+    border-bottom: 1px solid #ddd !important;
     font-size: 20px !important;
-    margin-bottom: 20px !important;
+    padding-bottom: 10px !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd.cfw-known-as {
     color: #1d1a13 !important;
 }
-.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd.cfw-result {
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd.cfw-component {
+    padding-top: 5px !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd .cfw-result {
     color: #d64a0d !important;
 }
-.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd.cfw-mods {
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd .cfw-mods {
     color: #6d6a63 !important;
 }
-.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd.cfw-mods strong {
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd .cfw-mods strong {
     border: 2px solid !important;
     display: inline-block !important;
     font-size: 16px !important;
@@ -1161,7 +1376,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     *zoom: 1 !important;
     *display: inline !important;
 }
-.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd.cfw-mods strong:after {
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd .cfw-mods strong:after {
     bottom: -2px !important;
     border: 1px solid #fff !important;
     left: -2px !important;
@@ -1172,57 +1387,80 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd.cfw-notes {
     color: #6d6a63 !important;
+    border-bottom: none !important;
 }
 
 
 /* entry form view */
 .cfwhiteboard .cfw-window form {
-    background: url('images/white-water-paper.png') no-repeat left bottom #fafafa !important;
-    bottom: -100% !important;
+    background: url('images/white-water-paper.png') repeat-x left bottom #fafafa !important;
+    bottom: 0px !important;
     /*display: none !important;*/
     /*height: 362px !important;*/
     left: 0 !important;
-    padding: 8px !important;
     position: absolute !important;
     right: 0 !important;
-    top: 100% !important;
+    top: 400px !important;
     -webkit-transition: 300ms all !important;
     -moz-transition: 300ms all !important;
     -ms-transition: 300ms all !important;
     -o-transition: 300ms all !important;
     transition: 300ms all !important;
-    width: 282px !important;
+    width: 298px !important;
     z-index: 1000 !important;
 }
+.cfwhiteboard .cfw-window form fieldset {
+    padding: 8px 8px 6px !important;
+    border-bottom: 1px solid #ccc !important;
+    margin: 0 !important;
+}
+.cfwhiteboard .cfw-window form fieldset + fieldset {
+    border-top: 1px solid #fff !important;
+    padding-top: 4px !important;
+}
+.cfwhiteboard .cfw-window form fieldset.cfw-last {
+    border-bottom: none !important;
+    padding-bottom: 10px !important;
+}
 .cfwhiteboard .cfw-window .cfw-contents form.cfw-scrollable {
-    padding-right: 28px !important;
+    padding-right: 20px !important;
 }
 .cfwhiteboard .cfw-window form.cfw-translate3d {
-    -webkit-transform: translate3d(0,-100%,0) !important;
-    -moz-transform: translate3d(0,-100%,0) !important;
-    -ms-transform: translate3d(0,-100%,0) !important;
-    -o-transform: translate3d(0,-100%,0) !important;
-    transform: translate3d(0,-100%,0) !important;
+    -webkit-transform: translate3d(0,-400,0) !important;
+    -moz-transform: translate3d(0,-400,0) !important;
+    -ms-transform: translate3d(0,-400,0) !important;
+    -o-transform: translate3d(0,-400,0) !important;
+    transform: translate3d(0,-400,0) !important;
 }
 .cfwhiteboard .cfw-window form.cfw-translate {
-    -webkit-transform: translate(0,-100%) !important;
-    -moz-transform: translate(0,-100%) !important;
-    -ms-transform: translate(0,-100%) !important;
-    -o-transform: translate(0,-100%) !important;
-    transform: translate(0,-100%) !important;
+    -webkit-transform: translate(0,-400) !important;
+    -moz-transform: translate(0,-400) !important;
+    -ms-transform: translate(0,-400) !important;
+    -o-transform: translate(0,-400) !important;
+    transform: translate(0,-400) !important;
 }
 .cfwhiteboard .cfw-window form.cfw-translate-oldfashioned {
-    bottom: 0% !important;
-    top: 0% !important;
+    /*bottom: 0px !important;*/
+    top: 0px !important;
+}
+.cfwhiteboard .cfw-window form h2,
+.cfwhiteboard .cfw-window form h2 label {
+    color: #606060 !important;
+    font-size: 15px !important;
+    font-weight: bold !important;
+    line-height: 23px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    text-overflow: ellipsis !important;
+    text-shadow: 0 1px 0 #fff !important;
+    white-space: nowrap !important;
+    width: 282px !important;
 }
 .cfwhiteboard .cfw-window form h2 {
-    color: #1d1a13 !important;
-    font-size: 15px !important;
-	font-weight: bold !important;
-	line-height: 1 !important;
-	margin: 0 0 13px !important;
-	padding: 0 !important;
-	text-shadow: 0 1px 0 #fff !important;
+    margin: 0 0 3px !important;
+}
+.cfwhiteboard .cfw-window form h2 label {
+    margin: 0 !important;
 }
 .cfwhiteboard .cfw-window form label, .cfwhiteboard .cfw-window form input, .cfwhiteboard .cfw-window form textarea {
     display: block !important;
@@ -1236,11 +1474,12 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     color: #6d6a63 !important;
     font-size: 13px !important;
     margin: 3px 0 0 !important;
-    padding: 4px !important;
+    padding: 4px 4px 3px !important;
     text-shadow: 0 1px 0 #fff !important;
 }
 .cfwhiteboard .cfw-window form input[type="checkbox"] {
-    margin: 9px 5px 9px 3px !important;
+    font-size: 16px !important;
+    margin: 7px 3px 7px 5px !important;
 }
 .cfwhiteboard .cfw-window form em {
     color: #888 !important;
@@ -1291,7 +1530,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     cursor: text !important;
     font-size: 14px !important;
     line-height: 21px !important;
-    margin: 0 0 10px !important;
+    margin: 0 0 6px !important;
 }
 .cfwhiteboard .cfw-window form input[disabled="disabled"] {
     cursor: default !important;
@@ -1305,6 +1544,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     margin-left: 4px !important;
 }
 .cfwhiteboard .cfw-window form div.cfw-footer {
+    padding-top: 3px !important;
     text-align: right !important;
     width: 282px !important;
 }
@@ -1418,6 +1658,9 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 .cfwhiteboard .cfw-window form a.cfw-add-notes.cfw-hidden {
     display: none !important;
+}
+.cfwhiteboard .cfw-window form a.cfw-add-notes label {
+    display: inline !important;
 }
 .cfwhiteboard .cfw-window form a.cfw-add-notes strong {
     font-size: 115% !important;
