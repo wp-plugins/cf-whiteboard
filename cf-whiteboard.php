@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog.
-Version: 1.15
+Version: 1.16
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '1.15';
+$CFWHITEBOARD_VERSION = '1.16';
 
 abstract class cfwhiteboard_Visibility
 {
@@ -186,6 +186,7 @@ function cfwhiteboard_add_to_post($titleOrContent, $id = NULL) {
         return $titleOrContent;
 
     $wods = cfwhiteboard_get_wods($id);
+    $wods = cfwhiteboard_clean_post_meta($wods);
     if ((!is_array($wods)) || empty($wods))
         return $titleOrContent;
     
@@ -666,6 +667,9 @@ add_action('save_post', 'cfwhiteboard_save_post_meta_boxes', 10, 2);
 function cfwhiteboard_setup_post_meta_boxes() {
     /* Add meta boxes on the 'add_meta_boxes' hook. */
     add_action('add_meta_boxes', 'cfwhiteboard_add_post_meta_boxes', 1);
+
+    /* Add admin notices (if post was just saved) */
+    add_action('admin_notices', 'cfwhiteboard_save_post_meta_notices');
 }
 
 /* Create one or more meta boxes to be displayed on the post editor screen. */
@@ -698,6 +702,7 @@ function cfwhiteboard_generate_class_fields($class) {
                 <th>
                     <label for="'. $class_name_attr .'">
                         '. esc_html__("Class Name", 'cf-whiteboard') .'
+                        <a href="javascript://" class="help-alert" data-message="Each class gets a separate tab in the Whiteboard. You can track as many classes as you want.<br><br>Example Class Names: WOD, Oly, Strength, Endurance, Erg, Zumba (kidding!)">(Help)</a>
                     </label>
                 </th>
                 <td>
@@ -731,6 +736,7 @@ function cfwhiteboard_generate_class_component_fields($component_prefix, $compon
                 <th>
                     <label for="'. $description_name .'">
                         '. esc_html__("Component", 'cf-whiteboard') .' <span class="component-index"></span>
+                        <a href="javascript://" class="help-alert" data-message="Each class needs 1 or more components. Athletes will be able to search the component descriptions to recall workout results in the future.<br><br>Example WOD:<br><br>Component 1:<br>Deadlift<br>5-5-5-5-5<br><br>Component 2:<br>&quot;Fran&quot;<br>21-15-9 reps, for time<br>Thruster 95 lbs<br>Pull-ups">(Help)</a>
                     </label>
                     <p>
                         '. esc_html__("Include rep scheme & loading", 'cf-whiteboard') .'
@@ -749,6 +755,7 @@ function cfwhiteboard_generate_class_component_fields($component_prefix, $compon
                 <th>
                     <label for="'. $label_name .'" '. ($has_label ? '' : 'class="hidden"') .'>
                         '. esc_html__("Component Label", 'cf-whiteboard') .'
+                        <a href="javascript://" class="help-alert" data-message="The label is used as a short description for the component on the Whiteboard and on athlete profiles. Shorter labels are better, but they&apos;re just labels so they don&apos;t have to be perfect.<br><br>Example Component Labels: Deadlift, Fran, 3 Rounds, AMRAP 20min, 21-15-9">(Help)</a>
                     </label>
                 </th>
                 <td>
@@ -928,7 +935,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
         }
         #cfwhiteboard-wods-meta ul li table td input[type="text"] {
             margin: 0;
-            width: 200px;
+            width: 140px;
         }
         #cfwhiteboard-wods-meta ul li table td .component-label-edit input[type="text"] {
             width: 140px;
@@ -949,6 +956,13 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             margin: 0;
             outline: none;
             resize: vertical;
+        }
+        #cfwhiteboard-wods-meta ul li table a.help-alert {
+            float: right;
+            font-size: 90%;
+            font-weight: normal;
+            line-height: 2;
+            text-decoration: none;
         }
         #cfwhiteboard-wods-meta ul li table.single-component .multi-component {
             display: none;
@@ -974,6 +988,11 @@ function cfwhiteboard_wods_meta_box($object, $box) {
         #cfwhiteboard-wods-meta p.tools a:focus {
             background: #fff;
             color: #0b4;
+        }
+        /* admin notices */
+        #cfwhiteboard-admin-notice em {
+            font-style: normal;
+            color: red;
         }
         /* tinyMCE styling */
         a.mceAction.mce_cfwhiteboard_button {
@@ -1023,7 +1042,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             }
 
             ?>
-            <li>
+            <li id="cfwhiteboard-wod-<?php echo $wod['wp_id']; ?>">
                 <?php echo cfwhiteboard_generate_class_fields($wod); ?>
             </li>
             <?php
@@ -1217,7 +1236,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                             options.push({
                                 text: 'No workouts. Click to add one.',
                                 handler: function() {
-                                    window.location = window.location.origin + window.location.pathname + '#cfwhiteboard-wods-meta';
+                                    window.location = window.location.href.replace(/#.*/, '') + '#cfwhiteboard-wods-meta';
                                     var $metaBox = jQuery('#cfwhiteboard-wods-meta');
                                     if ($metaBox.find('ul:visible').length == 0) {
                                         $metaBox.find('.handlediv').click();
@@ -1367,6 +1386,12 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                     CFW.updateComponentNumbers($table);
                 }
             });
+
+            // help messages!
+            $('a.help-alert').live('click', function(event) {
+                event.preventDefault();
+                alert($(this).data('message').replace(/<br>/g,'\n').replace(/&apos;/g,"'").replace(/&quot;/g, '"'));
+            });
         });
     </script>
 
@@ -1456,9 +1481,10 @@ function cfwhiteboard_save_post_meta_boxes($post_id, $post) {
 
     }
 
-    if (get_post_status($post_id) == "publish") {
-        $new_wods = cfwhiteboard_clean_post_meta($new_wods);
-    } else {
+    // Don't delete the users wods! instead just don't render them and tell them what's wrong
+    // if (get_post_status($post_id) == "publish") {
+    //     $new_wods = cfwhiteboard_clean_post_meta($new_wods);
+    // } else {
         // reindex wods and their components
         $temp_wods = array();
         foreach ($new_wods as $wod) {
@@ -1472,14 +1498,16 @@ function cfwhiteboard_save_post_meta_boxes($post_id, $post) {
             $temp_wods[] = $wod;
         }    
         $new_wods = $temp_wods;
-    }
+    // }
 
     /* Update or Delete the meta value of the custom field key. */
-    if (! empty($new_wods)) {
+    // if (! empty($new_wods)) {
         update_post_meta($post_id, $CFWHITEBOARD_WODS_META_KEY, $new_wods);
-    } else {
-        delete_post_meta($post_id, $CFWHITEBOARD_WODS_META_KEY);
-    }
+    // } else {
+    //     delete_post_meta($post_id, $CFWHITEBOARD_WODS_META_KEY);
+    // }
+
+    set_transient($CFWHITEBOARD_WODS_META_KEY.'-notice', cfwhiteboard_validate_post_meta( $new_wods ), 30);
 }
 function cfwhiteboard_clean_post_meta( $wods ) {
     // Clean the meta values (no blank fields)
@@ -1501,6 +1529,50 @@ function cfwhiteboard_clean_post_meta( $wods ) {
     }
 
     return $temp_wods;
+}
+function cfwhiteboard_validate_post_meta( $wods ) {
+    $validations = array();
+    foreach ($wods as $wod) {
+        $key = $wod['wp_id'];
+        $validations[$key] = array(
+            'name' => empty($wod['name']) ? '' : $wod['name'],
+            'valid' => 0,
+            'total' => 0
+        );
+
+        foreach ($wod['components'] as $component) {
+            $validations[$key]['total']++;
+            if (empty($component['label']) || empty($component['description'])) continue;
+            $validations[$key]['valid']++;
+        }
+    }
+
+    return $validations;
+}
+function cfwhiteboard_save_post_meta_notices(){
+    global $CFWHITEBOARD_WODS_META_KEY;
+    
+    $validations = get_transient($CFWHITEBOARD_WODS_META_KEY.'-notice');
+
+    if (!empty($validations)) {
+        $validation_items = '';
+        $counter = 0;
+        foreach ($validations as $wod_id => $validation) {
+            $counter++;
+            $hasName = !empty($validation['name']);
+            $name = $hasName ? $validation['name'] : (__('Class', 'cf-whiteboard').' '.$counter);
+            $willBePublished = $hasName && ($validation['valid'] > 0);
+            $totallyValid = $validation['valid'] == $validation['total'];
+            $publishedTail = 'will be published ('.($totallyValid ? '' : '<em>').$validation['valid'].' of '.$validation['total'].($totallyValid ? '' : '</em>').' components saved)';
+            $notPublishedTail = 'will <em>not be published</em> ('.($hasName ? 'please enter at least one component description' : 'please enter a name for the class').')';
+            $validation_items .= '<li><a href="#cfwhiteboard-wod-'.$wod_id.'">'.$name.'</a> '.($willBePublished ? $publishedTail : $notPublishedTail ).'</li>';
+        }
+
+        echo '<div id="cfwhiteboard-admin-notice" class="updated">
+           <p>'.__('CF Whiteboard Status:', 'cf-whiteboard').'</p>
+           <ul>'. $validation_items .'</ul>
+        </div>';
+    }
 }
 
 

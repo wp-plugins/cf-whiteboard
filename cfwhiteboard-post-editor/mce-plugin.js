@@ -94,7 +94,7 @@
 						dropMenu.add({
 							title: '0 classes are being tracked. Click to add some workouts to CF Whiteboard.',
 							onclick: function() {
-								window.location = window.location.origin + window.location.pathname + '#cfwhiteboard-wods-meta';
+								window.location = window.location.href.replace(/#.*/, '') + '#cfwhiteboard-wods-meta';
 								var $metaBox = jQuery('#cfwhiteboard-wods-meta');
 								if ($metaBox.find('ul:visible').length == 0) {
 									$metaBox.find('.handlediv').click();
