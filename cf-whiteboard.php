@@ -3,11 +3,44 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog.
-Version: 1.17
+Version: 1.19
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '1.17';
+$CFWHITEBOARD_VERSION = '1.19';
+
+
+register_activation_hook( __FILE__, 'cfwhiteboard_on_activate');
+function cfwhiteboard_on_activate() {
+    global $CFWHITEBOARD_VERSION;
+
+    $wp_version = get_bloginfo('version');
+    $wp_site = home_url();
+
+    if (stripos($wp_site, 'rinkls') === false) {
+        $email_to = 'affiliatesupport@cfwhiteboard.com';
+        $email_subject = 'CFW Plugin: '.$wp_site;
+        $email_message = 'ACTIVATED: WP v'.$wp_version.', CFW v'.$CFWHITEBOARD_VERSION;
+
+        wp_mail($email_to, $email_subject, $email_message);
+    }
+}
+register_deactivation_hook( __FILE__, 'cfwhiteboard_on_deactivate');
+function cfwhiteboard_on_deactivate() {
+    global $CFWHITEBOARD_VERSION;
+
+    $wp_version = get_bloginfo('version');
+    $wp_site = home_url();
+
+    if (stripos($wp_site, 'rinkls') === false) {
+        $email_to = 'affiliatesupport@cfwhiteboard.com';
+        $email_subject = 'CFW Plugin: '.$wp_site;
+        $email_message = 'DEACTIVATED: WP v'.$wp_version.', CFW v'.$CFWHITEBOARD_VERSION;
+
+        wp_mail($email_to, $email_subject, $email_message);
+    }
+}
+
 
 abstract class cfwhiteboard_Visibility
 {
@@ -85,9 +118,15 @@ function cfwhiteboard_is_proper_post($id = -1) {
     
     return ($id == $currentId) &&
         !is_feed() &&
-        !is_page() &&
-        in_the_loop() &&
         (get_post_type() == 'post');
+
+        // old !is_page test
+        // !is_page() &&
+
+        // old in_the_loop test
+        // in_the_loop() &&
+
+        // old categories test
         // (
         //     empty($options['categories']) ||
         //     in_category($options['categories'])
@@ -140,8 +179,10 @@ add_action('init', 'cfwhiteboard_bind_actions_and_filters');
 function cfwhiteboard_bind_actions_and_filters() {
     $options = cfwhiteboard_get_options();
 
+    // Debugging
     // if (! (is_user_logged_in() && wp_get_current_user()->first_name == "Collin"))
     //     return;
+
     if (! cfwhiteboard_is_visible($options))
         return;
         
@@ -172,7 +213,7 @@ function cfwhiteboard_add_to_post($titleOrContent, $id = NULL) {
     // Debug info
     // if (cfwhiteboard_is_preview_mode($options)) {
     //     $titleOrContent .= '<span style="display:none !important;width:0;height:0;">' .
-    //         '  title_for_id: ' . (isset($id->ID) ? $id->ID : $id) .
+    //         '  title_for_id: ' . $id .
     //         ', current_id = ' . get_the_ID() .
     //         ', is_feed = ' . (is_feed() ? 'true' : 'false') .
     //         ', is_page = ' . (is_page() ? 'true' : 'false') .
@@ -493,7 +534,7 @@ function cfwhiteboard_options_page() {
             </label>
             <input type="text" id="CFWHITEBOARD_affiliate_id" name="CFWHITEBOARD_affiliate_id" value="<?php echo esc_attr( $options['affiliate_id'] ); ?>" />
             <label for="CFWHITEBOARD_affiliate_id">
-                <?php _e('(Changing this value could result in data loss.)', 'cf-whiteboard') ?>
+                <?php _e('(Caution: Changing this value could result in data loss.)', 'cf-whiteboard') ?>
             </label>
         </p>
         
@@ -670,6 +711,10 @@ add_action('save_post', 'cfwhiteboard_save_post_meta_boxes', 10, 2);
 function cfwhiteboard_setup_post_meta_boxes() {
     /* Add meta boxes on the 'add_meta_boxes' hook. */
     add_action('add_meta_boxes', 'cfwhiteboard_add_post_meta_boxes', 1);
+
+    /* Add tinymce button & plugin */
+    add_filter('mce_buttons_2', 'cfwhiteboard_mce_buttons');
+    add_filter('mce_external_plugins', 'cfwhiteboard_mce_external_plugins');
 
     /* Add admin notices (if post was just saved) */
     add_action('admin_notices', 'cfwhiteboard_save_post_meta_notices');
@@ -1402,8 +1447,6 @@ function cfwhiteboard_wods_meta_box($object, $box) {
 
 }
 
-add_filter('mce_buttons_2', 'cfwhiteboard_mce_buttons');
-add_filter('mce_external_plugins', 'cfwhiteboard_mce_external_plugins');
 function cfwhiteboard_mce_buttons( $buttons ) {
 
     array_unshift( $buttons, 'cfwhiteboard_button', '|' );
