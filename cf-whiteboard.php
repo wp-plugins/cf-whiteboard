@@ -3,10 +3,44 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog.
-Version: 1.3
+Version: 1.20
 Author: CF Whiteboard
 */
-$CFWHITEBOARD_VERSION = '1.3';
+global $CFWHITEBOARD_VERSION;
+$CFWHITEBOARD_VERSION = '1.20';
+
+
+register_activation_hook( __FILE__, 'cfwhiteboard_on_activate');
+function cfwhiteboard_on_activate() {
+    global $CFWHITEBOARD_VERSION;
+
+    $wp_version = get_bloginfo('version');
+    $wp_site = home_url();
+
+    if (stripos($wp_site, 'rinkls') === false) {
+        $email_to = 'affiliatesupport@cfwhiteboard.com';
+        $email_subject = 'CFW Plugin: '.$wp_site;
+        $email_message = 'ACTIVATED: WP v'.$wp_version.', CFW v'.$CFWHITEBOARD_VERSION;
+
+        wp_mail($email_to, $email_subject, $email_message);
+    }
+}
+register_deactivation_hook( __FILE__, 'cfwhiteboard_on_deactivate');
+function cfwhiteboard_on_deactivate() {
+    global $CFWHITEBOARD_VERSION;
+
+    $wp_version = get_bloginfo('version');
+    $wp_site = home_url();
+
+    if (stripos($wp_site, 'rinkls') === false) {
+        $email_to = 'affiliatesupport@cfwhiteboard.com';
+        $email_subject = 'CFW Plugin: '.$wp_site;
+        $email_message = 'DEACTIVATED: WP v'.$wp_version.', CFW v'.$CFWHITEBOARD_VERSION;
+
+        wp_mail($email_to, $email_subject, $email_message);
+    }
+}
+
 
 abstract class cfwhiteboard_Visibility
 {
@@ -32,8 +66,9 @@ abstract class cfwhiteboard_Position
     const CustomSelectorAlignmentBlock = 'block';
 }
 
+global $CFWHITEBOARD_DEFAULT_OPTIONS;
 $CFWHITEBOARD_DEFAULT_OPTIONS = array();
-$CFWHITEBOARD_DEFAULT_OPTIONS['affiliate_id'] = str_replace(array('http://', 'https://', 'www.', '.com/', '.com'), '', home_url());
+$CFWHITEBOARD_DEFAULT_OPTIONS['affiliate_id'] = esc_attr( str_replace(array('http://', 'https://', 'www.', '.com/', '.com'), '', home_url()) );
 $CFWHITEBOARD_DEFAULT_OPTIONS['visibility'] = cfwhiteboard_Visibility::Users;
 $CFWHITEBOARD_DEFAULT_OPTIONS['position'] = cfwhiteboard_Position::TitleRight;
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectorinsertion'] = cfwhiteboard_Position::CustomSelectorInsertionAppend;
@@ -41,6 +76,7 @@ $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectortarget'] = '';
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectorparent'] = '';
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectoralignment'] = cfwhiteboard_Position::CustomSelectorAlignmentFloatLeft;
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectormargin'] = '0';
+// $CFWHITEBOARD_DEFAULT_OPTIONS['categories'] = array();
 
 function cfwhiteboard_get_options() {
     global $CFWHITEBOARD_DEFAULT_OPTIONS;
@@ -60,7 +96,7 @@ function cfwhiteboard_is_visible($options) {
         return is_user_logged_in();
     }
 
-    // assume $option['visibility'] == cfwhiteboard_Visibility::Everyone
+    // assume $options['visibility'] == cfwhiteboard_Visibility::Everyone
     return true;
 }
 
@@ -77,17 +113,33 @@ function cfwhiteboard_is_preview_mode($options) {
     return false;
 }
 
-function cfwhiteboard_is_proper_post($id = -1, $options) {
+function cfwhiteboard_is_proper_post($id = -1) {
     $currentId = get_the_ID();
     
     return ($id == $currentId) &&
         !is_feed() &&
-        !is_page() &&
-        in_the_loop() &&
         (get_post_type() == 'post');
+
+        // old !is_page test
+        // !is_page() &&
+
+        // old in_the_loop test
+        // in_the_loop() &&
+
+        // old categories test
+        // (
+        //     empty($options['categories']) ||
+        //     in_category($options['categories'])
+        // );
 }
 
-function cfwhiteboard_generate_placeholder($post_id, $options) {
+function cfwhiteboard_get_wods($post_id) {
+    global $CFWHITEBOARD_WODS_META_KEY;
+
+    return get_post_meta($post_id, $CFWHITEBOARD_WODS_META_KEY, true);
+}
+
+function cfwhiteboard_generate_placeholder($post_id, $options, $wods) {
     if (empty($options) || empty($options['affiliate_id'])) {
         $options = cfwhiteboard_get_options();
     }
@@ -95,16 +147,42 @@ function cfwhiteboard_generate_placeholder($post_id, $options) {
     $affiliateId = !empty($options['affiliate_id']) ? $options['affiliate_id'] : 'testaffiliate';
     if (cfwhiteboard_is_preview_mode($options)) $affiliateId .= '_preview';
     
-    return '<div class="cfwhiteboard cleanslate" data-affiliate-id="' . $affiliateId . '" data-post-id="' . $post_id . '"></div>';
+    if (!is_array($wods)) $wods = array();
+
+    $data = array(
+        "affiliateId" => $affiliateId,
+        "postId" => $post_id,
+        "postModified" => get_the_modified_time('Y-m-d H:i:s'),
+        "wods" => $wods
+    );
+
+    $authorization = is_user_logged_in() ? 'data-authorization="admin"' : '';
+
+    return '<div class="cfwhiteboard cleanslate" data-cfwhiteboard="'. esc_attr(json_encode($data)) .'" '. $authorization .'></div>';
 }
+
+
+// register_activation_hook(__FILE__, 'cfwhiteboard_activate');
+// function cfwhiteboard_activate() {
+//     $post = array(
+//         'comment_status' => 'closed', // 'closed' means no comments.
+//         'ping_status' => 'closed', // 'closed' means pingbacks or trackbacks turned off
+//         'post_content' => [ <the text of the post> ], //The full text of the post.
+//         'post_status' => [ 'draft' | 'publish' | 'pending'| 'future' | 'private' ], //Set the status of the new post. 
+//         'post_title' => [ <the title> ], //The title of your post.
+//         'post_type' => 'post' //You may want to insert a regular post, page, link, a menu item or some custom post type
+//     );
+// }
 
 
 add_action('init', 'cfwhiteboard_bind_actions_and_filters');
 function cfwhiteboard_bind_actions_and_filters() {
     $options = cfwhiteboard_get_options();
 
+    // Debugging
     // if (! (is_user_logged_in() && wp_get_current_user()->first_name == "Collin"))
     //     return;
+
     if (! cfwhiteboard_is_visible($options))
         return;
         
@@ -112,6 +190,7 @@ function cfwhiteboard_bind_actions_and_filters() {
     add_action('wp_enqueue_scripts', 'cfwhiteboard_scripts', 999999);
     add_action('wp_enqueue_scripts', 'cfwhiteboard_scripts_data', 1000000);
     add_action('wp_enqueue_scripts', 'cfwhiteboard_latest_jquery', 1);
+    add_action('template_redirect', 'cfwhiteboard_json_meta');
 
     if ($options['position'] == cfwhiteboard_Position::CustomSelector) {
         add_filter('the_content', 'cfwhiteboard_add_to_post', 999999, 2);
@@ -134,7 +213,7 @@ function cfwhiteboard_add_to_post($titleOrContent, $id = NULL) {
     // Debug info
     // if (cfwhiteboard_is_preview_mode($options)) {
     //     $titleOrContent .= '<span style="display:none !important;width:0;height:0;">' .
-    //         '  title_for_id: ' . (isset($id->ID) ? $id->ID : $id) .
+    //         '  title_for_id: ' . $id .
     //         ', current_id = ' . get_the_ID() .
     //         ', is_feed = ' . (is_feed() ? 'true' : 'false') .
     //         ', is_page = ' . (is_page() ? 'true' : 'false') .
@@ -144,15 +223,30 @@ function cfwhiteboard_add_to_post($titleOrContent, $id = NULL) {
     // }
 
 
-    if (! cfwhiteboard_is_proper_post($id, $options))
+    if (! cfwhiteboard_is_proper_post($id))
+        return $titleOrContent;
+
+    $wods = cfwhiteboard_get_wods($id);
+    if ((!is_array($wods)) || empty($wods))
+        return $titleOrContent;
+
+    $wods = cfwhiteboard_clean_post_meta($wods);
+    if ((!is_array($wods)) || empty($wods))
         return $titleOrContent;
     
-    $cfw_placeholder = cfwhiteboard_generate_placeholder(get_the_ID(), $options);
+    $cfw_placeholder = cfwhiteboard_generate_placeholder(get_the_ID(), $options, $wods);
 	return $cfw_placeholder . $titleOrContent;
 }
 
 function cfwhiteboard_stylesheet() {
-    wp_register_style('cfwhiteboard', plugins_url('cfwhiteboard.css', __FILE__));
+    global $CFWHITEBOARD_VERSION;
+    if (!isset($CFWHITEBOARD_VERSION)) $CFWHITEBOARD_VERSION = '0.0';
+    
+    wp_register_style('cfwhiteboard',
+        plugins_url('cfwhiteboard.css', __FILE__),
+        false,
+        $CFWHITEBOARD_VERSION
+    );
     wp_enqueue_style( 'cfwhiteboard');
 }
 
@@ -202,7 +296,7 @@ function cfwhiteboard_options_page() {
 		return false;
 	
 
-    // $namespace = 'A2A_SHARE_SAVE_';
+    $category_prefix = 'CFWHITEBOARD_category_';
   
     // Make available services extensible via plugins, themes (functions.php), etc.
     // $A2A_SHARE_SAVE_services = apply_filters('A2A_SHARE_SAVE_services', $A2A_SHARE_SAVE_services);
@@ -237,6 +331,15 @@ function cfwhiteboard_options_page() {
             $new_options['position_customselectoralignment'] = @$_POST['CFWHITEBOARD_position_customselectoralignment'];
         if (!empty($_POST['CFWHITEBOARD_position_customselectormargin']))
             $new_options['position_customselectormargin'] = @$_POST['CFWHITEBOARD_position_customselectormargin'];
+
+        // Categories
+        // $new_options['categories'] = array();
+        // $categories = get_categories($category_args);
+        // foreach($categories as $category) {
+        //     if (!empty($_POST[$category_prefix . $category->cat_ID])) {
+        //         array_push($new_options['categories'], $category->cat_ID);
+        //     }
+        // }
 
         // Preview Only (Whiteboard is only visible to logged-in WordPress users.  Workout entries will not be saved.)
         // Active (Whiteboard is visible to anyone who visits your website.  Workout entries will be saved.)
@@ -310,6 +413,16 @@ function cfwhiteboard_options_page() {
 
     $options = cfwhiteboard_get_options();
 
+    // Get info for the categories options
+    // $category_args = array(
+    //     'orderby' => 'name',
+    //     'hide_empty' => 0
+    // );
+    // $categories = get_categories($category_args);
+    // foreach($categories as $category) {
+    //     $category->selected = empty($options['categories']) ? true : in_array($category->cat_ID, $options['categories']);
+    // } 
+
     // function position_in_content($options, $option_box = FALSE) {
     //  
     //  if ( ! isset($options['position'])) {
@@ -374,6 +487,9 @@ function cfwhiteboard_options_page() {
         form > fieldset > ul > li > * {
             text-indent: 0;
         }
+        fieldset h1 {
+            font-size: 1em;
+        }
 
         fieldset ul li fieldset {
             background: #f5f5f5;
@@ -391,10 +507,12 @@ function cfwhiteboard_options_page() {
             *display: inline;
         }
 
-        input[type="radio"] {
+        input[type="radio"],
+        input[type="checkbox"] {
             font-size: 19px;
         }
-        input[type="radio"] + label {
+        input[type="radio"] + label,
+        input[type="checkbox"] + label {
             line-height: 19px;
             margin-left: 5px;
         }
@@ -414,9 +532,9 @@ function cfwhiteboard_options_page() {
             <label for="CFWHITEBOARD_affiliate_id">
                 <strong><?php _e('Affiliate ID:', 'cf-whiteboard') ?></strong>
             </label>
-            <input type="text" id="CFWHITEBOARD_affiliate_id" name="CFWHITEBOARD_affiliate_id" value="<?php echo $options['affiliate_id']; ?>" />
+            <input type="text" id="CFWHITEBOARD_affiliate_id" name="CFWHITEBOARD_affiliate_id" value="<?php echo esc_attr( $options['affiliate_id'] ); ?>" />
             <label for="CFWHITEBOARD_affiliate_id">
-                <?php _e('(Changing this value could result in data loss.)', 'cf-whiteboard') ?>
+                <?php _e('(Caution: Changing this value could result in data loss.)', 'cf-whiteboard') ?>
             </label>
         </p>
         
@@ -424,13 +542,13 @@ function cfwhiteboard_options_page() {
             <legend><?php _e('Visibility Mode', 'cf-whiteboard'); ?></legend>
             <ul>
                 <li>
-                    <input type="radio" id="CFWHITEBOARD_visibility_users" name="CFWHITEBOARD_visibility" value="<?php echo cfwhiteboard_Visibility::Users; ?>" <?php echo $options['visibility'] == cfwhiteboard_Visibility::Users ? 'checked="checked"' : ''; ?> />
+                    <input type="radio" id="CFWHITEBOARD_visibility_users" name="CFWHITEBOARD_visibility" value="<?php echo esc_attr( cfwhiteboard_Visibility::Users ); ?>" <?php echo $options['visibility'] == cfwhiteboard_Visibility::Users ? 'checked="checked"' : ''; ?> />
                     <label for="CFWHITEBOARD_visibility_users">
                         <strong><?php _e('Preview Mode.', 'cf-whiteboard') ?></strong> <?php _e('Athletes cannot see the whiteboard. Only logged-in WordPress users can see the whiteboard.  Whiteboard entries will be removed when you switch to Live Mode, so feel free to experiment.', 'cf-whiteboard') ?>
                     </label>
                 </li>
                 <li>
-                    <input type="radio" id="CFWHITEBOARD_visibility_everyone" name="CFWHITEBOARD_visibility" value="<?php echo cfwhiteboard_Visibility::Everyone; ?>" <?php echo $options['visibility'] == cfwhiteboard_Visibility::Everyone ? 'checked="checked"' : ''; ?> />
+                    <input type="radio" id="CFWHITEBOARD_visibility_everyone" name="CFWHITEBOARD_visibility" value="<?php echo esc_attr( cfwhiteboard_Visibility::Everyone ); ?>" <?php echo $options['visibility'] == cfwhiteboard_Visibility::Everyone ? 'checked="checked"' : ''; ?> />
                     <label for="CFWHITEBOARD_visibility_everyone">
                         <strong><?php _e('Live Mode.', 'cf-whiteboard') ?></strong> <?php _e('Anyone can see the whiteboard. Whiteboard entries will be saved.', 'cf-whiteboard'); ?>
                     </label>
@@ -460,13 +578,13 @@ function cfwhiteboard_options_page() {
                     });
                 </script>
                 <li>
-                    <input type="radio" id="CFWHITEBOARD_position_titleright" name="CFWHITEBOARD_position" value="<?php echo cfwhiteboard_Position::TitleRight; ?>" <?php echo $options['position'] == cfwhiteboard_Position::TitleRight ? 'checked="checked"' : ''; ?> />
+                    <input type="radio" id="CFWHITEBOARD_position_titleright" name="CFWHITEBOARD_position" value="<?php echo esc_attr( cfwhiteboard_Position::TitleRight ); ?>" <?php echo $options['position'] == cfwhiteboard_Position::TitleRight ? 'checked="checked"' : ''; ?> />
                     <label for="CFWHITEBOARD_position_titleright">
                         <strong><?php _e('Default Position.', 'cf-whiteboard'); ?></strong> <?php _e('The whiteboard is positioned to the right of the post title.', 'cf-whiteboard') ?>
                     </label>
                 </li>
                 <li>
-                    <input type="radio" id="CFWHITEBOARD_position_customselector" name="CFWHITEBOARD_position" value="<?php echo cfwhiteboard_Position::CustomSelector; ?>" <?php echo $options['position'] == cfwhiteboard_Position::CustomSelector ? 'checked="checked"' : ''; ?> />
+                    <input type="radio" id="CFWHITEBOARD_position_customselector" name="CFWHITEBOARD_position" value="<?php echo esc_attr( cfwhiteboard_Position::CustomSelector ); ?>" <?php echo $options['position'] == cfwhiteboard_Position::CustomSelector ? 'checked="checked"' : ''; ?> />
                     <label for="CFWHITEBOARD_position_customselector">
                         <strong><?php _e('Custom Position.', 'cf-whiteboard'); ?></strong> <?php _e('For advanced use only. <a href="mailto:affiliatesupport@cfwhiteboard.com">Affiliate Support</a> would be happy to help you with this.', 'cf-whiteboard'); ?>
                     </label>
@@ -478,41 +596,58 @@ function cfwhiteboard_options_page() {
                             <li>
                                 <label for="CFWHITEBOARD_position_customselectorinsertion"><?php _e('Insertion Method', 'cf-whiteboard'); ?></label>
                                 <select id="CFWHITEBOARD_position_customselectorinsertion" name="CFWHITEBOARD_position_customselectorinsertion">
-                                    <option value="<?php echo cfwhiteboard_Position::CustomSelectorInsertionAppend; ?>" <?php echo $options['position_customselectorinsertion'] == cfwhiteboard_Position::CustomSelectorInsertionAppend ? 'selected="selected"' : ''; ?> >Append To</option>
-                                    <option value="<?php echo cfwhiteboard_Position::CustomSelectorInsertionPrepend; ?>" <?php echo $options['position_customselectorinsertion'] == cfwhiteboard_Position::CustomSelectorInsertionPrepend ? 'selected="selected"' : ''; ?> >Prepend To</option>
-                                    <option value="<?php echo cfwhiteboard_Position::CustomSelectorInsertionBefore; ?>" <?php echo $options['position_customselectorinsertion'] == cfwhiteboard_Position::CustomSelectorInsertionBefore ? 'selected="selected"' : ''; ?> >Insert Before</option>
-                                    <option value="<?php echo cfwhiteboard_Position::CustomSelectorInsertionAfter; ?>" <?php echo $options['position_customselectorinsertion'] == cfwhiteboard_Position::CustomSelectorInsertionAfter ? 'selected="selected"' : ''; ?> >Insert After</option>
+                                    <option value="<?php echo esc_attr( cfwhiteboard_Position::CustomSelectorInsertionAppend ); ?>" <?php echo $options['position_customselectorinsertion'] == cfwhiteboard_Position::CustomSelectorInsertionAppend ? 'selected="selected"' : ''; ?> >Append To</option>
+                                    <option value="<?php echo esc_attr( cfwhiteboard_Position::CustomSelectorInsertionPrepend ); ?>" <?php echo $options['position_customselectorinsertion'] == cfwhiteboard_Position::CustomSelectorInsertionPrepend ? 'selected="selected"' : ''; ?> >Prepend To</option>
+                                    <option value="<?php echo esc_attr( cfwhiteboard_Position::CustomSelectorInsertionBefore ); ?>" <?php echo $options['position_customselectorinsertion'] == cfwhiteboard_Position::CustomSelectorInsertionBefore ? 'selected="selected"' : ''; ?> >Insert Before</option>
+                                    <option value="<?php echo esc_attr( cfwhiteboard_Position::CustomSelectorInsertionAfter ); ?>" <?php echo $options['position_customselectorinsertion'] == cfwhiteboard_Position::CustomSelectorInsertionAfter ? 'selected="selected"' : ''; ?> >Insert After</option>
                                 </select>
                             </li>
                             <li>
                                 <label for="CFWHITEBOARD_position_customselectortarget"><?php _e('Target Selector', 'cf-whiteboard'); ?></label>
-                                <input id="CFWHITEBOARD_position_customselectortarget" type="text" name="CFWHITEBOARD_position_customselectortarget" value="<?php echo $options['position_customselectortarget']; ?>" size="50" />
+                                <input id="CFWHITEBOARD_position_customselectortarget" type="text" name="CFWHITEBOARD_position_customselectortarget" value="<?php echo esc_attr( $options['position_customselectortarget'] ); ?>" size="50" />
                             </li>
                             <li>
                                 <label for="CFWHITEBOARD_position_customselectorparent"><?php _e('Parent Selector', 'cf-whiteboard'); ?></label>
-                                <input id="CFWHITEBOARD_position_customselectorparent" type="text" name="CFWHITEBOARD_position_customselectorparent" value="<?php echo $options['position_customselectorparent']; ?>" size="50" />
+                                <input id="CFWHITEBOARD_position_customselectorparent" type="text" name="CFWHITEBOARD_position_customselectorparent" value="<?php echo esc_attr( $options['position_customselectorparent'] ); ?>" size="50" />
                             </li>
                             <li>
                                 <label for="CFWHITEBOARD_position_customselectoralignment"><?php _e('Alignment', 'cf-whiteboard'); ?></label>
                                 <select id="CFWHITEBOARD_position_customselectoralignment" name="CFWHITEBOARD_position_customselectoralignment">
-                                    <option value="<?php echo cfwhiteboard_Position::CustomSelectorAlignmentFloatLeft; ?>" <?php echo $options['position_customselectoralignment'] == cfwhiteboard_Position::CustomSelectorAlignmentFloatLeft ? 'selected="selected"' : ''; ?> >Float Left</option>
-                                    <option value="<?php echo cfwhiteboard_Position::CustomSelectorAlignmentFloatRight; ?>" <?php echo $options['position_customselectoralignment'] == cfwhiteboard_Position::CustomSelectorAlignmentFloatRight ? 'selected="selected"' : ''; ?> >Float Right</option>
-                                    <option value="<?php echo cfwhiteboard_Position::CustomSelectorAlignmentInline; ?>" <?php echo $options['position_customselectoralignment'] == cfwhiteboard_Position::CustomSelectorAlignmentInline ? 'selected="selected"' : ''; ?> >Inline</option>
-                                    <option value="<?php echo cfwhiteboard_Position::CustomSelectorAlignmentBlock; ?>" <?php echo $options['position_customselectoralignment'] == cfwhiteboard_Position::CustomSelectorAlignmentBlock ? 'selected="selected"' : ''; ?> >Block</option>
+                                    <option value="<?php echo esc_attr( cfwhiteboard_Position::CustomSelectorAlignmentFloatLeft ); ?>" <?php echo $options['position_customselectoralignment'] == cfwhiteboard_Position::CustomSelectorAlignmentFloatLeft ? 'selected="selected"' : ''; ?> >Float Left</option>
+                                    <option value="<?php echo esc_attr( cfwhiteboard_Position::CustomSelectorAlignmentFloatRight ); ?>" <?php echo $options['position_customselectoralignment'] == cfwhiteboard_Position::CustomSelectorAlignmentFloatRight ? 'selected="selected"' : ''; ?> >Float Right</option>
+                                    <option value="<?php echo esc_attr( cfwhiteboard_Position::CustomSelectorAlignmentInline ); ?>" <?php echo $options['position_customselectoralignment'] == cfwhiteboard_Position::CustomSelectorAlignmentInline ? 'selected="selected"' : ''; ?> >Inline</option>
+                                    <option value="<?php echo esc_attr( cfwhiteboard_Position::CustomSelectorAlignmentBlock ); ?>" <?php echo $options['position_customselectoralignment'] == cfwhiteboard_Position::CustomSelectorAlignmentBlock ? 'selected="selected"' : ''; ?> >Block</option>
                                 </select>
                             </li>
                             <li>
                                 <label for="CFWHITEBOARD_position_customselectormargin"><?php _e('Margin', 'cf-whiteboard'); ?></label>
-                                <input id="CFWHITEBOARD_position_customselectormargin" type="text" name="CFWHITEBOARD_position_customselectormargin" value="<?php echo $options['position_customselectormargin']; ?>" size="50" />
+                                <input id="CFWHITEBOARD_position_customselectormargin" type="text" name="CFWHITEBOARD_position_customselectormargin" value="<?php echo esc_attr( $options['position_customselectormargin'] ); ?>" size="50" />
                             </li>
                         </ul>
                     </fieldset>
                 </li>
             </ul>
         </fieldset>
-        
+
+<!--
+        <fieldset>
+            <legend><?php _e('WOD Blog Category', 'cf-whiteboard'); ?></legend>
+            <h1><?php _e('Which post categories should the whiteboard be added to?', 'cf-whiteboard'); ?></h1>
+            <ul>
+                <?php foreach($categories as $category) { ?>
+                    <li>
+                        <input type="checkbox" id="<?php echo $category_prefix . $category->cat_ID; ?>" name="<?php echo $category_prefix . $category->cat_ID; ?>" <?php echo $category->selected ? 'checked="checked"' : ''; ?> />
+                        <label for="<?php echo $category_prefix . $category->cat_ID; ?>">
+                            <?php echo $category->cat_name; ?>
+                        </label>
+                    </li>
+                <?php } ?>
+            </ul>
+        </fieldset>
+-->
+
         <p class="submit">
-            <input class="button-primary" type="submit" name="Submit" value="<?php _e('Save Changes', 'cf-whiteboard' ) ?>" />
+            <input class="button-primary" type="submit" name="Submit" value="<?php esc_attr_e('Save Changes', 'cf-whiteboard' ); ?>" />
             <!-- <input id="A2A_SHARE_SAVE_reset_options" type="submit" name="Reset" onclick="return confirm('<!php _e('Are you sure you want to delete all CF Whiteboard options?', 'add-to-any' ) ?>')" value="<!php _e('Reset', 'add-to-any' ) ?>" /> -->
         </p>
     
@@ -559,5 +694,1015 @@ function cfwhiteboard_actlinks($links, $file){
     return $links;
 }
 add_filter("plugin_action_links", 'cfwhiteboard_actlinks', 10, 2);
+
+
+
+// Custom Meta Boxes on Add/Edit Post page
+global $CFWHITEBOARD_WODS_META_KEY;
+$CFWHITEBOARD_WODS_META_KEY = 'cfwhiteboard-wods';
+add_action('load-post.php', 'cfwhiteboard_setup_post_meta_boxes');
+add_action('load-post-new.php', 'cfwhiteboard_setup_post_meta_boxes');
+/* Save post meta on the 'save_post' hook. */
+add_action('save_post', 'cfwhiteboard_save_post_meta_boxes', 10, 2);
+/* Clean post meta on the 'publish_post' hook. */
+// add_action('publish_post', 'cfwhiteboard_clean_post_meta', 10, 1);
+
+/* Meta box setup function. */
+function cfwhiteboard_setup_post_meta_boxes() {
+    /* Add meta boxes on the 'add_meta_boxes' hook. */
+    add_action('add_meta_boxes', 'cfwhiteboard_add_post_meta_boxes', 1);
+
+    /* Add tinymce button & plugin */
+    add_filter('mce_buttons_2', 'cfwhiteboard_mce_buttons');
+    add_filter('mce_external_plugins', 'cfwhiteboard_mce_external_plugins');
+
+    /* Add admin notices (if post was just saved) */
+    add_action('admin_notices', 'cfwhiteboard_save_post_meta_notices');
+}
+
+/* Create one or more meta boxes to be displayed on the post editor screen. */
+function cfwhiteboard_add_post_meta_boxes() {
+    add_meta_box(
+        'cfwhiteboard-wods-meta', // Unique ID
+        esc_html__('CF Whiteboard', 'cf-whiteboard'),      // Title
+        'cfwhiteboard_wods_meta_box',     // Callback function
+        'post',                 // Admin page (or post type)
+        'normal',                 // Context
+        'core'                   // Priority
+    );
+}
+
+/* Generate the fields for a "class" in the post meta box. */
+function cfwhiteboard_generate_class_fields($class) {
+    $class_id = esc_attr( $class['wp_id'] );
+    $class_prefix = 'cfwhiteboard-wod-' . $class_id;
+    $class_name_attr = $class_prefix . '-name';
+
+    $component_fields = '';
+    foreach ($class['components'] as $component) {
+        $component_fields .= cfwhiteboard_generate_class_component_fields($class_prefix . '-cmp-', $component);
+    }
+
+    return '
+    <table class="'. (count($class['components']) > 1 ? 'multi-component' : 'single-component') .'">
+        <thead>
+            <tr>
+                <th>
+                    <label for="'. $class_name_attr .'">
+                        '. esc_html__("Class Name", 'cf-whiteboard') .'
+                        <a href="javascript://" class="help-alert" data-message="Each class gets a separate tab in the Whiteboard. You can track as many classes as you want.<br><br>Example Class Names: WOD, Oly, Strength, Endurance, Erg, Zumba (kidding!)">(Help)</a>
+                    </label>
+                </th>
+                <td>
+                    <a href="javascript://" class="remove-class delete">
+                        &ndash; '. esc_html__("Remove This Class", 'cf-whiteboard') .'
+                    </a>
+                    <input type="text" id="'. $class_name_attr .'" name="'. $class_name_attr .'"
+                        value="'. esc_attr( $class['name'] ) .'" />
+                </td>
+            </tr>
+        </thead>
+    '. $component_fields .'
+    </table>
+    <div class="tools">
+        <a href="javascript://" class="add-component" data-classid="'. $class_id .'">
+            + '. esc_html__("Track Another Component", 'cf-whiteboard') .'
+        </a>
+    </div>
+    ';
+}
+function cfwhiteboard_generate_class_component_fields($component_prefix, $component) {
+    $cmp_id = esc_attr( $component['wp_id'] );
+    $description_name = $component_prefix . $cmp_id . '-description';
+    $label_name = $component_prefix . $cmp_id . '-label';
+
+    $has_label = !empty($component['label']);
+
+    return '
+        <tbody>
+            <tr>
+                <th>
+                    <label for="'. $description_name .'">
+                        '. esc_html__("Component", 'cf-whiteboard') .' <span class="component-index"></span>
+                        <a href="javascript://" class="help-alert" data-message="Each class needs 1 or more components. Athletes will be able to search the component descriptions to recall workout results in the future.<br><br>Example WOD:<br><br>Component 1:<br>Deadlift<br>5-5-5-5-5<br><br>Component 2:<br>&quot;Fran&quot;<br>21-15-9 reps, for time<br>Thruster 95 lbs<br>Pull-ups">(Help)</a>
+                    </label>
+                    <p>
+                        '. esc_html__("Include rep scheme & loading", 'cf-whiteboard') .'
+                    </p>
+                    <p>
+                        '. esc_html__("Break strength/skill work into separate components if you want athletes to track them individually", 'cf-whiteboard') .'
+                    </p>
+                </th>
+                <td>
+                    <textarea id="'. $description_name .'" name="'. $description_name .'" class="widefat" rows="5">'.
+                        esc_textarea( $component['description'] )
+                    .'</textarea>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="'. $label_name .'" '. ($has_label ? '' : 'class="hidden"') .'>
+                        '. esc_html__("Component Label", 'cf-whiteboard') .'
+                        <a href="javascript://" class="help-alert" data-message="The label is used as a short description for the component on the Whiteboard and on athlete profiles. Shorter labels are better, but they&apos;re just labels so they don&apos;t have to be perfect.<br><br>Example Component Labels: Deadlift, Fran, 3 Rounds, AMRAP 20min, 21-15-9">(Help)</a>
+                    </label>
+                </th>
+                <td>
+                    <span class="component-label-show '. ($has_label ? '' : 'hidden') .'">
+                        <span>'. esc_html( $component['label'] ) .'</span>
+                        <a href="javascript://" class="button edit">'. esc_html__("Edit") .'</a>
+                    </span>
+                    <span class="component-label-edit hidden">
+                        <input type="text" id="'. $label_name .'" name="'. $label_name .'"
+                            value="'. esc_attr( $component['label'] ) .'" />
+                        <a href="javascript://" class="button save">'. esc_html__("OK") .'</a>
+                        <a href="javascript://" class="cancel">'. esc_html__("Cancel") .'</a>
+                    </span>
+                    <a href="javascript://" class="multi-component remove-component delete">
+                        &ndash; '. esc_html__("Remove This Component", 'cf-whiteboard') .'
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    ';
+}
+function cfwhiteboard_wods_meta_box($object, $box) {
+    global $CFWHITEBOARD_WODS_META_KEY; ?>
+
+    <?php wp_nonce_field(basename( __FILE__ ), $CFWHITEBOARD_WODS_META_KEY); ?>
+    <style type="text/css">
+        #cfwhiteboard-wods-meta {
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+        #cfwhiteboard-wods-meta .inside {
+            background: #555;
+            -webkit-border-bottom-left-radius: inherit;
+            -moz-border-radius-bottomleft: inherit;
+            border-radius-bottom-left: inherit;
+            -webkit-border-bottom-right-radius: inherit;
+            -moz-border-radius-bottomright: inherit;
+            border-radius-bottom-right: inherit;
+            -webkit-box-shadow: inset 0 1px 6px rgba(0,0,0,.6);
+            -moz-box-shadow: inset 0 1px 6px rgba(0,0,0,.6);
+            box-shadow: inset 0 1px 6px rgba(0,0,0,.6);
+            margin: 0;
+        }
+        #cfwhiteboard-wods-meta p.help {
+            color: #ddd;
+            font-size: 11px;
+            font-style: normal;
+            line-height: 1.3;
+            margin: 0;
+            padding: 16px 20px 4px;
+        }
+        #cfwhiteboard-wods-meta p.help + p.help {
+            padding-top: 4px;
+            padding-bottom: 16px;
+        }
+        #cfwhiteboard-wods-meta p.help:hover {
+            color: #fff;
+        }
+        #cfwhiteboard-wods-meta .hidden {
+            display: none;
+        }
+        #cfwhiteboard-wods-meta ul {
+            margin: 0;
+            padding: 0 6px;
+        }
+        #cfwhiteboard-wods-meta ul li,
+        #cfwhiteboard-wods-meta p.tools a {
+            background: #f5f5f5;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 6px rgba(0,0,0,.6);
+            -moz-box-shadow: 0 1px 6px rgba(0,0,0,.6);
+            box-shadow: 0 1px 6px rgba(0,0,0,.6);
+        }
+        #cfwhiteboard-wods-meta ul li {
+            margin: 0 0 20px;
+            padding: 0;
+        }
+        #cfwhiteboard-wods-meta ul li .tools {
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+        #cfwhiteboard-wods-meta ul li .tools a {
+            background: #f5f5f5;
+            color: #333;
+            display: block;
+            font-weight: bold;
+            line-height: 2;
+            margin: 0;
+            padding: 3px 0;
+            text-align: center;
+            text-decoration: none;
+        }
+        #cfwhiteboard-wods-meta ul li .tools a:hover,
+        #cfwhiteboard-wods-meta ul li .tools a:focus {
+            background: #fff;
+            color: #0b4;
+        }
+        #cfwhiteboard-wods-meta ul li .tools a {
+            -webkit-border-bottom-left-radius: 5px;
+            -moz-border-radius-bottomleft: 5px;
+            border-bottom-left-radius: 5px;
+            -webkit-border-bottom-right-radius: 5px;
+            -moz-border-radius-bottomright: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        #cfwhiteboard-wods-meta ul li table {
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 0;
+            width: 100%;
+        }
+        #cfwhiteboard-wods-meta ul li table thead th,
+        #cfwhiteboard-wods-meta ul li table thead td,
+        #cfwhiteboard-wods-meta ul li table tbody tr + tr th,
+        #cfwhiteboard-wods-meta ul li table tbody tr + tr td {
+            border-bottom: 1px solid #aaa;
+            border-top: none;
+        }
+        #cfwhiteboard-wods-meta ul li table tbody tr th,
+        #cfwhiteboard-wods-meta ul li table tbody tr td,
+        #cfwhiteboard-wods-meta ul li .tools {
+            border-top: 1px solid #fff;
+        }
+/*
+        #cfwhiteboard-wods-meta ul li table.single-component tbody th,
+        #cfwhiteboard-wods-meta ul li table.single-component tbody td {
+            border-bottom: 1px solid #aaa;
+        }
+*/
+        #cfwhiteboard-wods-meta ul li table tbody a.delete {
+            font-size: 11px;
+        }
+        #cfwhiteboard-wods-meta ul li table tbody .component-label-show span {
+            color: #666;
+            font-family: sans-serif;
+            line-height: 23px;
+            font-size: 12px;
+        }
+        #cfwhiteboard-wods-meta ul li table tbody tr + tr th,
+        #cfwhiteboard-wods-meta ul li table tbody tr + tr td {
+            border-bottom: 1px solid #aaa;
+            border-top: none;
+            padding-top: 2px;
+        }
+        #cfwhiteboard-wods-meta ul li table th,
+        #cfwhiteboard-wods-meta ul li table td {
+            vertical-align: top;
+        }
+        #cfwhiteboard-wods-meta ul li table th {
+            font-weight: normal;
+            text-align: left;
+            padding: 8px 10px;
+            width: 30%;
+        }
+        #cfwhiteboard-wods-meta ul li table th label {
+            display: block;
+            font-weight: bold;
+            line-height: 23px;
+        }
+        #cfwhiteboard-wods-meta ul li table tr:hover label {
+            color: black;
+        }
+        #cfwhiteboard-wods-meta ul li table th p {
+            color: #999;
+            font-size: 11px;
+            margin: 2px 0 0;
+        }
+        #cfwhiteboard-wods-meta ul li table th p + p {
+            margin: 5px 0 0;
+        }
+        #cfwhiteboard-wods-meta ul li table td {
+            padding: 8px 10px 8px 0;
+            width: 70%;
+        }
+        #cfwhiteboard-wods-meta ul li table td input[type="text"] {
+            margin: 0;
+            width: 140px;
+        }
+        #cfwhiteboard-wods-meta ul li table td .component-label-edit input[type="text"] {
+            width: 140px;
+        }
+        #cfwhiteboard-wods-meta ul li table td a.delete {
+            color: #666;
+            float: right;
+            line-height: 23px;
+            padding: 0 0 0 8px;
+            text-decoration: none;
+        }
+        #cfwhiteboard-wods-meta ul li table td a.delete:hover,
+        #cfwhiteboard-wods-meta ul li table td a.delete:focus {
+            color: #d33;
+        }
+        #cfwhiteboard-wods-meta ul li table td textarea {
+            display: block;
+            margin: 0;
+            outline: none;
+            resize: vertical;
+        }
+        #cfwhiteboard-wods-meta ul li table a.help-alert {
+            float: right;
+            font-size: 90%;
+            font-weight: normal;
+            line-height: 2;
+            text-decoration: none;
+        }
+        #cfwhiteboard-wods-meta ul li table.single-component .multi-component {
+            display: none;
+        }
+        #cfwhiteboard-wods-meta ul li table.multi-component .single-component {
+            display: none;
+        }
+        #cfwhiteboard-wods-meta p.tools {
+            margin: 16px 0 0;
+            padding: 0 6px 20px;
+        }
+        #cfwhiteboard-wods-meta p.tools a {
+            display: inline-block;
+            font-weight: bold;
+            line-height: 36px;
+            margin: 0;
+            padding: 0 16px;
+            text-decoration: none;
+            *display: inline;
+            *zoom: 1;
+        }
+        #cfwhiteboard-wods-meta p.tools a:hover,
+        #cfwhiteboard-wods-meta p.tools a:focus {
+            background: #fff;
+            color: #0b4;
+        }
+        /* admin notices */
+        #cfwhiteboard-admin-notice em {
+            font-style: normal;
+            color: red;
+        }
+        /* tinyMCE styling */
+        a.mceAction.mce_cfwhiteboard_button {
+            width: 93px !important;
+        }
+    </style>
+    <p class="help">
+        Add the classes that you want to track for today.  Each class will have a separate tab in the CF Whiteboard widget.
+    </p>
+    <p class="help">
+        You can track multiple components for each class.  Each component will have a separate entry field so athletes can lookup their results separately for each component.
+    </p>
+    <ul>
+        <?php
+        $wods = get_post_meta($object->ID, $CFWHITEBOARD_WODS_META_KEY, true);
+
+        $next_wod_id = 1;
+        $next_component_id = 1;
+
+        if (! is_array($wods)) {
+            // no wods yet - instantiate empty array
+            $wods = array();
+            $wods[] = array(
+                'name' => 'Workout of the Day',
+                'components' => array(),
+                'wp_id' => $next_wod_id++
+            );
+        }
+        // else {
+        //     // Gather the next_wod_id and next_component_id values
+        //     $last_wod = end($new_wods);
+        //     $next_wod_id = intval( $last_wod['wp_id'] ) + 10;
+
+        //     $last_component = end( $last_wod['components'] );
+        //     $next_component_id = intval( $last_component['wp_id'] ) + 10;
+        // }
+
+    
+        foreach ($wods as $wod) {
+            if ((!is_array( $wod['components'] )) || empty($wod['components'])) {
+                $wod['components'] = array();
+                $wod['components'][] = array(
+                    'description' => '',
+                    'label' => '',
+                    'wp_id' => $next_component_id++
+                );
+            }
+
+            ?>
+            <li id="cfwhiteboard-wod-<?php echo $wod['wp_id']; ?>">
+                <?php echo cfwhiteboard_generate_class_fields($wod); ?>
+            </li>
+            <?php
+
+            $next_wod_id = max($next_wod_id, intval( $wod['wp_id'] ));
+            $last_component = end($wod['components']);
+            $next_component_id = max($next_component_id, intval( $last_component['wp_id'] ));
+        }
+
+        $next_wod_id += 10;
+        $next_component_id += 10;
+        ?>
+    </ul>
+    <p class="tools">
+        <a href="javascript://" class="add-class">+ <?php esc_html_e("Track Another Class", 'cf-whiteboard'); ?></a>
+    </p>
+    <script type="text/javascript">
+        typeof(jQuery) == 'function' && jQuery(function($) {
+            // Don't let the script run more than once
+            if (window.CFW) {
+                return;
+            }
+            window.CFW = {};
+
+            CFW.parseClassDescription = function($container) {
+                var classDescription = {
+                    name: $container.find('[name$="name"]').val(),
+                    components: []
+                }
+
+                $container.find('tbody').each(function() {
+                    var $tbody = $(this);
+                    classDescription.components.push({
+                        label: $tbody.find('[name$="label"]').val(),
+                        description: $tbody.find('[name$="description"]').val()
+                    });
+                });
+
+                return classDescription;
+            };
+            CFW.generateClassDescriptionMarkup = function(classDescription) {
+                var linebreak = '\n';
+
+                var markup = '';
+                markup += '<strong>'+classDescription.name+'</strong>' + linebreak;
+                var count = 0; // must count separately from index because components with blank descriptions are skipped
+                for (var i = 0; i < classDescription.components.length; ++i) {
+                    var trimmedDescription = classDescription.components[i].description.replace(/^\s+/,'').replace(/\s+$/,'');
+                    if (!trimmedDescription) continue;
+
+                    if (count++ > 0) markup += '<em>then</em>' + linebreak;
+                    markup += classDescription.components[i].description + linebreak;
+                }
+
+                return markup + linebreak;
+            };
+            CFW.newlineToBr = function(str) {
+                return str.replace(/\r\n/g, '<br />').replace(/\r/g, '<br />').replace(/\n/g, '<br />');
+            };
+
+
+            // Move the CF Whiteboard meta box just under the Post Title
+            $('#titlediv').after( $('#cfwhiteboard-wods-meta') );
+
+
+            // Update component numbers
+            CFW.updateComponentNumbers = function($container) {
+                $container.find('tbody label span').each(function(index) {
+                    $(this).text(index + 1); // component numbers start at 1
+                });
+            };
+            // intial numbering
+            $('#cfwhiteboard-wods-meta li').each(function() {
+                CFW.updateComponentNumbers( $(this) );
+            });
+
+
+            // Component labels logic:
+            // Guess component labels
+            CFW.guessComponentLabel = function(componentDescription) {
+                var matches = componentDescription.replace(/^\s+/, '').replace(/\s+$/, '').match(/[^\r\n]+/);
+                if (!matches) return '';
+
+                return matches[0].replace(/^\s+/, '').replace(/:\s*$/, '');
+            };
+            $('#cfwhiteboard-wods-meta textarea').live('keyup blur paste input textInput', function() {
+                var $textarea = $(this);
+                var $labelInput = $textarea.closest('tbody').find('.component-label-edit input');
+
+                var guess = CFW.guessComponentLabel( $textarea.val() );
+
+                if (!guess) {
+                    // Resume guessing component labels if the text was cleared
+                    $labelInput.removeClass('owned-by-user');
+                }
+
+                $labelInput.not('.owned-by-user').val(guess).change();
+            });
+            // Mirror the label input, maybe show the component field & label
+            $('#cfwhiteboard-wods-meta .component-label-edit input').live('change', function() {
+                var $input = $(this);
+                var val = $input.val();
+                var $tr = $input.closest('tr');
+
+                // Display field should mirror the text input
+                $tr.find('.component-label-show span').text(val || '(not yet labeled)');
+
+                // Logic for showing the component label field (& label) once it has a value
+                if (val) {
+                    $tr.find('label').removeClass('hidden');
+                    $tr.find('.component-label-edit.hidden').siblings('.component-label-show').removeClass('hidden');
+                }
+            }).live('keypress', function(event) {
+                // If they press enter,
+                if (event.which == 13) {
+                    // 1: Block the form from being submitted
+                    event.preventDefault();
+                    // 2: Save the label by clicking 'ok' for them
+                    $(this).closest('.component-label-edit').find('.save').click();
+                }
+            });
+            // Logic for edit/ok/cancel
+            $('#cfwhiteboard-wods-meta .component-label-show .edit').live('click', function() {
+                var $stuff = $(this).closest('tr').find('.component-label-show, .component-label-edit').toggleClass('hidden');
+
+                // cache the current value.  if they click cancel, we want to be able to restore it.
+                var $input = $stuff.find('input');
+                $input.data('valuebeforeedit', $input.val());
+                var input = $input[0];
+                if (input.focus) input.focus();
+                if (input.select) input.select();
+            });
+            $('#cfwhiteboard-wods-meta .component-label-edit .save').live('click', function() {
+                var $this = $(this);
+
+                var $input = $this.siblings('input');
+                if (/^\s*$/.test($input.val())) {
+                    $input.removeClass('owned-by-user').change();
+                } else {
+                    // Stop guessing component labels
+                    // Trigger mirror to update (on 'change')
+                    $input.addClass('owned-by-user').change();
+                }
+
+                $this.closest('tr').find('.component-label-show, .component-label-edit').toggleClass('hidden');
+            });
+            $('#cfwhiteboard-wods-meta .component-label-edit .cancel').live('click', function() {
+                var $this = $(this);
+
+                // restore the cached input value
+                var $input = $this.siblings('input');
+                $input.val($input.data('valuebeforeedit')).change();
+
+                $this.closest('tr').find('.component-label-show, .component-label-edit').toggleClass('hidden');
+            });
+
+
+            // QuickTag Button for HTML editor
+            if (QTags && QTags.addButton && !CFW.edButtonAdded) {
+                QTags.addButton(
+                    'cfw_wods', // id
+                    'CF Whiteboard', // display
+                    function(button){
+                        var $button = $(button);
+
+                        // Gather class names/descriptions
+                        var classes = [];
+                        var tempClass;
+                        jQuery('#cfwhiteboard-wods-meta li').each(function() {
+                            tempClass = CFW.parseClassDescription( jQuery(this) );
+
+                            var hasDescription = false;
+                            for (var i = 0; i < tempClass.components.length; i++) {
+                                if (tempClass.components[i].description.replace(/^\s+/,'').replace(/\s+$/,'')) {
+                                    hasDescription = true;
+                                    break;
+                                }
+                            }
+                            // only add classes that have descriptions
+                            if (!hasDescription) return;
+
+                            // Generate the markup for the class description
+                            tempClass.markup = CFW.generateClassDescriptionMarkup(tempClass);
+
+                            classes.push( tempClass );
+                        });
+
+                        var options = [];
+                        if (!classes.length) {
+                            // no classes entered, provide link to CFW meta box
+                            options.push({
+                                text: 'No workouts. Click to add one.',
+                                handler: function() {
+                                    window.location = window.location.href.replace(/#.*/, '') + '#cfwhiteboard-wods-meta';
+                                    var $metaBox = jQuery('#cfwhiteboard-wods-meta');
+                                    if ($metaBox.find('ul:visible').length == 0) {
+                                        $metaBox.find('.handlediv').click();
+                                    }
+                                }
+                            });
+                        } else if (classes.length > 1) {
+                            // multiple classes entered, provide menu item for inserting all at once
+
+                            var markupAll = '';
+                            for (var i = 0; i < classes.length; i++) {
+                                markupAll += classes[i].markup;
+                            }
+
+                            options.push({
+                                text: 'Insert All Classes',
+                                handler: function() {
+                                    QTags.insertContent( markupAll );
+                                }
+                            });
+                        }
+
+                        var generateInsertMarkupFunc = function(markup) {
+                            return function() {
+                                QTags.insertContent( markup );
+                            };
+                        };
+                        for (var i = 0; i < classes.length; i++) {
+                            options.push({
+                                text: 'Insert '+classes[i].name,
+                                handler: generateInsertMarkupFunc( classes[i].markup )
+                            });
+                        }
+
+                        var $select = $('<select />').css({
+                            'margin': '2px 1px 0 0',
+                            'line-height': '18px',
+                            'min-width': '26px',
+                            'padding': '2px 4px',
+                            'font': '12px/18px Arial,Helvetica,sans-serif normal',
+                            'color': '#464646',
+                            '-webkit-border-radius': '3px',
+                            '-moz-border-radius': '3px',
+                            'background-color': '#EEE',
+                            'background-image': '-webkit-linear-gradient(bottom,#e3e3e3,#fff)',
+                            'background-image': '-moz-linear-gradient(bottom,#e3e3e3,#fff)',
+                            'background-image': '-ms-linear-gradient(bottom,#e3e3e3,#fff)',
+                            'background-image': '-o-linear-gradient(bottom,#e3e3e3,#fff)',
+                            'background-image': 'linear-gradient(bottom,#e3e3e3,#fff)',
+                            'border': '1px solid #BBB',
+                            'border-radius': '3px',
+                            'vertical-align': 'top'
+                        }).change(function() {
+                            var i = parseInt($select.val(), 10);
+                            options[i] && options[i].handler && options[i].handler();
+                            $select.remove();
+                        });
+
+                        $select.append(
+                            $('<option selected="selected">Insert Workout(s)</option>')
+                        );
+                        $.each(options, function(i) {
+                            $select.append(
+                                $('<option value="'+ i +'">'+ this.text +'</option>')
+                            );
+                        });
+
+                        $button.after($select);
+                    }, // arg1
+                    function(){}, // arg2
+                    'w', // access_key
+                    'Insert Workout Description(s)', // title
+                    140 // priority
+                );
+                CFW.edButtonAdded = true;
+            }
+
+
+            // Add / Remove Classes
+            var class_template = '<?php
+                $empty_wod = array(
+                    "name" => "",
+                    "components" => array(
+                        array(
+                            "description" => "",
+                            "label" => "",
+                            "wp_id" => "#c#"
+                        )
+                    ),
+                    "wp_id" => "#w#"
+                );
+                echo str_replace(array("\r\n", "\n", "\r"), "", cfwhiteboard_generate_class_fields($empty_wod) );
+            ?>';
+            var next_class_id = <?php esc_attr_e( $next_wod_id ); ?>;
+            var next_component_id = <?php esc_attr_e( $next_component_id ); ?>;
+            $('a.add-class').click(function() {
+                var $ul = $('#cfwhiteboard-wods-meta ul');
+                var html = class_template.replace(/#w#/g, next_class_id++).replace(/#c#/g, next_component_id++);
+                var $new = $('<li />').html(html);
+                $ul.append( $new );
+
+                CFW.updateComponentNumbers( $new );
+            });
+            $('a.remove-class').live('click', function() {
+                if (confirm('remove this class?')) {
+                    $(this).closest('li').remove();
+                }
+            });
+
+
+            // Add / Remove Components of Classes
+            function updateSingleMultiComponent($table) {
+                if ($table.find('tbody').length > 1) {
+                    $table.removeClass('single-component').addClass('multi-component');
+                } else {
+                    $table.removeClass('multi-component').addClass('single-component');
+                }
+            }
+
+            var component_template = '<?php
+                $empty_component = array(
+                    "description" => "",
+                    "label" => "",
+                    "wp_id" => "#c#"
+                );
+                echo str_replace(array("\r\n", "\n", "\r"), "", cfwhiteboard_generate_class_component_fields("cfwhiteboard-wod-#w#-cmp-", $empty_component));
+            ?>';
+            $('a.add-component').live('click', function() {
+                var $this = $(this);
+                var $table = $this.closest('li').find('table');
+                var html = component_template.replace(/#w#/g, $this.data('classid')).replace(/#c#/g, next_component_id++);
+                var $new = $(html);
+                $table.append( $new );
+
+                updateSingleMultiComponent($table);
+
+                CFW.updateComponentNumbers($table);
+            });
+            $('a.remove-component').live('click', function() {
+                if (confirm('remove this component?')) {
+                    var $this = $(this);
+                    var $table = $this.closest('table');
+                    $this.closest('tbody').remove();
+
+                    updateSingleMultiComponent($table);
+
+                    CFW.updateComponentNumbers($table);
+                }
+            });
+
+            // help messages!
+            $('a.help-alert').live('click', function(event) {
+                event.preventDefault();
+                alert($(this).data('message').replace(/<br>/g,'\n').replace(/&apos;/g,"'").replace(/&quot;/g, '"'));
+            });
+        });
+    </script>
+
+<?php
+
+}
+
+function cfwhiteboard_mce_buttons( $buttons ) {
+
+    array_unshift( $buttons, 'cfwhiteboard_button', '|' );
+
+    return $buttons;
+}
+function cfwhiteboard_mce_external_plugins( $plugins ) {
+    
+    $plugins['CfWhiteboard'] = plugins_url('cfwhiteboard-post-editor/mce-plugin.js' , __FILE__);
+    
+    return $plugins;
+}
+
+/* Save the meta box's post metadata. */
+function cfwhiteboard_save_post_meta_boxes($post_id, $post) {
+    global $CFWHITEBOARD_WODS_META_KEY;
+
+    /* Verify the nonce before proceeding. */
+    if ( !isset( $_POST[$CFWHITEBOARD_WODS_META_KEY] ) || !wp_verify_nonce( $_POST[$CFWHITEBOARD_WODS_META_KEY], basename( __FILE__ ) ) )
+        return $post_id;
+
+    /* Get the post type object. */
+    $post_type = get_post_type_object( $post->post_type );
+
+    /* Check if the current user has permission to edit the post. */
+    if ( !current_user_can( $post_type->cap->edit_post, $post_id ) )
+        return $post_id;
+
+    /* Get the posted data. */
+    $param_prefix = 'cfwhiteboard-wod-';
+    $param_prefix_len = strlen( $param_prefix );
+
+    $new_wods = array();
+    foreach ($_POST as $name => $value) {
+
+        $name_prefix = substr($name, 0, $param_prefix_len);
+        if (strcmp($name_prefix, $param_prefix) == 0) {
+            $name = substr($name, $param_prefix_len);
+            $name = explode('-', $name);
+
+            $wod_id = $name[0];
+
+            if (!is_array( $new_wods[$wod_id] )) {
+                $new_wods[$wod_id] = array(
+                    'name' => '',
+                    'components' => array(),
+                    'wp_id' => $wod_id
+                );
+            }
+
+            if (strcmp($name[1], 'name') == 0) {
+                // cfwhiteboard-wod-<wod_id>-name
+                $new_wods[$wod_id]['name'] = $value;
+
+            } elseif (strcmp($name[1], 'cmp') == 0) {
+                // cfwhiteboard-wod-<wod_id>-cmp-<component_id>-...
+                $component_id = $name[2];
+
+                if (!is_array( $new_wods[$wod_id]['components'][$component_id] )) {
+                    $new_wods[$wod_id]['components'][$component_id] = array(
+                        'description' => '',
+                        'label' => '',
+                        'wp_id' => $component_id
+                    );
+                }
+
+                if (strcmp($name[3], 'description') == 0) {
+                    // cfwhiteboard-wod-<wod_id>-cmp-<component_id>-description
+                    $new_wods[$wod_id]['components'][$component_id]['description'] = $value;
+
+                } elseif (strcmp($name[3], 'label') == 0) {
+                    // cfwhiteboard-wod-<wod_id>-cmp-<component_id>-label
+                    $new_wods[$wod_id]['components'][$component_id]['label'] = $value;
+
+                }
+            }
+        }
+
+    }
+
+    // Don't delete the users wods! instead just don't render them and tell them what's wrong
+    // if (get_post_status($post_id) == "publish") {
+    //     $new_wods = cfwhiteboard_clean_post_meta($new_wods);
+    // } else {
+        // reindex wods and their components
+        $temp_wods = array();
+        foreach ($new_wods as $wod) {
+
+            $temp_cmps = array();
+            foreach ($wod['components'] as $component) {
+                $temp_cmps[] = $component;
+            }
+
+            $wod['components'] = $temp_cmps;
+            $temp_wods[] = $wod;
+        }    
+        $new_wods = $temp_wods;
+    // }
+
+    /* Update or Delete the meta value of the custom field key. */
+    // if (! empty($new_wods)) {
+        update_post_meta($post_id, $CFWHITEBOARD_WODS_META_KEY, $new_wods);
+    // } else {
+    //     delete_post_meta($post_id, $CFWHITEBOARD_WODS_META_KEY);
+    // }
+
+    set_transient($CFWHITEBOARD_WODS_META_KEY.'-notice', cfwhiteboard_validate_post_meta( $new_wods ), 30);
+}
+function cfwhiteboard_clean_post_meta( $wods ) {
+    // Clean the meta values (no blank fields)
+    $next_id = 10000;
+    $temp_wods = array();
+    foreach ($wods as $wod) {
+
+        $temp_cmps = array();
+        foreach ($wod['components'] as $component) {
+            if (empty($component['label']) || empty($component['description'])) continue;
+            if (empty($component['wp_id'])) $component['wp_id'] = $next_id++;
+            $temp_cmps[] = $component;
+        }
+        $wod['components'] = $temp_cmps;
+
+        if (empty($wod['name']) || empty($wod['components'])) continue;
+        if (empty($wod['wp_id'])) $wod['wp_id'] = $next_id++;
+        $temp_wods[] = $wod;
+    }
+
+    return $temp_wods;
+}
+function cfwhiteboard_validate_post_meta( $wods ) {
+    $validations = array();
+    foreach ($wods as $wod) {
+        $key = $wod['wp_id'];
+        $validations[$key] = array(
+            'name' => empty($wod['name']) ? '' : $wod['name'],
+            'valid' => 0,
+            'total' => 0
+        );
+
+        foreach ($wod['components'] as $component) {
+            $validations[$key]['total']++;
+            if (empty($component['label']) || empty($component['description'])) continue;
+            $validations[$key]['valid']++;
+        }
+    }
+
+    return $validations;
+}
+function cfwhiteboard_save_post_meta_notices(){
+    global $CFWHITEBOARD_WODS_META_KEY;
+    
+    $validations = get_transient($CFWHITEBOARD_WODS_META_KEY.'-notice');
+
+    if (!empty($validations)) {
+        $validation_items = '';
+        $counter = 0;
+        foreach ($validations as $wod_id => $validation) {
+            $counter++;
+            $hasName = !empty($validation['name']);
+            $name = $hasName ? $validation['name'] : (__('Class', 'cf-whiteboard').' '.$counter);
+            $willBePublished = $hasName && ($validation['valid'] > 0);
+            $totallyValid = $validation['valid'] == $validation['total'];
+            $publishedTail = 'will be published ('.($totallyValid ? '' : '<em>').$validation['valid'].' of '.$validation['total'].($totallyValid ? '' : '</em>').' components saved)';
+            $notPublishedTail = 'will <em>not be published</em> ('.($hasName ? 'please enter at least one component description' : 'please enter a name for the class').')';
+            $validation_items .= '<li><a href="#cfwhiteboard-wod-'.$wod_id.'">'.$name.'</a> '.($willBePublished ? $publishedTail : $notPublishedTail ).'</li>';
+        }
+
+        echo '<div id="cfwhiteboard-admin-notice" class="updated">
+           <p>'.__('CF Whiteboard Status:', 'cf-whiteboard').'</p>
+           <ul>'. $validation_items .'</ul>
+        </div>';
+    }
+}
+
+
+function cfwhiteboard_json_meta() {
+    global $CFWHITEBOARD_WODS_META_KEY;
+    
+    $query_var = cfwhiteboard_get_query_var('cfwhiteboard_post_id');
+    if (!$query_var) return;
+
+    $post = get_post($query_var);
+
+    $response = array(
+        'post_id' => $post->ID,
+        'post_modified' => $post->post_modified,
+        'meta' => get_post_meta($query_var, $CFWHITEBOARD_WODS_META_KEY, true)
+    );
+
+    header('HTTP/1.1 200 OK', true);
+    header('Content-Type: application/json; charset=UTF-8', true);
+    // echo cfwhiteboard_strip_magic_quotes($response);
+    echo json_encode($response);
+    
+    exit;
+}
+function cfwhiteboard_get_query_var($key) {
+    $wp_query_var = get_query_var($key);
+    if ($wp_query_var) {
+      return $wp_query_var;
+    }
+    
+    return isset($_REQUEST[$key]) ? $_REQUEST[$key] : null;
+}
+function cfwhiteboard_strip_magic_quotes($value) {
+    if (get_magic_quotes_gpc()) {
+        return stripslashes($value);
+    } else {
+        return $value;
+    }
+}
+if (!function_exists('json_encode'))
+{
+  function json_encode($a=false)
+  {
+    if (is_null($a)) return 'null';
+    if ($a === false) return 'false';
+    if ($a === true) return 'true';
+    if (is_scalar($a))
+    {
+      if (is_float($a))
+      {
+        // Always use "." for floats.
+        return floatval(str_replace(",", ".", strval($a)));
+      }
+
+      if (is_string($a))
+      {
+        static $jsonReplaces = array(array("\\", "/", "\n", "\t", "\r", "\b", "\f", '"'), array('\\\\', '\\/', '\\n', '\\t', '\\r', '\\b', '\\f', '\"'));
+        return '"' . str_replace($jsonReplaces[0], $jsonReplaces[1], $a) . '"';
+      }
+      else
+        return $a;
+    }
+    $isList = true;
+    for ($i = 0, reset($a); $i < count($a); $i++, next($a))
+    {
+      if (key($a) !== $i)
+      {
+        $isList = false;
+        break;
+      }
+    }
+    $result = array();
+    if ($isList)
+    {
+      foreach ($a as $v) $result[] = json_encode($v);
+      return '[' . join(',', $result) . ']';
+    }
+    else
+    {
+      foreach ($a as $k => $v) $result[] = json_encode($k).':'.json_encode($v);
+      return '{' . join(',', $result) . '}';
+    }
+  }
+}
+
 
 ?>
