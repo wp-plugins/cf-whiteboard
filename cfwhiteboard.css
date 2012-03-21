@@ -715,13 +715,12 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 .cfwhiteboard > h1 {
     background: url('images/white-water-paper.png') no-repeat center 20% #fafafa !important;
-    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#ffffffff,EndColorStr=#ffe0e0e0) !important;
-    background-image: -moz-linear-gradient(top,white 0,#e0e0e0 100%) !important;
-    background-image: -ms-linear-gradient(top,white 0,#e0e0e0 100%) !important;
-    background-image: -o-linear-gradient(top,white 0,#e0e0e0 100%) !important;
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,white),color-stop(100%,#e0e0e0)) !important;
-    background-image: -webkit-linear-gradient(top,white 0,#e0e0e0 100%) !important;
-    background-image: linear-gradient(to bottom,white 0,#e0e0e0 100%) !important;
+    background: -moz-linear-gradient(top,  #ffffff 0%, #e0e0e0 100%) !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e0e0e0)) !important;
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#e0e0e0 100%) !important;
+    background: -o-linear-gradient(top,  #ffffff 0%,#e0e0e0 100%) !important;
+    background: -ms-linear-gradient(top,  #ffffff 0%,#e0e0e0 100%) !important;
+    background: linear-gradient(top,  #ffffff 0%,#e0e0e0 100%) !important;
 	border: 1px solid #aaa !important;
 	-moz-border-radius: 3px !important;
 	-webkit-border-radius: 3px !important;
@@ -755,13 +754,12 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 .cfwhiteboard > h1:active,
 .cfwhiteboard.cfw-active > h1 {
-    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#ffffff,EndColorStr=#e0e0e6) !important;
-    background-image: -moz-linear-gradient(bottom,white 0,#e0e0e6 100%) !important;
-    background-image: -ms-linear-gradient(bottom,white 0,#e0e0e6 100%) !important;
-    background-image: -o-linear-gradient(bottom,white 0,#e0e0e6 100%) !important;
-    background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0,white),color-stop(100%,#e0e0e6)) !important;
-    background-image: -webkit-linear-gradient(bottom,white 0,#e0e0e6 100%) !important;
-    background-image: linear-gradient(to top,white 0,#e0e0e6 100%) !important;
+    background: -moz-linear-gradient(bottom,  #ffffff 0%, #e0e0e6 100%) !important;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,#ffffff), color-stop(100%,#e0e0e6)) !important;
+    background: -webkit-linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
+    background: -o-linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
+    background: -ms-linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
+    background: linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
     -moz-box-shadow: inset 0 1px 1px #888 !important;
     -ms-box-shadow: inset 0 1px 1px #888 !important;
     -webkit-box-shadow: inset 0 1px 1px #888 !important;
@@ -773,13 +771,12 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     background: #f5f5f5 !important;
 }
 .cfwhiteboard.cfw-active > h1:active {
-    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#ffffff,EndColorStr=#e0e0e6) !important;
-    background-image: -moz-linear-gradient(bottom,white 0,#e0e0e6 100%) !important;
-    background-image: -ms-linear-gradient(bottom,white 0,#e0e0e6 100%) !important;
-    background-image: -o-linear-gradient(bottom,white 0,#e0e0e6 100%) !important;
-    background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0,white),color-stop(100%,#e0e0e6)) !important;
-    background-image: -webkit-linear-gradient(bottom,white 0,#e0e0e6 100%) !important;
-    background-image: linear-gradient(to top,white 0,#e0e0e6 100%) !important;
+    background: -moz-linear-gradient(bottom,  #ffffff 0%, #e0e0e6 100%) !important;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,#ffffff), color-stop(100%,#e0e0e6)) !important;
+    background: -webkit-linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
+    background: -o-linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
+    background: -ms-linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
+    background: linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
 }
 
 

@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog.
-Version: 1.20
+Version: 1.22
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '1.20';
+$CFWHITEBOARD_VERSION = '1.22';
 
 
 register_activation_hook( __FILE__, 'cfwhiteboard_on_activate');
@@ -422,50 +422,9 @@ function cfwhiteboard_options_page() {
     // foreach($categories as $category) {
     //     $category->selected = empty($options['categories']) ? true : in_array($category->cat_ID, $options['categories']);
     // } 
-
-    // function position_in_content($options, $option_box = FALSE) {
-    //  
-    //  if ( ! isset($options['position'])) {
-    //      $options['position'] = 'bottom';
-    //  }
-    //  
-    //  $positions = array(
-    //      'bottom' => array(
-    //          'selected' => ('bottom' == $options['position']) ? ' selected="selected"' : '',
-    //          'string' => __('bottom', 'add-to-any')
-    //      ),
-    //      'top' => array(
-    //          'selected' => ('top' == $options['position']) ? ' selected="selected"' : '',
-    //          'string' => __('top', 'add-to-any')
-    //      ),
-    //      'both' => array(
-    //          'selected' => ('both' == $options['position']) ? ' selected="selected"' : '',
-    //          'string' => __('top &amp; bottom', 'add-to-any')
-    //      )
-    //  );
-    //  
-    //  if ($option_box) {
-    //      $html = '</label>';
-    //      $html .= '<label>'; // Label needed to prevent checkmark toggle on SELECT click 
-    //      $html .= '<select name="A2A_SHARE_SAVE_position">';
-    //      $html .= '<option value="bottom"' . $positions['bottom']['selected'] . '>' . $positions['bottom']['string'] . '</option>';
-    //      $html .= '<option value="top"' . $positions['top']['selected'] . '>' . $positions['top']['string'] . '</option>';
-    //      $html .= '<option value="both"' . $positions['both']['selected'] . '>' . $positions['both']['string'] . '</option>';
-    //      $html .= '</select>';
-    //      
-    //      return $html;
-    //  } else {
-    //      $html = '<span class="A2A_SHARE_SAVE_position">';
-    //      $html .= $positions[$options['position']]['string'];
-    //      $html .= '</span>';
-    //      
-    //      return $html;
-    //  }
-    // }
 	
     ?>
     
-    <!-- <!php A2A_SHARE_SAVE_theme_hooks_check(); ?> -->
     <style>
         form > fieldset {
             border: 1px solid #ccc;
@@ -530,11 +489,11 @@ function cfwhiteboard_options_page() {
 
         <p>
             <label for="CFWHITEBOARD_affiliate_id">
-                <strong><?php _e('Affiliate ID:', 'cf-whiteboard') ?></strong>
+                <strong><?php _e('Affiliate ID:', 'cf-whiteboard'); ?></strong>
             </label>
             <input type="text" id="CFWHITEBOARD_affiliate_id" name="CFWHITEBOARD_affiliate_id" value="<?php echo esc_attr( $options['affiliate_id'] ); ?>" />
             <label for="CFWHITEBOARD_affiliate_id">
-                <?php _e('(Caution: Changing this value could result in data loss.)', 'cf-whiteboard') ?>
+                <?php _e('(Caution: Changing this value could result in data loss.)', 'cf-whiteboard'); ?>
             </label>
         </p>
         
@@ -544,13 +503,13 @@ function cfwhiteboard_options_page() {
                 <li>
                     <input type="radio" id="CFWHITEBOARD_visibility_users" name="CFWHITEBOARD_visibility" value="<?php echo esc_attr( cfwhiteboard_Visibility::Users ); ?>" <?php echo $options['visibility'] == cfwhiteboard_Visibility::Users ? 'checked="checked"' : ''; ?> />
                     <label for="CFWHITEBOARD_visibility_users">
-                        <strong><?php _e('Preview Mode.', 'cf-whiteboard') ?></strong> <?php _e('Athletes cannot see the whiteboard. Only logged-in WordPress users can see the whiteboard.  Whiteboard entries will be removed when you switch to Live Mode, so feel free to experiment.', 'cf-whiteboard') ?>
+                        <strong><?php _e('Preview Mode.', 'cf-whiteboard'); ?></strong> <?php _e('Athletes cannot see the whiteboard. Only logged-in WordPress users can see the whiteboard.  Whiteboard entries will be removed when you switch to Live Mode, so feel free to experiment.', 'cf-whiteboard'); ?>
                     </label>
                 </li>
                 <li>
                     <input type="radio" id="CFWHITEBOARD_visibility_everyone" name="CFWHITEBOARD_visibility" value="<?php echo esc_attr( cfwhiteboard_Visibility::Everyone ); ?>" <?php echo $options['visibility'] == cfwhiteboard_Visibility::Everyone ? 'checked="checked"' : ''; ?> />
                     <label for="CFWHITEBOARD_visibility_everyone">
-                        <strong><?php _e('Live Mode.', 'cf-whiteboard') ?></strong> <?php _e('Anyone can see the whiteboard. Whiteboard entries will be saved.', 'cf-whiteboard'); ?>
+                        <strong><?php _e('Live Mode.', 'cf-whiteboard'); ?></strong> <?php _e('Anyone can see the whiteboard. Whiteboard entries will be saved.', 'cf-whiteboard'); ?>
                     </label>
                 </li>
             </ul>
@@ -580,7 +539,7 @@ function cfwhiteboard_options_page() {
                 <li>
                     <input type="radio" id="CFWHITEBOARD_position_titleright" name="CFWHITEBOARD_position" value="<?php echo esc_attr( cfwhiteboard_Position::TitleRight ); ?>" <?php echo $options['position'] == cfwhiteboard_Position::TitleRight ? 'checked="checked"' : ''; ?> />
                     <label for="CFWHITEBOARD_position_titleright">
-                        <strong><?php _e('Default Position.', 'cf-whiteboard'); ?></strong> <?php _e('The whiteboard is positioned to the right of the post title.', 'cf-whiteboard') ?>
+                        <strong><?php _e('Default Position.', 'cf-whiteboard'); ?></strong> <?php _e('The whiteboard is positioned to the right of the post title.', 'cf-whiteboard'); ?>
                     </label>
                 </li>
                 <li>
@@ -631,24 +590,24 @@ function cfwhiteboard_options_page() {
 
 <!--
         <fieldset>
-            <legend><?php _e('WOD Blog Category', 'cf-whiteboard'); ?></legend>
-            <h1><?php _e('Which post categories should the whiteboard be added to?', 'cf-whiteboard'); ?></h1>
+            <legend><php _e('WOD Blog Category', 'cf-whiteboard'); ?></legend>
+            <h1><php _e('Which post categories should the whiteboard be added to?', 'cf-whiteboard'); ?></h1>
             <ul>
-                <?php foreach($categories as $category) { ?>
+                <php foreach($categories as $category) { ?>
                     <li>
-                        <input type="checkbox" id="<?php echo $category_prefix . $category->cat_ID; ?>" name="<?php echo $category_prefix . $category->cat_ID; ?>" <?php echo $category->selected ? 'checked="checked"' : ''; ?> />
-                        <label for="<?php echo $category_prefix . $category->cat_ID; ?>">
-                            <?php echo $category->cat_name; ?>
+                        <input type="checkbox" id="<php echo $category_prefix . $category->cat_ID; ?>" name="<php echo $category_prefix . $category->cat_ID; ?>" <php echo $category->selected ? 'checked="checked"' : ''; ?> />
+                        <label for="<php echo $category_prefix . $category->cat_ID; ?>">
+                            <php echo $category->cat_name; ?>
                         </label>
                     </li>
-                <?php } ?>
+                <php } ?>
             </ul>
         </fieldset>
 -->
 
         <p class="submit">
             <input class="button-primary" type="submit" name="Submit" value="<?php esc_attr_e('Save Changes', 'cf-whiteboard' ); ?>" />
-            <!-- <input id="A2A_SHARE_SAVE_reset_options" type="submit" name="Reset" onclick="return confirm('<!php _e('Are you sure you want to delete all CF Whiteboard options?', 'add-to-any' ) ?>')" value="<!php _e('Reset', 'add-to-any' ) ?>" /> -->
+            <!-- <input type="submit" name="Reset" onclick="return confirm('<php _e('Are you sure you want to delete all CF Whiteboard options?', 'cf-whiteboard'); ?>')" value="<php _e('Reset', 'cf-whiteboard'); ?>" /> -->
         </p>
     
     </form>
@@ -706,6 +665,7 @@ add_action('load-post-new.php', 'cfwhiteboard_setup_post_meta_boxes');
 add_action('save_post', 'cfwhiteboard_save_post_meta_boxes', 10, 2);
 /* Clean post meta on the 'publish_post' hook. */
 // add_action('publish_post', 'cfwhiteboard_clean_post_meta', 10, 1);
+add_action('admin_enqueue_scripts', 'cfwhiteboard_latest_jquery');
 
 /* Meta box setup function. */
 function cfwhiteboard_setup_post_meta_boxes() {
@@ -1479,6 +1439,7 @@ function cfwhiteboard_save_post_meta_boxes($post_id, $post) {
     $param_prefix = 'cfwhiteboard-wod-';
     $param_prefix_len = strlen( $param_prefix );
 
+    if (! is_array($_POST)) return;
     $new_wods = array();
     foreach ($_POST as $name => $value) {
 
@@ -1558,10 +1519,15 @@ function cfwhiteboard_save_post_meta_boxes($post_id, $post) {
 function cfwhiteboard_clean_post_meta( $wods ) {
     // Clean the meta values (no blank fields)
     $next_id = 10000;
+
+    if (! is_array($wods)) return $wods;
     $temp_wods = array();
+
     foreach ($wods as $wod) {
 
+        if (! is_array($wod['components'])) continue;
         $temp_cmps = array();
+
         foreach ($wod['components'] as $component) {
             if (empty($component['label']) || empty($component['description'])) continue;
             if (empty($component['wp_id'])) $component['wp_id'] = $next_id++;
@@ -1578,6 +1544,9 @@ function cfwhiteboard_clean_post_meta( $wods ) {
 }
 function cfwhiteboard_validate_post_meta( $wods ) {
     $validations = array();
+
+    if (! is_array($wods)) return $validations;
+
     foreach ($wods as $wod) {
         $key = $wod['wp_id'];
         $validations[$key] = array(
@@ -1585,6 +1554,8 @@ function cfwhiteboard_validate_post_meta( $wods ) {
             'valid' => 0,
             'total' => 0
         );
+
+        if (! is_array($wod['components'])) continue;
 
         foreach ($wod['components'] as $component) {
             $validations[$key]['total']++;
@@ -1600,25 +1571,25 @@ function cfwhiteboard_save_post_meta_notices(){
     
     $validations = get_transient($CFWHITEBOARD_WODS_META_KEY.'-notice');
 
-    if (!empty($validations)) {
-        $validation_items = '';
-        $counter = 0;
-        foreach ($validations as $wod_id => $validation) {
-            $counter++;
-            $hasName = !empty($validation['name']);
-            $name = $hasName ? $validation['name'] : (__('Class', 'cf-whiteboard').' '.$counter);
-            $willBePublished = $hasName && ($validation['valid'] > 0);
-            $totallyValid = $validation['valid'] == $validation['total'];
-            $publishedTail = 'will be published ('.($totallyValid ? '' : '<em>').$validation['valid'].' of '.$validation['total'].($totallyValid ? '' : '</em>').' components saved)';
-            $notPublishedTail = 'will <em>not be published</em> ('.($hasName ? 'please enter at least one component description' : 'please enter a name for the class').')';
-            $validation_items .= '<li><a href="#cfwhiteboard-wod-'.$wod_id.'">'.$name.'</a> '.($willBePublished ? $publishedTail : $notPublishedTail ).'</li>';
-        }
+    if (! is_array($validations)) return;
 
-        echo '<div id="cfwhiteboard-admin-notice" class="updated">
-           <p>'.__('CF Whiteboard Status:', 'cf-whiteboard').'</p>
-           <ul>'. $validation_items .'</ul>
-        </div>';
+    $validation_items = '';
+    $counter = 0;
+    foreach ($validations as $wod_id => $validation) {
+        $counter++;
+        $hasName = !empty($validation['name']);
+        $name = $hasName ? $validation['name'] : (__('Class', 'cf-whiteboard').' '.$counter);
+        $willBePublished = $hasName && ($validation['valid'] > 0);
+        $totallyValid = $validation['valid'] == $validation['total'];
+        $publishedTail = 'will be published ('.($totallyValid ? '' : '<em>').$validation['valid'].' of '.$validation['total'].($totallyValid ? '' : '</em>').' components saved)';
+        $notPublishedTail = 'will <em>not be published</em> ('.($hasName ? 'please enter at least one component description' : 'please enter a name for the class').')';
+        $validation_items .= '<li><a href="#cfwhiteboard-wod-'.$wod_id.'">'.$name.'</a> '.($willBePublished ? $publishedTail : $notPublishedTail ).'</li>';
     }
+
+    echo '<div id="cfwhiteboard-admin-notice" class="updated">
+       <p>'.__('CF Whiteboard Status:', 'cf-whiteboard').'</p>
+       <ul>'. $validation_items .'</ul>
+    </div>';
 }
 
 
