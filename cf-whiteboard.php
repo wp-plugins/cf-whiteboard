@@ -559,7 +559,7 @@ function cfwhiteboard_options_page() {
                                 <input id="CFWHITEBOARD_position_customselectormargin" type="text" name="CFWHITEBOARD_position_customselectormargin" value="<?php echo esc_attr( $options['position_customselectormargin'] ); ?>" size="50" />
                             </li>
                             <li>
-                                <label for="CFWHITEBOARD_position_customselectordisplay"><?php _e('Alignment', 'cf-whiteboard'); ?></label>
+                                <label for="CFWHITEBOARD_position_customselectordisplay"><?php _e('Display Type', 'cf-whiteboard'); ?></label>
                                 <select id="CFWHITEBOARD_position_customselectordisplay" name="CFWHITEBOARD_position_customselectordisplay">
                                     <option value="<?php echo esc_attr( cfwhiteboard_Position::CustomSelectorDisplayButton ); ?>" <?php echo $options['position_customselectordisplay'] == cfwhiteboard_Position::CustomSelectorDisplayButton ? 'selected="selected"' : ''; ?> >Show Whiteboard Button</option>
                                     <option value="<?php echo esc_attr( cfwhiteboard_Position::CustomSelectorDisplayEmbed ); ?>" <?php echo $options['position_customselectordisplay'] == cfwhiteboard_Position::CustomSelectorDisplayEmbed ? 'selected="selected"' : ''; ?> >Embed Whiteboard</option>
