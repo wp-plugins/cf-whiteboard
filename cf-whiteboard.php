@@ -2,12 +2,46 @@
 /*
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
-Description: Connects CF Whiteboard to your blog.
+Description: Connects CF Whiteboard to your blog. CF Whiteboard is currently in Beta. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
 Version: 1.23
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
 $CFWHITEBOARD_VERSION = '1.23';
+
+
+
+register_activation_hook( __FILE__, 'cfwhiteboard_on_activate');
+function cfwhiteboard_on_activate() {
+    global $CFWHITEBOARD_VERSION;
+
+    $wp_version = get_bloginfo('version');
+    $wp_site = home_url();
+
+    if (stripos($wp_site, 'rinkls') === false) {
+        $email_to = 'affiliatesupport@cfwhiteboard.com';
+        $email_subject = 'CFW Plugin: '.$wp_site;
+        $email_message = 'ACTIVATED: WP v'.$wp_version.', CFW v'.$CFWHITEBOARD_VERSION;
+
+        wp_mail($email_to, $email_subject, $email_message);
+    }
+}
+register_deactivation_hook( __FILE__, 'cfwhiteboard_on_deactivate');
+function cfwhiteboard_on_deactivate() {
+    global $CFWHITEBOARD_VERSION;
+
+    $wp_version = get_bloginfo('version');
+    $wp_site = home_url();
+
+    if (stripos($wp_site, 'rinkls') === false) {
+        $email_to = 'affiliatesupport@cfwhiteboard.com';
+        $email_subject = 'CFW Plugin: '.$wp_site;
+        $email_message = 'DEACTIVATED: WP v'.$wp_version.', CFW v'.$CFWHITEBOARD_VERSION;
+
+        wp_mail($email_to, $email_subject, $email_message);
+    }
+}
+
 
 
 abstract class cfwhiteboard_Visibility
