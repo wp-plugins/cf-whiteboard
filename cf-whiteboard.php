@@ -3,43 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog.
-Version: 1.22
+Version: 1.23
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '1.22';
-
-
-register_activation_hook( __FILE__, 'cfwhiteboard_on_activate');
-function cfwhiteboard_on_activate() {
-    global $CFWHITEBOARD_VERSION;
-
-    $wp_version = get_bloginfo('version');
-    $wp_site = home_url();
-
-    if (stripos($wp_site, 'rinkls') === false) {
-        $email_to = 'affiliatesupport@cfwhiteboard.com';
-        $email_subject = 'CFW Plugin: '.$wp_site;
-        $email_message = 'ACTIVATED: WP v'.$wp_version.', CFW v'.$CFWHITEBOARD_VERSION;
-
-        wp_mail($email_to, $email_subject, $email_message);
-    }
-}
-register_deactivation_hook( __FILE__, 'cfwhiteboard_on_deactivate');
-function cfwhiteboard_on_deactivate() {
-    global $CFWHITEBOARD_VERSION;
-
-    $wp_version = get_bloginfo('version');
-    $wp_site = home_url();
-
-    if (stripos($wp_site, 'rinkls') === false) {
-        $email_to = 'affiliatesupport@cfwhiteboard.com';
-        $email_subject = 'CFW Plugin: '.$wp_site;
-        $email_message = 'DEACTIVATED: WP v'.$wp_version.', CFW v'.$CFWHITEBOARD_VERSION;
-
-        wp_mail($email_to, $email_subject, $email_message);
-    }
-}
+$CFWHITEBOARD_VERSION = '1.23';
 
 
 abstract class cfwhiteboard_Visibility
@@ -64,6 +32,10 @@ abstract class cfwhiteboard_Position
     const CustomSelectorAlignmentFloatRight = 'floatright';
     const CustomSelectorAlignmentInline = 'inline';
     const CustomSelectorAlignmentBlock = 'block';
+
+    // Custom Selector: Embed the Whiteboard?
+    const CustomSelectorDisplayButton = 'button';
+    const CustomSelectorDisplayEmbed = 'embed';
 }
 
 global $CFWHITEBOARD_DEFAULT_OPTIONS;
@@ -76,6 +48,7 @@ $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectortarget'] = '';
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectorparent'] = '';
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectoralignment'] = cfwhiteboard_Position::CustomSelectorAlignmentFloatLeft;
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectormargin'] = '0';
+$CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectordisplay'] = cfwhiteboard_Position::CustomSelectorDisplayButton;
 // $CFWHITEBOARD_DEFAULT_OPTIONS['categories'] = array();
 
 function cfwhiteboard_get_options() {
@@ -281,6 +254,7 @@ function cfwhiteboard_scripts_data() {
         $data['parent'] = $options['position_customselectorparent'];
         $data['alignment'] = $options['position_customselectoralignment'];
         $data['margin'] = $options['position_customselectormargin'];
+        $data['display'] = $options['position_customselectordisplay'];
 
         wp_localize_script('cfwhiteboard', 'CFW_POSITION', $data);
     }
@@ -331,6 +305,8 @@ function cfwhiteboard_options_page() {
             $new_options['position_customselectoralignment'] = @$_POST['CFWHITEBOARD_position_customselectoralignment'];
         if (!empty($_POST['CFWHITEBOARD_position_customselectormargin']))
             $new_options['position_customselectormargin'] = @$_POST['CFWHITEBOARD_position_customselectormargin'];
+        if (!empty($_POST['CFWHITEBOARD_position_customselectordisplay']))
+            $new_options['position_customselectordisplay'] = @$_POST['CFWHITEBOARD_position_customselectordisplay'];
 
         // Categories
         // $new_options['categories'] = array();
@@ -582,6 +558,13 @@ function cfwhiteboard_options_page() {
                                 <label for="CFWHITEBOARD_position_customselectormargin"><?php _e('Margin', 'cf-whiteboard'); ?></label>
                                 <input id="CFWHITEBOARD_position_customselectormargin" type="text" name="CFWHITEBOARD_position_customselectormargin" value="<?php echo esc_attr( $options['position_customselectormargin'] ); ?>" size="50" />
                             </li>
+                            <li>
+                                <label for="CFWHITEBOARD_position_customselectordisplay"><?php _e('Alignment', 'cf-whiteboard'); ?></label>
+                                <select id="CFWHITEBOARD_position_customselectordisplay" name="CFWHITEBOARD_position_customselectordisplay">
+                                    <option value="<?php echo esc_attr( cfwhiteboard_Position::CustomSelectorDisplayButton ); ?>" <?php echo $options['position_customselectordisplay'] == cfwhiteboard_Position::CustomSelectorDisplayButton ? 'selected="selected"' : ''; ?> >Show Whiteboard Button</option>
+                                    <option value="<?php echo esc_attr( cfwhiteboard_Position::CustomSelectorDisplayEmbed ); ?>" <?php echo $options['position_customselectordisplay'] == cfwhiteboard_Position::CustomSelectorDisplayEmbed ? 'selected="selected"' : ''; ?> >Embed Whiteboard</option>
+                                </select>
+                            </li>
                         </ul>
                     </fieldset>
                 </li>
@@ -665,7 +648,7 @@ add_action('load-post-new.php', 'cfwhiteboard_setup_post_meta_boxes');
 add_action('save_post', 'cfwhiteboard_save_post_meta_boxes', 10, 2);
 /* Clean post meta on the 'publish_post' hook. */
 // add_action('publish_post', 'cfwhiteboard_clean_post_meta', 10, 1);
-add_action('admin_enqueue_scripts', 'cfwhiteboard_latest_jquery');
+// add_action('admin_enqueue_scripts', 'cfwhiteboard_latest_jquery');
 
 /* Meta box setup function. */
 function cfwhiteboard_setup_post_meta_boxes() {

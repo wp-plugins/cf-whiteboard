@@ -688,6 +688,16 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     float: left !important;
 }
 
+.cfwhiteboard.cfw-display-embed .cfw-pane {
+    position: static !important;
+}
+.cfw-clearer {
+    display: block !important;
+    height: 0 !important;
+    clear: both !important;
+    visibility: hidden !important;
+}
+
 .cfwhiteboard .cfw-preload-images {
     position: absolute !important;
     left: -999999px !important;
