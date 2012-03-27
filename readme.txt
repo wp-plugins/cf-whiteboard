@@ -24,6 +24,9 @@ The whiteboard contains external links for athlete support purposes.  By install
 
 == Changelog ==
 
+= 1.24 =
+* Fixed a typo.
+
 = 1.23 =
 * Added option for embedding the Whiteboard instead of having to click the button.
 
