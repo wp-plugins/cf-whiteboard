@@ -169,7 +169,7 @@ global $CFWHITEBOARD_DEFAULT_OPTIONS;
 $CFWHITEBOARD_DEFAULT_OPTIONS = array();
 $CFWHITEBOARD_DEFAULT_OPTIONS['affiliate_id'] = urlencode( str_replace(array('.', '/'), '-', str_replace(array('http://', 'https://', 'www.'), '', home_url())) );
 $CFWHITEBOARD_DEFAULT_OPTIONS['visibility'] = cfwhiteboard_Visibility::Everyone;
-$CFWHITEBOARD_DEFAULT_OPTIONS['position'] = cfwhiteboard_Position::TitleRight;
+$CFWHITEBOARD_DEFAULT_OPTIONS['position'] = cfwhiteboard_Position::CustomSelector;
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectorinsertion'] = cfwhiteboard_Position::CustomSelectorInsertionPrepend;
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectortarget'] = '';
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectorparent'] = '';
@@ -633,12 +633,6 @@ function cfwhiteboard_options_page() {
                     });
                 </script>
                 <li>
-                    <input type="radio" id="CFWHITEBOARD_position_titleright" name="CFWHITEBOARD_position" value="<?php echo esc_attr( cfwhiteboard_Position::TitleRight ); ?>" <?php echo $options['position'] == cfwhiteboard_Position::TitleRight ? 'checked="checked"' : ''; ?> />
-                    <label for="CFWHITEBOARD_position_titleright">
-                        <strong><?php _e('Default Position.', 'cf-whiteboard'); ?></strong> <?php _e('The whiteboard is positioned to the right of the post title.', 'cf-whiteboard'); ?>
-                    </label>
-                </li>
-                <li>
                     <input type="radio" id="CFWHITEBOARD_position_customselector" name="CFWHITEBOARD_position" value="<?php echo esc_attr( cfwhiteboard_Position::CustomSelector ); ?>" <?php echo $options['position'] == cfwhiteboard_Position::CustomSelector ? 'checked="checked"' : ''; ?> />
                     <label for="CFWHITEBOARD_position_customselector">
                         <strong><?php _e('Custom Position.', 'cf-whiteboard'); ?></strong> <?php _e('For advanced use only. <a href="mailto:affiliatesupport@cfwhiteboard.com">Affiliate Support</a> would be happy to help you with this.', 'cf-whiteboard'); ?>
@@ -687,6 +681,12 @@ function cfwhiteboard_options_page() {
                             </li>
                         </ul>
                     </fieldset>
+                </li>
+                <li>
+                    <input type="radio" id="CFWHITEBOARD_position_titleright" name="CFWHITEBOARD_position" value="<?php echo esc_attr( cfwhiteboard_Position::TitleRight ); ?>" <?php echo $options['position'] == cfwhiteboard_Position::TitleRight ? 'checked="checked"' : ''; ?> />
+                    <label for="CFWHITEBOARD_position_titleright">
+                        <strong><?php _e('Post Title.', 'cf-whiteboard'); ?></strong> <?php _e('The whiteboard is positioned to the right of the post title. Improves performance but not compatible with all themes.', 'cf-whiteboard'); ?>
+                    </label>
                 </li>
             </ul>
         </fieldset>
