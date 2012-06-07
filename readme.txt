@@ -2,20 +2,22 @@
 Contributors: collindo
 Tags: crossfit, wod, fitness, workout, tracking, sports, excercise
 Tested up to: 3.3.1
-Stable tag: 1.53
+Stable tag: 1.54
 
 CF Whiteboard is a CrossFit<sup>&reg;</sup> workout tracker that integrates with your affiliate's website.
 
 == Description ==
 
-[CF Whiteboard](http://cfwhiteboard.com) is a CrossFit<sup>&reg;</sup> workout tracker that integrates with your affiliate's website. Our product is currenty in Beta testing - try it out for free and let us know how we can make it better. We're happy to install the plugin for you and get it setup for your website.  Just [email us](mailto:affiliatesupport@cfwhiteboard.com).
+[CF Whiteboard](http://cfwhiteboard.com) is a CrossFit<sup>&reg;</sup> workout tracker that integrates with your affiliate's website. It adds a Whiteboard widget to your WOD blog posts, and creates athlete profiles where your athletes can search past results.
+
+We're currently in Beta, which means you can use the service for free. We want to create a service that CrossFitters love, so don't hesitate to [email us](mailto:affiliatesupport@cfwhiteboard.com) with any questions or feedback. We have helped most of our gyms with setting up a custom Whiteboard position, adding the Athletes page to their main menu, and other wordpress-related requests. Let us know how we can help! [affiliatesupport@cfwhiteboard.com](mailto:affiliatesupport@cfwhiteboard.com)
 
 == Installation ==
 
-1. Upload the plugin to the `/wp-content/plugins/` directory
+1. From your 'Plugins' menu in WordPress, click Add New and search for **CF Whiteboard**, or upload the plugin to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. The whiteboard will be installed in **Preview Mode** to allow you to adjust settings before letting your athletes use it
-1. When you are satisfied with your setup, visit the CF Whiteboard Settings page to switch the plugin to **Live Mode**
+1. Check your blog for a private example post that will be created so you can try out the Whiteboard
+1. The plugin will add a new Athletes page to your website. Be sure to add a link to the Athletes page in your navigation menu
 1. [Email Affiliate Support](mailto:affiliatesupport@cfwhiteboard.com) if we can help you in any way
 
 == External Links ==
@@ -23,6 +25,9 @@ CF Whiteboard is a CrossFit<sup>&reg;</sup> workout tracker that integrates with
 The whiteboard contains external links for athlete support purposes.  By installing this plugin, you give CF Whiteboard permission to embed these external links.
 
 == Changelog ==
+
+= 1.54 =
+* Better documentation / help messages.
 
 = 1.53 =
 * Improve the installation process to avoid some problems that can occur.
