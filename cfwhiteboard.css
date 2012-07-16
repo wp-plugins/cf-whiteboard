@@ -1373,15 +1373,16 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 
 /* dot dot dot */
 .cfwhiteboard .cfw-window table tr span.cfw-more {
+    border: 1px solid transparent !important;
     font-size: 16px !important;
     height: 10px !important;
     line-height: 12px !important;
     opacity: 0 !important;
     filter: alpha(opacity = 0) !important;
-    padding: 0 2px !important;
+    padding: 1px 3px !important;
     position: absolute !important;
     right: 5px !important;
-    top: 5px !important;
+    top: 4px !important;
     -webkit-transition: 300ms all !important;
     -moz-transition: 300ms all !important;
     -ms-transition: 300ms all !important;
@@ -1390,9 +1391,9 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     z-index: 1 !important;
 }
 .cfwhiteboard .cfw-window table tr span.cfw-more.cfw-notes-hint {
-    background: #fafafa !important;
-    border: 1px solid #ddd !important;
-    color: #ccc !important;
+    background: #fff !important;
+    border: 1px solid #ccc !important;
+    color: #aaa !important;
     opacity: 1 !important;
     filter: alpha(opacity = 100) !important;
 }
@@ -1405,8 +1406,8 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 .cfwhiteboard .cfw-window table tr:hover span.cfw-more {
     background: white !important;
-    border: 1px solid #aaa !important;
-    color: #888 !important;
+    border: 1px solid #888 !important;
+    color: #666 !important;
     opacity: 1 !important;
     filter: alpha(opacity = 100) !important;
 }
@@ -1448,12 +1449,16 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     left: 0 !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail a.cfw-edit {
+    background-image: url('images/locked.png') !important;
+    background-repeat: no-repeat !important;
+    background-position: 38px 6px !important;
     border-bottom-left-radius: 6px !important;
     border-style: none none solid solid !important;
+    padding-right: 28px !important;
     right: 0 !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dl {
-    padding: 34px 20px 14px 0px !important;
+    padding: 39px 20px 14px 0px !important;
     height: 330px !important;
     text-align: center !important;
 }
@@ -1545,8 +1550,8 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 
 
-/* entry form view */
-.cfwhiteboard .cfw-window form {
+/* CFW.ModalView */
+.cfwhiteboard .cfw-window .cfw-modal {
     background: url('images/white-water-paper.png') repeat-x left bottom #fafafa !important;
     bottom: 0px !important;
     /*display: none !important;*/
@@ -1563,6 +1568,30 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     width: 298px !important;
     z-index: 1000 !important;
 }
+.cfwhiteboard .cfw-window .cfw-contents .cfw-modal.cfw-scrollable {
+    padding-right: 20px !important;
+}
+.cfwhiteboard .cfw-window .cfw-modal.cfw-translate3d {
+    -webkit-transform: translate3d(0,-400,0) !important;
+    -moz-transform: translate3d(0,-400,0) !important;
+    -ms-transform: translate3d(0,-400,0) !important;
+    -o-transform: translate3d(0,-400,0) !important;
+    transform: translate3d(0,-400,0) !important;
+}
+.cfwhiteboard .cfw-window .cfw-modal.cfw-translate {
+    -webkit-transform: translate(0,-400) !important;
+    -moz-transform: translate(0,-400) !important;
+    -ms-transform: translate(0,-400) !important;
+    -o-transform: translate(0,-400) !important;
+    transform: translate(0,-400) !important;
+}
+.cfwhiteboard .cfw-window .cfw-modal.cfw-translate-oldfashioned {
+    /*bottom: 0px !important;*/
+    top: 0px !important;
+}
+
+
+/* entry form view */
 .cfwhiteboard .cfw-window form fieldset {
     padding: 8px 8px 6px !important;
     border-bottom: 1px solid #ccc !important;
@@ -1575,27 +1604,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard .cfw-window form fieldset.cfw-last {
     border-bottom: none !important;
     padding-bottom: 10px !important;
-}
-.cfwhiteboard .cfw-window .cfw-contents form.cfw-scrollable {
-    padding-right: 20px !important;
-}
-.cfwhiteboard .cfw-window form.cfw-translate3d {
-    -webkit-transform: translate3d(0,-400,0) !important;
-    -moz-transform: translate3d(0,-400,0) !important;
-    -ms-transform: translate3d(0,-400,0) !important;
-    -o-transform: translate3d(0,-400,0) !important;
-    transform: translate3d(0,-400,0) !important;
-}
-.cfwhiteboard .cfw-window form.cfw-translate {
-    -webkit-transform: translate(0,-400) !important;
-    -moz-transform: translate(0,-400) !important;
-    -ms-transform: translate(0,-400) !important;
-    -o-transform: translate(0,-400) !important;
-    transform: translate(0,-400) !important;
-}
-.cfwhiteboard .cfw-window form.cfw-translate-oldfashioned {
-    /*bottom: 0px !important;*/
-    top: 0px !important;
 }
 .cfwhiteboard .cfw-window form h2,
 .cfwhiteboard .cfw-window form h2 label {
@@ -1675,7 +1683,9 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     *zoom: 1 !important;
     *display: inline !important;
 }
-.cfwhiteboard .cfw-window form input[type="text"], .cfwhiteboard .cfw-window form input[type="email"], .cfwhiteboard .cfw-window form textarea {
+.cfwhiteboard .cfw-window form input[type="text"],
+.cfwhiteboard .cfw-window form input[type="email"],
+.cfwhiteboard .cfw-window form textarea {
     background: #fff !important;
     border-color: #8D8A83 !important;
     border-style: solid !important;
@@ -1691,10 +1701,13 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     opacity: 0.35 !important;
     filter: alpha(opacity = 35) !important;
 }
-.cfwhiteboard .cfw-window form input[type="text"], .cfwhiteboard .cfw-window form input[type="email"] {
+.cfwhiteboard .cfw-window form input[type="text"],
+.cfwhiteboard .cfw-window form input[type="email"] {
     height: 21px !important;
 }
-.cfwhiteboard .cfw-window form .cfw-half + .cfw-half, .cfwhiteboard .cfw-window form label.cfw-majority, .cfwhiteboard .cfw-window form input.cfw-majority {
+.cfwhiteboard .cfw-window form .cfw-half + .cfw-half,
+.cfwhiteboard .cfw-window form label.cfw-majority,
+.cfwhiteboard .cfw-window form input.cfw-majority {
     margin-left: 4px !important;
 }
 .cfwhiteboard .cfw-window form div.cfw-footer {

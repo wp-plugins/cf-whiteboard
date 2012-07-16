@@ -1,8 +1,8 @@
 === CF Whiteboard ===
 Contributors: collindo
 Tags: crossfit, wod, fitness, workout, tracking, sports, excercise
-Tested up to: 3.3.1
-Stable tag: 1.54
+Tested up to: 3.4.1
+Stable tag: 1.55
 
 CF Whiteboard is a CrossFit<sup>&reg;</sup> workout tracker that integrates with your affiliate's website.
 
@@ -10,7 +10,7 @@ CF Whiteboard is a CrossFit<sup>&reg;</sup> workout tracker that integrates with
 
 [CF Whiteboard](http://cfwhiteboard.com) is a CrossFit<sup>&reg;</sup> workout tracker that integrates with your affiliate's website. It adds a Whiteboard widget to your WOD blog posts, and creates athlete profiles where your athletes can search past results.
 
-We're currently in Beta, which means you can use the service for free. We want to create a service that CrossFitters love, so don't hesitate to [email us](mailto:affiliatesupport@cfwhiteboard.com) with any questions or feedback. We have helped most of our gyms with setting up a custom Whiteboard position, adding the Athletes page to their main menu, and other wordpress-related requests. Let us know how we can help! [affiliatesupport@cfwhiteboard.com](mailto:affiliatesupport@cfwhiteboard.com)
+We want to create a service that CrossFitters love, so don't hesitate to [email us](mailto:affiliatesupport@cfwhiteboard.com) with any questions or feedback. We have helped most of our gyms with setting up a custom Whiteboard position, adding the Athletes page to their main menu, and other wordpress-related requests. Let us know how we can help! [affiliatesupport@cfwhiteboard.com](mailto:affiliatesupport@cfwhiteboard.com)
 
 == Installation ==
 
@@ -25,6 +25,9 @@ We're currently in Beta, which means you can use the service for free. We want t
 The whiteboard contains external links for athlete support purposes.  By installing this plugin, you give CF Whiteboard permission to embed these external links.
 
 == Changelog ==
+
+= 1.55 =
+* Add security for editing Whiteboard entries.
 
 = 1.54 =
 * Better documentation / help messages.
@@ -103,3 +106,6 @@ The whiteboard contains external links for athlete support purposes.  By install
 * Added settings for custom whiteboard positioning.
 
 == Upgrade Notice ==
+
+= 1.55 =
+CF Whiteboard now has security for editing Whiteboard entries. Starting Monday, June 11, athletes will not be able to edit their entries until you upgrade the CF Whiteboard plugin to version 1.55 or newer.
