@@ -2058,7 +2058,7 @@ function cfwhiteboard_athletes_insert_rewrite_rules($rules) {
     $newrules = array();
 
     if (!empty($page)) {
-        $newrules['('.$page->post_name.')/(.+)/?$'] = 'index.php?pagename=$matches[1]&cfwathlete=$matches[2]';
+        $newrules['('.$page->post_name.')/([^/]+)/?$'] = 'index.php?pagename=$matches[1]&cfwathlete=$matches[2]';
     }
 
     return $newrules + $rules;
