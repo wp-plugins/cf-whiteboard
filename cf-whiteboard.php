@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 1.55
+Version: 1.56
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '1.55';
+$CFWHITEBOARD_VERSION = '1.56';
 
 
 
@@ -199,7 +199,7 @@ function cfw_admin_notice() {
             $pointer_content = '<div class="updated" style="background:#444; border:none; color:#fff; padding:15px 120px 15px 20px; text-align:left; line-height:1.4; font-size:13px; font-family:\'Helvetica Neue\', Helvetica, Verdana, sans-serif; border-radius:3px; text-shadow:0 -1px 0 #000; box-shadow:inset 0 1px 13px #000;">';
             $pointer_content .= '<p>';
             $pointer_content .= 'Thank you for installing <a href="http://cfwhiteboard.com" target="_blank" style="color:#01a1ff; text-decoration:underline;">CF Whiteboard</a>! Check out <a href="options-general.php?page=cf-whiteboard.php" style="color:#01a1ff; text-decoration:underline;">Settings > CF Whiteboard</a> to get started.';
-            $current_url = $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+            $current_url = 'http://'.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
             if (stripos($current_url, '?') === false) {
                 $current_url .= '?';
             }
@@ -2032,7 +2032,7 @@ function cfwhiteboard_athletes_scripts_data() {
 
 
 // from http://codex.wordpress.org/Class_Reference/WP_Rewrite
-add_filter('rewrite_rules_array', 'cfwhiteboard_athletes_insert_rewrite_rules', 1);
+add_filter('rewrite_rules_array', 'cfwhiteboard_athletes_insert_rewrite_rules', 1999999);
 add_filter('query_vars', 'cfwhiteboard_athletes_insert_query_vars');
 add_action('wp_loaded', 'cfwhiteboard_athletes_flush_rules');
 // flush_rules() if our rules are not yet included
@@ -2043,7 +2043,7 @@ function cfwhiteboard_athletes_flush_rules() {
     if(!empty($page_id)) $page = get_page($page_id);
 
     $rules = get_option( 'rewrite_rules' );
-    if (!empty($page) && !isset( $rules['('.$page->post_name.')/(.+)/?$'] ) ) {
+    if (!empty($page) && !isset( $rules['('.$page->post_name.')/([^/]+)/?$'] ) ) {
         global $wp_rewrite;
         $wp_rewrite->flush_rules();
     }
@@ -2058,14 +2058,14 @@ function cfwhiteboard_athletes_insert_rewrite_rules($rules) {
     $newrules = array();
 
     if (!empty($page)) {
-        $newrules['('.$page->post_name.')/(.+)/?$'] = 'index.php?pagename=$matches[1]&athlete=$matches[2]';
+        $newrules['('.$page->post_name.')/(.+)/?$'] = 'index.php?pagename=$matches[1]&cfwathlete=$matches[2]';
     }
 
     return $newrules + $rules;
 }
 // Adding the id var so that WP recognizes it
 function cfwhiteboard_athletes_insert_query_vars($vars) {
-    array_push($vars, 'athlete');
+    array_push($vars, 'cfwathlete');
     return $vars;
 }
 
