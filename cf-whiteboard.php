@@ -728,7 +728,7 @@ function cfwhiteboard_options_page() {
             <label for="CFWHITEBOARD_affiliate_id">
                 <strong><?php _e('Affiliate ID:', 'cf-whiteboard'); ?></strong>
             </label>
-            <input type="text" id="CFWHITEBOARD_affiliate_id" name="CFWHITEBOARD_affiliate_id" value="<?php echo esc_attr( $options['affiliate_id'] ); ?>" />
+            <input type="text" id="CFWHITEBOARD_affiliate_id" name="CFWHITEBOARD_affiliate_id" value="<?php echo esc_attr( preg_replace('/_preview$/', '', $options['affiliate_id']) ); ?>" />
             <label for="CFWHITEBOARD_affiliate_id">
                 <?php _e('(Caution: Changing this value could result in data loss.)', 'cf-whiteboard'); ?>
             </label>
