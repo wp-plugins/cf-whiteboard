@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 1.57
+Version: 1.58
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '1.57';
+$CFWHITEBOARD_VERSION = '1.58';
 
 
 
@@ -273,7 +273,14 @@ function cfwhiteboard_get_options() {
 
     $options = get_option('cfwhiteboard_options');
     if ($options == FALSE) $options = array();
-    return array_merge($CFWHITEBOARD_DEFAULT_OPTIONS, $options);
+
+    $options = array_merge($CFWHITEBOARD_DEFAULT_OPTIONS, $options);
+
+    if (cfwhiteboard_is_preview_mode($options)) {
+        $options['affiliate_id'] = $options['affiliate_id'] . '_preview';
+    }
+
+    return $options;
 }
 
 function cfwhiteboard_is_authorized($options) {
@@ -334,7 +341,6 @@ function cfwhiteboard_generate_placeholder($post_id, $options, $wods) {
     }
 
     $affiliateId = !empty($options['affiliate_id']) ? $options['affiliate_id'] : 'testaffiliate';
-    if (cfwhiteboard_is_preview_mode($options)) $affiliateId .= '_preview';
     
     if (!is_array($wods)) $wods = array();
 
@@ -445,7 +451,7 @@ function cfwhiteboard_latest_jquery($version) {
     wp_register_script('jquery',
         plugins_url('jquery.js', __FILE__),
         false,
-        '1.7.1'
+        '1.7.2'
     );
     wp_enqueue_script('jquery');
 }
