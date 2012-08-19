@@ -56,7 +56,8 @@
 				var button = controlManager.createSplitButton( "cfwhiteboard_button",{
 					title: "Insert Workout Description(s)",
 					image: icon_url,
-					icons: false
+					icons: false,
+					cmd: ''
 				});
 					
 				var ticker = 0;
