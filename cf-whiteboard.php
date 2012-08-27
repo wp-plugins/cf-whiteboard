@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 1.59
+Version: 1.60
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '1.59';
+$CFWHITEBOARD_VERSION = '1.60';
 
 
 
@@ -451,7 +451,7 @@ function cfwhiteboard_latest_jquery($version) {
     wp_register_script('jquery',
         plugins_url('jquery.js', __FILE__),
         false,
-        '1.8.0'
+        '1.7.3'
     );
     wp_enqueue_script('jquery');
 }
@@ -1850,6 +1850,8 @@ function cfwhiteboard_json_meta() {
 
     $response = array(
         'post_id' => $post->ID,
+        'post_title' => $post->post_title,
+        'post_date' => $post->post_date,
         'post_modified' => $post->post_modified,
         'meta' => get_post_meta($query_var, $CFWHITEBOARD_WODS_META_KEY, true),
         'home_url' => home_url(),
