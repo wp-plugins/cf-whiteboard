@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 1.61
+Version: 1.62
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '1.61';
+$CFWHITEBOARD_VERSION = '1.62';
 
 
 
@@ -365,6 +365,7 @@ function cfwhiteboard_generate_placeholder($post_id, $options, $wods) {
     $data = array(
         "affiliateId" => $affiliateId,
         "postId" => $post_id,
+        "postPermalink" => get_permalink( $post_id ),
         "postModified" => get_the_modified_time('Y-m-d H:i:s'),
         "wods" => $wods
     );
@@ -1573,7 +1574,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
     <div id="cfw-activation-notice" class="meta-box-overlay" style="display:none;">
         <div class="notice">
             <h2>Welcome to CF Whiteboard!</h2>
-            <p>Please <a href="/wp-admin/plugins.php">activate your trial</a> so you can start playing around!</p>
+            <p>Please <a href="options-general.php?page=cf-whiteboard.php#account">activate your trial</a> so you can start playing around!</p>
         </div>
     </div>
     <div id="cfw-subscription-status-notice" style="display:none;" class="cfw-twb">
@@ -1669,7 +1670,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             CFW.domain = /[.]local/.test(window.location.host) || /rinkl/.test(window.location.host) || /squatc/.test(window.location.host) ? 'http://tameron.herokuapp.com' : 'http://cfwhiteboard.com';
 
             CFW.getAffiliateDetails = function() {
-                $.getJSON(CFW.domain+'/affiliates/<?php echo $options["affiliate_id"]; ?>.json', function(data) {
+                $.getJSON(CFW.domain+'/affiliates/<?php echo preg_replace('/_preview$/', '', $options['affiliate_id']); ?>.json', function(data) {
                     CFW.affiliateDetails = data;
                     $(window).trigger('affiliateDetailsReady');
                 });
@@ -2228,6 +2229,7 @@ function cfwhiteboard_json_meta() {
         'post_title' => $post->post_title,
         'post_date' => $post->post_date,
         'post_modified' => $post->post_modified,
+        'post_permalink' => get_permalink( $post->ID ),
         'meta' => get_post_meta($query_var, $CFWHITEBOARD_WODS_META_KEY, true),
         'home_url' => home_url(),
         'athletes_page_id' => $options['athletes_page_id'],
