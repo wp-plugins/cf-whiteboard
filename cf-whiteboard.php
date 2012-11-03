@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 1.63
+Version: 1.64
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '1.63';
+$CFWHITEBOARD_VERSION = '1.64';
 
 
 
@@ -1157,7 +1157,7 @@ function cfwhiteboard_setup_post_meta_boxes() {
         add_action('admin_notices', 'cfwhiteboard_save_post_meta_notices');
     
         add_action('admin_print_scripts', 'cfwhiteboard_post_meta_scripts');
-        add_action( 'admin_print_styles', 'cfwhiteboard_post_meta_styles' );
+        add_action('admin_print_styles', 'cfwhiteboard_post_meta_styles');
     }
 }
 function cfwhiteboard_post_meta_scripts() {
@@ -1169,6 +1169,12 @@ function cfwhiteboard_post_meta_scripts() {
         array('jquery'),
         $CFWHITEBOARD_VERSION
     );
+
+    wp_enqueue_script('jquery-ui-datepicker',
+        plugins_url('jquery-ui.datepicker.js', __FILE__),
+        array('jquery'),
+        $CFWHITEBOARD_VERSION
+    );
 }
 function cfwhiteboard_post_meta_styles() {
     global $CFWHITEBOARD_VERSION;
@@ -1176,6 +1182,12 @@ function cfwhiteboard_post_meta_styles() {
 
     wp_enqueue_style('bootstrap',
         plugins_url('bootstrap/css/bootstrap.min.css', __FILE__),
+        false,
+        $CFWHITEBOARD_VERSION
+    );
+
+    wp_enqueue_style('jquery-ui-datepicker',
+        plugins_url('jquery-ui.datepicker.css', __FILE__),
         false,
         $CFWHITEBOARD_VERSION
     );
@@ -1355,7 +1367,23 @@ function cfwhiteboard_wods_meta_box($object, $box) {
         #cfwhiteboard-wods-meta .hidden {
             display: none;
         }
+        #cfwhiteboard-wods-meta .cfw-wods-date-container {
+            background: #f5f5f5;
+            -webkit-border-radius: 5px;
+               -moz-border-radius: 5px;
+                    border-radius: 5px;
+            margin: 0 6px 20px;
+            padding: 5px 10px;
+            font-size: 16px;
+        }
+        #cfwhiteboard-wods-meta .cfw-wods-date-container label {
+            vertical-align: baseline;
+        }
+        #cfwhiteboard-wods-meta .cfw-wods-date-container input {
+            width: 320px;
+        }
         #cfwhiteboard-wods-meta ul {
+            font-size: 14px;
             margin: 0;
             padding: 0 6px;
         }
@@ -1419,9 +1447,6 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             border-bottom: 1px solid #aaa;
         }
 */
-        #cfwhiteboard-wods-meta ul li table tbody a.delete {
-            font-size: 11px;
-        }
         #cfwhiteboard-wods-meta ul li table tbody .component-label-show span {
             color: #666;
             font-family: sans-serif;
@@ -1474,9 +1499,13 @@ function cfwhiteboard_wods_meta_box($object, $box) {
         #cfwhiteboard-wods-meta ul li table td a.delete {
             color: #666;
             float: right;
+            font-size: 12px;
             line-height: 23px;
             padding: 0 0 0 8px;
             text-decoration: none;
+        }
+        #cfwhiteboard-wods-meta ul li table tbody a.delete {
+            font-size: 11px;
         }
         #cfwhiteboard-wods-meta ul li table td a.delete:hover,
         #cfwhiteboard-wods-meta ul li table td a.delete:focus {
@@ -1490,7 +1519,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
         }
         #cfwhiteboard-wods-meta ul li table a.help-alert {
             float: right;
-            font-size: 90%;
+            font-size: 11px;
             font-weight: normal;
             line-height: 2;
             text-decoration: none;
@@ -1591,8 +1620,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
         You can track multiple components for each class.  Each component will have a separate entry field so athletes can lookup their results separately for each component.
     </p>
 -->
-    <ul>
-        <?php
+    <?php
         $wods = get_post_meta($object->ID, $CFWHITEBOARD_WODS_META_KEY, true);
 
         $next_wod_id = 1;
@@ -1616,7 +1644,14 @@ function cfwhiteboard_wods_meta_box($object, $box) {
         //     $next_component_id = intval( $last_component['wp_id'] ) + 10;
         // }
 
-    
+        $wods_date = $wods[0]['date'];
+    ?>
+    <div class="cfw-wods-date-container">
+        <label for="cfwhiteboard-wods-date">Workouts for</label>
+        <input id="cfwhiteboard-wods-date" type="text" name="cfwhiteboard-wods-date" class="cfw-datepicker" value="<?php echo empty($wods_date) ? '' : $wods_date; ?>" />
+    </div>
+    <ul>
+        <?php
         foreach ($wods as $wod) {
             if ((!is_array( $wod['components'] )) || empty($wod['components'])) {
                 $wod['components'] = array();
@@ -1733,6 +1768,23 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             $('#cfwhiteboard-wods-meta li').each(function() {
                 CFW.updateComponentNumbers( $(this) );
             });
+
+
+            // Date Picker(s)
+            if ($.fn.datepicker) {
+                $('.cfw-datepicker').each(function() {
+                    var $this = $(this);
+                    $this.datepicker({
+                        showAnim: 'slideDown',
+                        dateFormat: 'DD, MM d, yy',
+                        showOtherMonths: true,
+                        selectOtherMonths: true
+                    });
+                    if (!$this.datepicker('getDate')) {
+                        $this.datepicker('setDate', new Date());
+                    }
+                });
+            }
 
 
             // Component labels logic:
@@ -1956,7 +2008,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                 CFW.updateComponentNumbers( $new );
             });
             $('a.remove-class').live('click', function() {
-                if (confirm('You are about to delete this class from the whiteboard. This cannot be undone once you save the post. If athletes have already entered scores for this class, their data will not be deleted.')) {
+                if (confirm('You are about to delete this class from the whiteboard. This cannot be undone once you save the post. If athletes have already entered scores for this class, their data will still appear on their profiles, but will disappear from the Whiteboard.')) {
                     $(this).closest('li').remove();
                 }
             });
@@ -1991,7 +2043,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                 CFW.updateComponentNumbers($table);
             });
             $('a.remove-component').live('click', function() {
-                if (confirm('You are about to delete this component from the whiteboard. This cannot be undone once you save the post. If athletes have already entered scores for this component, their data will not be deleted.')) {
+                if (confirm('You are about to delete this component from the whiteboard. This cannot be undone once you save the post. If athletes have already entered scores for this component, their data will still appear on their profiles, but will disappear from the Whiteboard.')) {
                     var $this = $(this);
                     var $table = $this.closest('table');
                     $this.closest('tbody').remove();
@@ -2047,6 +2099,12 @@ function cfwhiteboard_save_post_meta_boxes($post_id, $post) {
     $param_prefix_len = strlen( $param_prefix );
 
     if (! is_array($_POST)) return;
+
+    $wods_date = $_POST['cfwhiteboard-wods-date'];
+    if (empty($wods_date)) {
+        $wods_date = '';
+    }
+
     $new_wods = array();
     foreach ($_POST as $name => $value) {
 
@@ -2061,7 +2119,8 @@ function cfwhiteboard_save_post_meta_boxes($post_id, $post) {
                 $new_wods[$wod_id] = array(
                     'name' => '',
                     'components' => array(),
-                    'wp_id' => $wod_id
+                    'wp_id' => $wod_id,
+                    'date' => $wods_date
                 );
             }
 
@@ -2218,6 +2277,7 @@ function cfwhiteboard_json_meta() {
         'post_date' => $post->post_date,
         'post_modified' => $post->post_modified,
         'post_permalink' => get_permalink( $post->ID ),
+        'post_type' => $post->post_type,
         'meta' => get_post_meta($query_var, $CFWHITEBOARD_WODS_META_KEY, true),
         'home_url' => home_url(),
         'athletes_page_id' => $options['athletes_page_id'],

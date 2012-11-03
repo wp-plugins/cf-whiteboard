@@ -1578,8 +1578,9 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     z-index: -1 !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd.cfw-notes {
-    color: #6d6a63 !important;
     border-bottom: none !important;
+    color: #6d6a63 !important;
+    white-space: pre-wrap !important;
 }
 
 
@@ -1657,12 +1658,15 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard .cfw-window form h2 label {
     margin: 0 !important;
 }
-.cfwhiteboard .cfw-window form label, .cfwhiteboard .cfw-window form input, .cfwhiteboard .cfw-window form textarea {
+.cfwhiteboard .cfw-window form label,
+.cfwhiteboard .cfw-window form input,
+.cfwhiteboard .cfw-window form textarea {
     display: block !important;
     font-size: 15px !important;
     width: 274px !important;
 }
-.cfwhiteboard .cfw-window form input, .cfwhiteboard .cfw-window form textarea {
+.cfwhiteboard .cfw-window form input,
+.cfwhiteboard .cfw-window form textarea {
     padding: 3px !important;
 }
 .cfwhiteboard .cfw-window form label {
@@ -1811,6 +1815,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 .cfwhiteboard .cfw-window form .cfw-notes textarea {
     resize: vertical !important;
+    white-space: pre-wrap !important;
 }
 .cfwhiteboard .cfw-window form .cfw-notes {
     max-height: 0 !important;
