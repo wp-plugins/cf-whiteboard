@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 1.64
+Version: 1.65
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '1.64';
+$CFWHITEBOARD_VERSION = '1.65';
 
 
 
@@ -446,9 +446,21 @@ function cfwhiteboard_scripts() {
     global $CFWHITEBOARD_VERSION;
     if (!isset($CFWHITEBOARD_VERSION)) $CFWHITEBOARD_VERSION = '0.0';
 
+    wp_enqueue_script('underscore',
+        plugins_url('js/underscore.js', __FILE__),
+        false,
+        '1.4.2'
+    );
+
+    wp_enqueue_script('backbone',
+        plugins_url('js/backbone.js', __FILE__),
+        array('underscore', 'jquery'),
+        '0.9.2'
+    );
+
     wp_enqueue_script('cfwhiteboard',
-        plugins_url('all-whiteboard.js', __FILE__),
-        array('jquery'),
+        plugins_url('js/all-whiteboard.js', __FILE__),
+        array('underscore', 'jquery', 'backbone'),
         $CFWHITEBOARD_VERSION
     );
 }
@@ -456,7 +468,7 @@ function cfwhiteboard_scripts() {
 function cfwhiteboard_latest_jquery($version) {
     wp_deregister_script('jquery'); 
     wp_register_script('jquery',
-        plugins_url('jquery.js', __FILE__),
+        plugins_url('js/jquery.js', __FILE__),
         false,
         '1.7.3'
     );
@@ -1053,7 +1065,7 @@ function cfwhiteboard_options_page() {
             $('a[href="'+window.location.hash+'"]').click();
 
             $(document.body).on('change', 'input, select', function(event) {
-                if (event.relatedTarget && $(event.relatedTarget).not('input[type="submit"]')) {
+                if (!event.relatedTarget || $(event.relatedTarget).not('input[type="submit"]')) {
                     $('#unsaved-changes-alert').fadeIn();
                 }
             });
@@ -1171,7 +1183,7 @@ function cfwhiteboard_post_meta_scripts() {
     );
 
     wp_enqueue_script('jquery-ui-datepicker',
-        plugins_url('jquery-ui.datepicker.js', __FILE__),
+        plugins_url('js/jquery-ui.datepicker.js', __FILE__),
         array('jquery'),
         $CFWHITEBOARD_VERSION
     );
@@ -2438,9 +2450,21 @@ function cfwhiteboard_athletes_scripts() {
     global $CFWHITEBOARD_VERSION;
     if (!isset($CFWHITEBOARD_VERSION)) $CFWHITEBOARD_VERSION = '0.0';
     
+    wp_enqueue_script('underscore',
+        plugins_url('js/underscore.js', __FILE__),
+        false,
+        '1.4.2'
+    );
+
+    wp_enqueue_script('backbone',
+        plugins_url('js/backbone.js', __FILE__),
+        array('underscore', 'jquery'),
+        '0.9.2'
+    );
+
     wp_enqueue_script('cfwhiteboard-athletes',
-        plugins_url('all-athletes.js', __FILE__),
-        array('jquery'),
+        plugins_url('js/all-athletes.js', __FILE__),
+        array('underscore', 'jquery', 'backbone'),
         $CFWHITEBOARD_VERSION
     );
 }
