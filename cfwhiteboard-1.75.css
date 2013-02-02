@@ -420,6 +420,9 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 	border-style:none !important;
 	border-width:medium !important;
 	bottom:auto !important;
+	-webkit-box-sizing: content-box !important;
+	-moz-box-sizing: content-box !important;
+	box-sizing: content-box !important;
 	clear:none !important;
 /*  clip:auto !important;*/
 	color:inherit !important;
@@ -562,8 +565,27 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cleanslate blockquote:before, .cleanslate blockquote:after, .cleanslate q:before, .cleanslate q:after, .cleanslate li:before, .cleanslate li:after  {
 	content:"" !important;
 }
-.cleanslate input, .cleanslate select {
-	vertical-align:middle !important;
+.cleanslate input,
+.cleanslate input[type="color"],
+.cleanslate input[type="date"],
+.cleanslate input[type="datetime"],
+.cleanslate input[type="datetime-local"],
+.cleanslate input[type="email"],
+.cleanslate input[type="month"],
+.cleanslate input[type="number"],
+.cleanslate input[type="password"],
+.cleanslate input[type="search"],
+.cleanslate input[type="tel"],
+.cleanslate input[type="text"],
+.cleanslate input[type="time"],
+.cleanslate input[type="week"],
+.cleanslate input[type="url"],
+.cleanslate select,
+.cleanslate textarea {
+	-webkit-box-sizing: content-box !important;
+	-moz-box-sizing: content-box !important;
+	box-sizing: content-box !important;
+	vertical-align: middle !important;
 }
 .cleanslate select, .cleanslate textarea, .cleanslate input {
 	border:1px solid #ccc !important;
@@ -724,12 +746,15 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     background: url('images/profile-link.png') no-repeat transparent 1px 1px !important;
 }
 */
+.cfwhiteboard input[type="checkbox"] {
+    -webkit-appearance: checkbox !important;
+}
 .cfwhiteboard > h1, .cfwhiteboard > h1 * {
     cursor: pointer !important;
     text-decoration: none !important;
 }
 .cfwhiteboard > h1 {
-    background: url('images/white-water-paper.png') no-repeat center 20% #fafafa !important;
+    background: url('images/bg-gradient-white-44.png') repeat-x left top #fff !important;
     background: -moz-linear-gradient(top,  #ffffff 0%, #e0e0e0 100%) !important;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e0e0e0)) !important;
     background: -webkit-linear-gradient(top,  #ffffff 0%,#e0e0e0 100%) !important;
@@ -1658,15 +1683,26 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard .cfw-window form h2 label {
     margin: 0 !important;
 }
+.cfwhiteboard .cfw-window form .cfw-result-notes {
+    color: #606060 !important;
+    font-size: 15px !important;
+    line-height: 23px !important;
+    margin: 0 0 3px !important;
+    padding: 0 !important;
+    text-shadow: 0 1px 0 #fff !important;
+    width: 282px !important;
+}
 .cfwhiteboard .cfw-window form label,
 .cfwhiteboard .cfw-window form input,
-.cfwhiteboard .cfw-window form textarea {
+.cfwhiteboard .cfw-window form textarea,
+.cfwhiteboard .cfw-window form .cfw-dropdown-toggle {
     display: block !important;
     font-size: 15px !important;
     width: 274px !important;
 }
 .cfwhiteboard .cfw-window form input,
-.cfwhiteboard .cfw-window form textarea {
+.cfwhiteboard .cfw-window form textarea,
+.cfwhiteboard .cfw-window form .cfw-dropdown-toggle {
     padding: 3px !important;
 }
 .cfwhiteboard .cfw-window form label {
@@ -1722,11 +1758,15 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 .cfwhiteboard .cfw-window form input[type="text"],
 .cfwhiteboard .cfw-window form input[type="email"],
-.cfwhiteboard .cfw-window form textarea {
+.cfwhiteboard .cfw-window form textarea,
+.cfwhiteboard .cfw-window form .cfw-dropdown-toggle {
     background: #fff !important;
     border-color: #8D8A83 !important;
     border-style: solid !important;
     border-width: 1px !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
     color: #1d1a13 !important;
     cursor: text !important;
     font-size: 14px !important;
@@ -1739,13 +1779,61 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     filter: alpha(opacity = 35) !important;
 }
 .cfwhiteboard .cfw-window form input[type="text"],
-.cfwhiteboard .cfw-window form input[type="email"] {
+.cfwhiteboard .cfw-window form input[type="email"],
+.cfwhiteboard .cfw-window form .cfw-dropdown-toggle {
     height: 21px !important;
 }
 .cfwhiteboard .cfw-window form .cfw-half + .cfw-half,
 .cfwhiteboard .cfw-window form label.cfw-majority,
 .cfwhiteboard .cfw-window form input.cfw-majority {
     margin-left: 4px !important;
+}
+.cfwhiteboard .cfw-window form label.cfw-inline {
+    display: inline-block !important;
+    line-height: 21px !important;
+    margin-top: 0 !important;
+    padding-left: 2px !important;
+    padding-right: 20px !important;
+    vertical-align: top !important;
+    width: auto !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-window form .cfw-dropdown {
+    display: inline-block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    vertical-align: top !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-window form .cfw-dropdown-toggle {
+    background: url('images/bg-gradient-white-44.png') repeat-x left top #fff !important;
+    border-color: #ccc !important;
+    margin-bottom: 0 !important;
+    text-decoration: none !important;
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+    width: auto !important;
+}
+.cfwhiteboard .cfw-window form .cfw-dropdown-toggle:hover {
+    border-color: #8D8A83 !important;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.25),inset 0 0 3px #fff !important;
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.25),inset 0 0 3px #fff !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25),inset 0 0 3px #fff !important;
+}
+.cfwhiteboard .cfw-window form .cfw-dropdown-toggle:active,
+.cfwhiteboard .cfw-window form .open .cfw-dropdown-toggle {
+    border-color: #8D8A83 !important;
+    -webkit-box-shadow: inset 0 1px 1px #888 !important;
+    -moz-box-shadow: inset 0 1px 1px #888 !important;
+    box-shadow: inset 0 1px 1px #888 !important;
+}
+.cfwhiteboard .cfw-window form .cfw-dropdown-menu li a {
+    color: #1d1a13 !important;
+}
+.cfwhiteboard .cfw-window form .cfw-dropdown-menu li a:hover {
+    color: #fff !important;
 }
 .cfwhiteboard .cfw-window form div.cfw-footer {
     padding-top: 3px !important;
@@ -1988,3 +2076,161 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 
 
 
+/*!
+ * Bootstrap v2.1.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+.cfwhiteboard .cfw-dropdown {
+  position: relative !important;
+}
+.cfwhiteboard .cfw-dropdown-toggle {
+  *margin-bottom: -3px !important;
+}
+.cfwhiteboard .cfw-dropdown-toggle:active,
+.cfwhiteboard .open .cfw-dropdown-toggle {
+  outline: 0 !important;
+}
+.cfwhiteboard .cfw-caret {
+  display: inline-block !important;
+  width: 0 !important;
+  height: 0 !important;
+  vertical-align: top !important;
+  border-top: 4px solid #1d1a13 !important;
+  border-right: 4px solid transparent !important;
+  border-left: 4px solid transparent !important;
+  content: "" !important;
+}
+.cfwhiteboard .cfw-dropdown .cfw-caret {
+  margin-top: 8px !important;
+  margin-left: 2px !important;
+}
+.cfwhiteboard .cfw-dropdown-menu {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  z-index: 1000 !important;
+  display: none !important;
+  float: left !important;
+  min-width: 160px !important;
+  padding: 5px 0 !important;
+  margin: 2px 0 0 !important;
+  list-style: none !important;
+  background-color: #ffffff !important;
+  border: 1px solid #ccc !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  *border-right-width: 2px !important;
+  *border-bottom-width: 2px !important;
+  -webkit-border-radius: 6px !important;
+  -moz-border-radius: 6px !important;
+  border-radius: 6px !important;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !important;
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !important;
+  -webkit-background-clip: padding-box !important;
+  -moz-background-clip: padding !important;
+  background-clip: padding-box !important;
+}
+.cfwhiteboard .cfw-dropdown-menu.pull-right {
+  right: 0 !important;
+  left: auto !important;
+}
+.cfwhiteboard .cfw-dropdown-menu .cfw-divider {
+  *width: 100% !important;
+  height: 1px !important;
+  margin: 9px 1px !important;
+  *margin: -5px 0 5px !important;
+  overflow: hidden !important;
+  background-color: #e5e5e5 !important;
+  border-bottom: 1px solid #ffffff !important;
+}
+.cfwhiteboard .cfw-dropdown-menu a {
+  display: block !important;
+  padding: 3px 20px !important;
+  clear: both !important;
+  font-weight: normal !important;
+  line-height: 20px !important;
+  color: #333333 !important;
+  white-space: nowrap !important;
+}
+.cfwhiteboard .cfw-dropdown-menu li > a:hover,
+.cfwhiteboard .cfw-dropdown-menu li > a:focus,
+.cfwhiteboard .cfw-dropdown-submenu:hover > a {
+  text-decoration: none !important;
+  color: #ffffff !important;
+  background-color: #0088cc !important;
+  background-color: #0081c2 !important;
+  background-image: -moz-linear-gradient(top, #0088cc, #0077b3) !important;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3)) !important;
+  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3) !important;
+  background-image: -o-linear-gradient(top, #0088cc, #0077b3) !important;
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3) !important;
+  background-repeat: repeat-x !important;
+}
+.cfwhiteboard .cfw-dropdown-menu .active > a,
+.cfwhiteboard .cfw-dropdown-menu .active > a:hover {
+  color: #ffffff !important;
+  text-decoration: none !important;
+  outline: 0 !important;
+  background-color: #0088cc !important;
+  background-color: #0081c2 !important;
+  background-image: -moz-linear-gradient(top, #0088cc, #0077b3) !important;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3)) !important;
+  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3) !important;
+  background-image: -o-linear-gradient(top, #0088cc, #0077b3) !important;
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3) !important;
+  background-repeat: repeat-x !important;
+}
+.cfwhiteboard .cfw-dropdown-menu .disabled > a,
+.cfwhiteboard .cfw-dropdown-menu .disabled > a:hover {
+  color: #999999 !important;
+}
+.cfwhiteboard .cfw-dropdown-menu .disabled > a:hover {
+  text-decoration: none !important;
+  background-color: transparent !important;
+  cursor: default !important;
+}
+.cfwhiteboard .open {
+  *z-index: 1000 !important;
+}
+.cfwhiteboard .open  > .cfw-dropdown-menu {
+  display: block !important;
+}
+.cfwhiteboard .pull-right > .cfw-dropdown-menu {
+  right: 0 !important;
+  left: auto !important;
+}
+.cfwhiteboard .cfw-dropdown-submenu {
+  position: relative !important;
+}
+.cfwhiteboard .cfw-dropdown-submenu > .cfw-dropdown-menu {
+  top: 0 !important;
+  left: 100% !important;
+  margin-top: -6px !important;
+  margin-left: -1px !important;
+  -webkit-border-radius: 0 6px 6px 6px !important;
+  -moz-border-radius: 0 6px 6px 6px !important;
+  border-radius: 0 6px 6px 6px !important;
+}
+.cfwhiteboard .cfw-dropdown-submenu:hover .cfw-dropdown-menu {
+  display: block !important;
+}
+.cfwhiteboard .cfw-dropdown-submenu > a:after {
+  display: block !important;
+  content: " " !important;
+  float: right !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-color: transparent !important;
+  border-style: solid !important;
+  border-width: 5px 0 5px 5px !important;
+  border-left-color: #cccccc !important;
+  margin-top: 5px !important;
+  margin-right: -10px !important;
+}
+.cfwhiteboard .cfw-dropdown-submenu:hover > a:after {
+  border-left-color: #ffffff !important;
+}
+.cfwhiteboard .cfw-dropdown .cfw-dropdown-menu .cfw-nav-header {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
