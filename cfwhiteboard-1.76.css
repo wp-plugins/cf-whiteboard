@@ -711,12 +711,13 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 
 .cfwhiteboard.cfw-display-embed .cfw-pane {
+    display: block !important;
     position: static !important;
 }
 .cfw-clearer {
+    clear: both !important;
     display: block !important;
     height: 0 !important;
-    clear: both !important;
     visibility: hidden !important;
 }
 
