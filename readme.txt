@@ -4,11 +4,11 @@ Tags: crossfit, wod, fitness, workout, tracking, tracker, sports, excercise
 Tested up to: 3.5.1
 Stable tag: 1.76
 
-CF Whiteboard is a CrossFit<sup>&reg;</sup> workout tracker that integrates with your affiliate's website.
+CF Whiteboard is a CrossFit<sup>&reg;</sup> workout tracker that integrates into your affiliate's website.
 
 == Description ==
 
-[CF Whiteboard](http://cfwhiteboard.com) is a CrossFit<sup>&reg;</sup> workout tracker that integrates with your affiliate's website. It adds a Whiteboard widget to your WOD blog posts, and creates athlete profiles where your athletes can search past results.
+CF Whiteboard is a [CrossFit<sup>&reg;</sup> workout tracker](http://cfwhiteboard.com) that integrates into your affiliate's website. It adds a Whiteboard widget to your WOD blog posts, and creates athlete profiles where your athletes can search past results.
 
 We want to create a service that CrossFitters love, so don't hesitate to [email us](mailto:affiliatesupport@cfwhiteboard.com) with any questions or feedback. We have helped most of our gyms with setting up a custom Whiteboard position, adding the Athletes page to their main menu, and other wordpress-related requests. Let us know how we can help! [affiliatesupport@cfwhiteboard.com](mailto:affiliatesupport@cfwhiteboard.com)
 
@@ -25,6 +25,12 @@ We want to create a service that CrossFitters love, so don't hesitate to [email 
 The whiteboard contains external links for athlete support purposes.  By installing this plugin, you give CF Whiteboard permission to embed these external links.
 
 == Changelog ==
+
+= 1.77 =
+* Fix issue where Weightlifting Benchmarks won't submit correctly unless you change the units.
+
+= 1.76 =
+* Fix 2 minor issues: embedded whiteboards are not being displayed, non-breaking JS error on pages without whiteboards.
 
 = 1.75 =
 * ALL NEW: Track benchmark workouts.  Coming next: All new athlete profiles with full integration of benchmark workouts and weightlifting PRs.
