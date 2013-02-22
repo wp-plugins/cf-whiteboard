@@ -158,7 +158,7 @@
 				this.$cfwButton.append('<span style="position:absolute; top:0; right:0; bottom:0; left:0; background: url('+ icon_url +') no-repeat 1px center transparent;"></span>');
 
                 this.$cfwButton.attr('data-toggle','dropdown');
-                this.$cfwButton.attr('data-target',' ');
+                this.$cfwButton.attr('data-target','.cfw-dummy-selector');
 				this.$cfwButton.wrap('<div class="dropdown" style="display:inline-block; vertical-align:top; *zoom:1; *display:inline;"></div>');
 				this.$cfwButton.closest('.dropdown').wrap('<span class="cfw-twb"></span>');
 				this.$cfwButton.after('<ul class="dropdown-menu"></ul>');
