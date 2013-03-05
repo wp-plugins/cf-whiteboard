@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 1.79
+Version: 1.80
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '1.79';
+$CFWHITEBOARD_VERSION = '1.80';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -301,6 +301,7 @@ $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectorparent'] = '';
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectoralignment'] = cfwhiteboard_Position::CustomSelectorAlignmentFloatRight;
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectormargin'] = '0 0 10px 10px';
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectordisplay'] = cfwhiteboard_Position::CustomSelectorDisplayButton;
+$CFWHITEBOARD_DEFAULT_OPTIONS['metabox_on_custom_post_types'] = true;
 // $CFWHITEBOARD_DEFAULT_OPTIONS['categories'] = array();
 
 function cfwhiteboard_get_options() {
@@ -630,6 +631,10 @@ function cfwhiteboard_options_page() {
         if (!empty($_POST['CFWHITEBOARD_position_customselectordisplay']))
             $new_options['position_customselectordisplay'] = @$_POST['CFWHITEBOARD_position_customselectordisplay'];
 
+        // Show meta box on custom post types?
+        if (isset($_POST['CFWHITEBOARD_metabox_on_custom_post_types']))
+            $new_options['metabox_on_custom_post_types'] = (@$_POST['CFWHITEBOARD_metabox_on_custom_post_types'] == 'yes');
+
         // Categories
         // $new_options['categories'] = array();
         // $categories = get_categories($category_args);
@@ -793,6 +798,12 @@ function cfwhiteboard_options_page() {
         }
         .cfw-twb select.input-xlarge {
             width: 284px;
+        }
+        .cfw-twb .checkbox {
+            background: none;
+        }
+        .cfw-twb .radio input[type="radio"] {
+            margin-top: 3px;
         }
     </style>
 
@@ -1178,6 +1189,15 @@ function cfwhiteboard_options_page() {
                             </fieldset>
                     -->
 
+                            <fieldset style="margin-bottom:40px;">
+                                <legend><?php _e('Custom Post Types', 'cf-whiteboard'); ?></legend>
+                                <input type="hidden" name="CFWHITEBOARD_metabox_on_custom_post_types" value="no">
+                                <label for="CFWHITEBOARD_metabox_on_custom_post_types" class="checkbox">
+                                    <input type="checkbox" id="CFWHITEBOARD_metabox_on_custom_post_types" name="CFWHITEBOARD_metabox_on_custom_post_types" value="yes" <?php echo esc_attr( !!$options['metabox_on_custom_post_types'] ? 'checked="checked"' : '' ); ?> />
+                                    Display the CF Whiteboard meta box when editing a custom post type?
+                                </label>
+                            </fieldset>
+
                             <?php if (function_exists(is_multisite) && is_multisite()) { ?>
                                 <fieldset style="margin-bottom:40px;">
                                     <label>
@@ -1332,6 +1352,10 @@ function cfwhiteboard_setup_post_meta_boxes() {
     if ($typenow == 'page' || $typenow == 'attachment' || $typenow == 'revision' || $typenow == 'nav_menu_item')
         return;
 
+    $options = cfwhiteboard_get_options();
+    if (!$options['metabox_on_custom_post_types'] && $typenow != 'post')
+        return;
+
     /* Add meta boxes on the 'add_meta_boxes' hook. */
     add_action('add_meta_boxes', 'cfwhiteboard_add_post_meta_boxes', 1);
 
@@ -1354,6 +1378,12 @@ function cfwhiteboard_post_meta_scripts() {
     wp_enqueue_script('bootstrap',
         plugins_url('bootstrap/js/bootstrap.min.js', __FILE__),
         array('jquery'),
+        $CFWHITEBOARD_VERSION
+    );
+
+    wp_enqueue_script('bootstrap-namespacer',
+        plugins_url('js/bootstrap-namespacer.js', __FILE__),
+        array('jquery', 'bootstrap'),
         $CFWHITEBOARD_VERSION
     );
 
@@ -1532,20 +1562,27 @@ function cfwhiteboard_generate_class_component_fields($component_prefix, $compon
                                 <li class="active">
                                     <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-weightlifting" title="Weightlifting">Weightlifting</a>
                                 </li><li>
+                                    <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-named-workouts" title="Named Workouts">Named Workouts</a>
+                                </li><li style="display:none;">
                                     <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-girls" title="Girls">Girls</a>
-                                </li><li>
+                                </li><li style="display:none;">
                                     <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-heroes" title="Heroes">Heroes</a>
                                 </li><li>
                                     <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-gymnastics" title="Gymnastics">Gymnastics</a>
                                 </li><li>
                                     <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-monostructural" title="Monostructural">Monostructural</a>
-                                </li><li class="cfw-other">
+                                </li><li class="cfw-other" style="display:none;">
                                     <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-other-benchmarks" title="Other">Other</a>
+                                </li><li class="cfw-games-tab">
+                                    <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-games-workouts" title="Games">2013 Open</a>
                                 </li><li style="display:none;">
                                     <a href="javascript://" class="cfw-all" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-all-benchmarks">All</a>
                                 </li>
                             </ul>
                             <ul class="cfw-benchmark-list cfw-weightlifting active nav nav-tabs nav-stacked">
+                                <li style="text-align:center; padding-top:12px;" class="muted"><i class="icon-download"></i> Loading...</li>
+                            </ul>
+                            <ul class="cfw-benchmark-list cfw-named-workouts nav nav-tabs nav-stacked">
                                 <li style="text-align:center; padding-top:12px;" class="muted"><i class="icon-download"></i> Loading...</li>
                             </ul>
                             <ul class="cfw-benchmark-list cfw-girls nav nav-tabs nav-stacked">
@@ -1561,6 +1598,9 @@ function cfwhiteboard_generate_class_component_fields($component_prefix, $compon
                                 <li style="text-align:center; padding-top:12px;" class="muted"><i class="icon-download"></i> Loading...</li>
                             </ul>
                             <ul class="cfw-benchmark-list cfw-other-benchmarks nav nav-tabs nav-stacked">
+                                <li style="text-align:center; padding-top:12px;" class="muted"><i class="icon-download"></i> Loading...</li>
+                            </ul>
+                            <ul class="cfw-benchmark-list cfw-games-workouts nav nav-tabs nav-stacked">
                                 <li style="text-align:center; padding-top:12px;" class="muted"><i class="icon-download"></i> Loading...</li>
                             </ul>
                             <ul class="cfw-benchmark-list cfw-all-benchmarks nav nav-tabs nav-stacked">
@@ -1780,20 +1820,24 @@ function cfwhiteboard_wods_meta_box($object, $box) {
         }
         #cfwhiteboard-wods-meta .cfw-wods-date-container label,
         #cfwhiteboard-wods-meta .cfw-wods-date-container input {
-            width: 190px;
+            width: 287px;
         }
         #cfwhiteboard-wods-meta .cfw-wods-date-container label {
             /*background: #30393f;*/
             background: #40494f;
             font-size: 11px;
             font-weight: bold;
-            margin-left: -190px;
+            margin-left: -287px;
             padding: 7px 0 0 12px;
+            text-indent: -9999em;
         }
         #cfwhiteboard-wods-meta .cfw-wods-date-container label i {
-            background: url(<?php echo plugins_url('images/admin-arrows.png', __FILE__); ?>) no-repeat center -68px;
+            background: url(<?php echo plugins_url('images/admin-icon-calendar.png', __FILE__); ?>) no-repeat 0 0 transparent;
+            display: inline-block; *zoom: 1; *display: inline;
             float: right;
-            margin: 10px 13px 0 0;
+            height: 25px;
+            margin: 5px 12px 0 0;
+            width: 26px;
         }
         #cfwhiteboard-wods-meta .cfw-wods-date-container input {
             background: transparent;
@@ -1806,7 +1850,9 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             box-shadow: none;
             color: #fff;
             font-size: 12px;
+            font-size: 20px;
             padding: 18px 24px 0px 12px;
+            padding: 1px 39px 0px 12px;
             position: relative;
             text-align: left;
             text-shadow: 0 1px 0 #000;
@@ -2386,7 +2432,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             margin: 0;
             padding: 0;
             vertical-align: top;
-            width: 17%;
+            width: 20%;
             *zoom: 1;
             *display: inline;
         }
@@ -2428,6 +2474,22 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             color: #555;
             cursor: default;
             font-weight: bold;
+        }
+        #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.cfw-games-tab a,
+        #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.cfw-games-tab a:visited {
+            color: #e51231;
+            font-size: 18px;
+        }
+        #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.cfw-games-tab:hover {
+            border-bottom-color: #b61c26;
+        }
+        #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.active.cfw-games-tab a,
+        #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.active.cfw-games-tab a:visited,
+        #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.active.cfw-games-tab a:hover {
+            color: #2d2e2e;
+        }
+        #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.active.cfw-games-tab {
+            border-bottom-color: #2d2e2e;
         }
         #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-list {
             display: none;
@@ -2828,7 +2890,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                     </li><li class="cfw-copy-wods-message">
                         <strong>Finished?</strong>
                         <br>
-                        1. Copy Workouts Into Post <span style="font-weight:normal; text-transform:none;">(Use the CFW button above <a href="#postdivrich">the post editor</a>.)</span> <!--<a href="javascript:// Copy to Clipboard" class="btn btn-mini">1-Click Copy</a>-->
+                        1. Copy Workouts Into Post. <span style="font-weight:normal; text-transform:none;">(Use the CFW button above <a href="#postdivrich">the post editor</a>.)</span> <!--<a href="javascript:// Copy to Clipboard" class="btn btn-mini">1-Click Copy</a>-->
                         <br>
                         2. Save the Post! <!--<input type="submit" class="btn btn-mini">Save Now</a>-->
                     </li>
@@ -3085,7 +3147,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                             
                             $menu = $button.closest('.dropdown').find('.dropdown-menu');
                             $menu.on('click', function() {
-                                $button.dropdown('toggle');
+                                $button.bootstrap_dropdown('toggle');
                             });
 
                             $button.data('cfwmenu', $menu);
@@ -3443,7 +3505,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                     );
 
                     // tooltips
-                    this.$el.tooltip({selector:'a[rel=tooltip]'});
+                    this.$el.bootstrap_tooltip({selector:'a[rel=tooltip]'});
 
                     return this;
                 },
@@ -3461,7 +3523,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                 },
 
                 // select: function() {
-                //     // this.$('.cfw-select-benchmark').addClass('active').tooltip('destroy')
+                //     // this.$('.cfw-select-benchmark').addClass('active').bootstrap_tooltip('destroy')
                 //     //     .find('i').addClass('icon-white').end()
                 //     //     .find('span').text('Selected');
 
@@ -3511,11 +3573,11 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                 // maybeRemindUserToSelectBenchmark: function() {
                 //     if (!this.selected) {
                 //         var $button = this.$('.cfw-select-benchmark');
-                //         $button.tooltip({placement:'in left', trigger:'manual', title:'Don\'t forget to select this benchmark!'});
-                //         $button.tooltip('show');
+                //         $button.bootstrap_tooltip({placement:'in left', trigger:'manual', title:'Don\'t forget to select this benchmark!'});
+                //         $button.bootstrap_tooltip('show');
 
                 //         setTimeout(function() {
-                //             $button.tooltip('destroy');
+                //             $button.bootstrap_tooltip('destroy');
                 //         }, 5000);
                 //     }
                 // }
@@ -3590,18 +3652,24 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                         group: 'weightlifting'
                     });
                 });
-                $uls.filter('.cfw-girls').each(function(index, $ul) {
+                $uls.filter('.cfw-named-workouts').each(function(index, $ul) {
                     new CFW.BenchmarkListView({
                         el: $ul,
-                        group: 'girls'
+                        group: 'girls|heroes|other'
                     });
                 });
-                $uls.filter('.cfw-heroes').each(function(index, $ul) {
-                    new CFW.BenchmarkListView({
-                        el: $ul,
-                        group: 'heroes'
-                    });
-                });
+                // $uls.filter('.cfw-girls').each(function(index, $ul) {
+                //     new CFW.BenchmarkListView({
+                //         el: $ul,
+                //         group: 'girls'
+                //     });
+                // });
+                // $uls.filter('.cfw-heroes').each(function(index, $ul) {
+                //     new CFW.BenchmarkListView({
+                //         el: $ul,
+                //         group: 'heroes'
+                //     });
+                // });
                 $uls.filter('.cfw-gymnastics').each(function(index, $ul) {
                     new CFW.BenchmarkListView({
                         el: $ul,
@@ -3614,10 +3682,16 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                         group: 'monostructural'
                     });
                 });
-                $uls.filter('.cfw-other-benchmarks').each(function(index, $ul) {
+                // $uls.filter('.cfw-other-benchmarks').each(function(index, $ul) {
+                //     new CFW.BenchmarkListView({
+                //         el: $ul,
+                //         group: 'other'
+                //     });
+                // });
+                $uls.filter('.cfw-games-workouts').each(function(index, $ul) {
                     new CFW.BenchmarkListView({
                         el: $ul,
-                        group: 'other'
+                        group: 'games'
                     });
                 });
                 $uls.filter('.cfw-all-benchmarks').each(function(index, $ul) {
@@ -4145,7 +4219,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             });
 
             // tooltips
-            $('#cfwhiteboard-wods-meta').tooltip({selector:'a[rel=tooltip]'});
+            $('#cfwhiteboard-wods-meta').bootstrap_tooltip({selector:'a[rel=tooltip]'});
         });
     </script>
 
@@ -4178,7 +4252,7 @@ function cfwhiteboard_mce_buttons( $buttons ) {
     return $buttons;
 }
 function cfwhiteboard_mce_external_plugins( $plugins ) {
-    $plugins['cfwhiteboard'] = plugins_url('cfwhiteboard-post-editor/cfw-mce-plugin-130218.js' , __FILE__);
+    $plugins['cfwhiteboard'] = plugins_url('cfwhiteboard-post-editor/cfw-mce-plugin-130225.js' , __FILE__);
     return $plugins;
 }
 

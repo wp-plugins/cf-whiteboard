@@ -1,9 +1,9 @@
 === CF Whiteboard ===
 Contributors: collindo
-Tags: crossfit, wod, fitness, workout, tracking, tracker, sports, excercise
+Tags: crossfit, wod, fitness, workout, tracking, tracker, sports, excercise, training, coach
 Requires at least: 3.0
 Tested up to: 3.5.1
-Stable tag: 1.79
+Stable tag: 1.80
 
 CF Whiteboard is a CrossFit<sup>&reg;</sup> workout tracker that integrates into your affiliate's website.
 
@@ -26,6 +26,14 @@ We want to create a service that CrossFitters love, so don't hesitate to [email 
 The whiteboard contains external links for athlete support purposes.  By installing this plugin, you give CF Whiteboard permission to embed these external links.
 
 == Changelog ==
+
+= 1.80 =
+* Get ready for the 2013 Open workouts!
+* New design for date field to make it more noticeable.
+* Work around a collision with the "Comprehensive Google Map Plugin".
+* Add a setting to disable meta box on custom post types.
+* Improve data handling to allow more whiteboards to be displayed on one page.
+* Other minor improvements for IE.
 
 = 1.79 =
 * Fix minor issues with the settings page not displaying new settings until page is refreshed.
