@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 1.80
+Version: 2.0.0
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '1.80';
+$CFWHITEBOARD_VERSION = '2.0.0';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -262,14 +262,11 @@ function cfw_notice_ignore() {
 
 
 // Utility Classes for normalization of Settings values
-abstract class cfwhiteboard_Visibility
-{
+abstract class cfwhiteboard_Visibility {
     const Users = 'users'; // logged-in WP users only
     const Everyone = 'everyone';
 }
-
-abstract class cfwhiteboard_Position
-{
+abstract class cfwhiteboard_Position {
     const TitleRight = 'titleright'; // to the right of the title
     const CustomSelector = 'customselector'; // custom jquery selector
 
@@ -289,6 +286,11 @@ abstract class cfwhiteboard_Position
     const CustomSelectorDisplayButton = 'button';
     const CustomSelectorDisplayEmbed = 'embed';
 }
+abstract class cfwhiteboard_AthletesTheme {
+    const Auto = 'auto';
+    const Dark = 'dark';
+    const Light = 'light';
+}
 
 global $CFWHITEBOARD_DEFAULT_OPTIONS;
 $CFWHITEBOARD_DEFAULT_OPTIONS = array();
@@ -301,7 +303,9 @@ $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectorparent'] = '';
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectoralignment'] = cfwhiteboard_Position::CustomSelectorAlignmentFloatRight;
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectormargin'] = '0 0 10px 10px';
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectordisplay'] = cfwhiteboard_Position::CustomSelectorDisplayButton;
-$CFWHITEBOARD_DEFAULT_OPTIONS['metabox_on_custom_post_types'] = true;
+$CFWHITEBOARD_DEFAULT_OPTIONS['metabox_on_custom_post_types'] = false;
+$CFWHITEBOARD_DEFAULT_OPTIONS['noncrossfit_branding'] = false;
+$CFWHITEBOARD_DEFAULT_OPTIONS['athletes_theme'] = cfwhiteboard_AthletesTheme::Auto;
 // $CFWHITEBOARD_DEFAULT_OPTIONS['categories'] = array();
 
 function cfwhiteboard_get_options() {
@@ -315,6 +319,13 @@ function cfwhiteboard_get_options() {
         
         if (empty($CFWHITEBOARD_DEFAULT_OPTIONS)) $CFWHITEBOARD_DEFAULT_OPTIONS = array();
         $CFWHITEBOARD_SITE_OPTIONS = array_merge($CFWHITEBOARD_DEFAULT_OPTIONS, $CFWHITEBOARD_SITE_OPTIONS);
+
+        if (function_exists(cfwhiteboard_custom_branding)) {
+            $custom_branding = cfwhiteboard_custom_branding();
+            if (is_array($custom_branding)) {
+                $CFWHITEBOARD_SITE_OPTIONS['custom_branding'] = $custom_branding;
+            }
+        }
 
         if (cfwhiteboard_is_preview_mode($CFWHITEBOARD_SITE_OPTIONS)) {
             $CFWHITEBOARD_SITE_OPTIONS['affiliate_id'] = $CFWHITEBOARD_SITE_OPTIONS['affiliate_id'] . '_preview';
@@ -434,6 +445,7 @@ function cfwhiteboard_init_whiteboard() {
     add_action('wp_enqueue_scripts', 'cfwhiteboard_scripts', 999999);
     add_action('wp_enqueue_scripts', 'cfwhiteboard_scripts_data', 1000000);
     add_action('wp_head', 'cfwhiteboard_latest_jquery', 1);
+    add_action('wp_print_scripts', 'cfwhiteboard_latest_jquery', 100);
 
     if ($options['position'] == cfwhiteboard_Position::CustomSelector) {
         add_filter('the_content', 'cfwhiteboard_add_to_post', 999999, 2);
@@ -497,12 +509,14 @@ function cfwhiteboard_scripts() {
     global $CFWHITEBOARD_VERSION;
     if (!isset($CFWHITEBOARD_VERSION)) $CFWHITEBOARD_VERSION = '0.0';
 
+    wp_deregister_script('underscore');
     wp_enqueue_script('underscore',
         plugins_url('js/underscore.js', __FILE__),
         false,
         '1.4.2'
     );
 
+    wp_deregister_script('backbone');
     wp_enqueue_script('backbone',
         plugins_url('js/backbone.js', __FILE__),
         array('underscore', 'jquery'),
@@ -517,7 +531,7 @@ function cfwhiteboard_scripts() {
 }
 
 function cfwhiteboard_latest_jquery($version) {
-    wp_deregister_script('jquery'); 
+    wp_deregister_script('jquery');
     wp_register_script('jquery',
         plugins_url('js/jquery.js', __FILE__),
         false,
@@ -540,6 +554,14 @@ function cfwhiteboard_scripts_data() {
         $data['position']['alignment'] = $options['position_customselectoralignment'];
         $data['position']['margin'] = $options['position_customselectormargin'];
         $data['position']['display'] = $options['position_customselectordisplay'];
+    }
+    if (!empty($options['custom_branding'])) {
+        $data['custom_branding_url'] = $options['custom_branding']['url'];
+        $data['custom_branding_email'] = $options['custom_branding']['email'];
+        $data['custom_branding_button_text'] = $options['custom_branding']['button_text'];
+    } elseif ($options['noncrossfit_branding']) {
+        $data['custom_branding_url'] = 'mailto:athletesupport@cfwhiteboard.com';
+        $data['custom_branding_email'] = 'athletesupport@cfwhiteboard.com';
     }
 
     wp_localize_script('cfwhiteboard', 'CFW_OPTIONS', $data);
@@ -631,9 +653,17 @@ function cfwhiteboard_options_page() {
         if (!empty($_POST['CFWHITEBOARD_position_customselectordisplay']))
             $new_options['position_customselectordisplay'] = @$_POST['CFWHITEBOARD_position_customselectordisplay'];
 
+        // Athletes Theme
+        if (isset($_POST['CFWHITEBOARD_athletes_theme']))
+            $new_options['athletes_theme'] = @$_POST['CFWHITEBOARD_athletes_theme'];
+
         // Show meta box on custom post types?
         if (isset($_POST['CFWHITEBOARD_metabox_on_custom_post_types']))
             $new_options['metabox_on_custom_post_types'] = (@$_POST['CFWHITEBOARD_metabox_on_custom_post_types'] == 'yes');
+
+        // Hide CrossFit references in our branding
+        if (isset($_POST['CFWHITEBOARD_noncrossfit_branding']))
+            $new_options['noncrossfit_branding'] = (@$_POST['CFWHITEBOARD_noncrossfit_branding'] == 'yes');
 
         // Categories
         // $new_options['categories'] = array();
@@ -1190,12 +1220,40 @@ function cfwhiteboard_options_page() {
                     -->
 
                             <fieldset style="margin-bottom:40px;">
+                                <legend><?php _e('Athletes Theme', 'cf-whiteboard'); ?></legend>
+                                <label for="CFWHITEBOARD_athletes_theme_auto" class="radio">
+                                    <input type="radio" id="CFWHITEBOARD_athletes_theme_auto" name="CFWHITEBOARD_athletes_theme" value="<?php echo esc_attr( cfwhiteboard_AthletesTheme::Auto ); ?>" <?php echo $options['athletes_theme'] == cfwhiteboard_AthletesTheme::Auto ? 'checked="checked"' : ''; ?> />
+                                    <strong><?php _e('Auto.', 'cf-whiteboard'); ?></strong> <?php _e('The theme will be chosen automatically.', 'cf-whiteboard'); ?>
+                                </label>
+                                <label for="CFWHITEBOARD_athletes_theme_dark" class="radio">
+                                    <input type="radio" id="CFWHITEBOARD_athletes_theme_dark" name="CFWHITEBOARD_athletes_theme" value="<?php echo esc_attr( cfwhiteboard_AthletesTheme::Dark ); ?>" <?php echo $options['athletes_theme'] == cfwhiteboard_AthletesTheme::Dark ? 'checked="checked"' : ''; ?> />
+                                    <strong><?php _e('Dark.', 'cf-whiteboard'); ?></strong> <?php _e('Best for websites with light backgrounds.', 'cf-whiteboard'); ?>
+                                </label>
+                                <label for="CFWHITEBOARD_athletes_theme_light" class="radio">
+                                    <input type="radio" id="CFWHITEBOARD_athletes_theme_light" name="CFWHITEBOARD_athletes_theme" value="<?php echo esc_attr( cfwhiteboard_AthletesTheme::Light ); ?>" <?php echo $options['athletes_theme'] == cfwhiteboard_AthletesTheme::Light ? 'checked="checked"' : ''; ?> />
+                                    <strong><?php _e('Light.', 'cf-whiteboard'); ?></strong> <?php _e('Best for websites with dark backgrounds.', 'cf-whiteboard'); ?>
+                                </label>
+                            </fieldset>
+                            
+                            <fieldset style="margin-bottom:60px;">
                                 <legend><?php _e('Custom Post Types', 'cf-whiteboard'); ?></legend>
                                 <input type="hidden" name="CFWHITEBOARD_metabox_on_custom_post_types" value="no">
                                 <label for="CFWHITEBOARD_metabox_on_custom_post_types" class="checkbox">
                                     <input type="checkbox" id="CFWHITEBOARD_metabox_on_custom_post_types" name="CFWHITEBOARD_metabox_on_custom_post_types" value="yes" <?php echo esc_attr( !!$options['metabox_on_custom_post_types'] ? 'checked="checked"' : '' ); ?> />
                                     Display the CF Whiteboard meta box when editing a custom post type?
                                 </label>
+                            </fieldset>
+
+                            <fieldset style="margin-bottom:40px;">
+                                <legend><?php _e('Non-CrossFit Branding', 'cf-whiteboard'); ?></legend>
+                                <input type="hidden" name="CFWHITEBOARD_noncrossfit_branding" value="no">
+                                <label for="CFWHITEBOARD_noncrossfit_branding" class="checkbox">
+                                    <input type="checkbox" id="CFWHITEBOARD_noncrossfit_branding" name="CFWHITEBOARD_noncrossfit_branding" value="yes" <?php echo esc_attr( !!$options['noncrossfit_branding'] ? 'checked="checked"' : '' ); ?> />
+                                    Hide all references to CrossFit.
+                                </label>
+                                <p>
+                                    Activating this setting does not remove any features. It simply removes references to "CF" or "CrossFit" and replaces them with suitable alternatives, such as "fitness" or "gym". The setting will take effect immediately for the Whiteboard app. It may take up to 24 hours to go into effect for the athlete profiles and facebook sharing. <a href="mailto:affiliatesupport@cfwhiteboard.com" target="_blank">Contact us</a> for more information.
+                                </p>
                             </fieldset>
 
                             <?php if (function_exists(is_multisite) && is_multisite()) { ?>
@@ -1574,7 +1632,7 @@ function cfwhiteboard_generate_class_component_fields($component_prefix, $compon
                                 </li><li class="cfw-other" style="display:none;">
                                     <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-other-benchmarks" title="Other">Other</a>
                                 </li><li class="cfw-games-tab">
-                                    <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-games-workouts" title="Games">2013 Open</a>
+                                    <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-games-workouts" title="Games">CrossFit Open</a>
                                 </li><li style="display:none;">
                                     <a href="javascript://" class="cfw-all" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-all-benchmarks">All</a>
                                 </li>
@@ -2475,6 +2533,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             cursor: default;
             font-weight: bold;
         }
+/*
         #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.cfw-games-tab a,
         #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.cfw-games-tab a:visited {
             color: #e51231;
@@ -2491,6 +2550,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
         #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.active.cfw-games-tab {
             border-bottom-color: #2d2e2e;
         }
+*/
         #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-list {
             display: none;
         }
@@ -3317,7 +3377,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             });
             CFW.BenchmarkItemView = Backbone.View.extend({
                 tagName: "li",
-                template: _.template('\
+                template: _.template('<?php echo <<<HEREDOC
                     <a href="javascript:// Click to Choose" class="<%- description_match ? "cfw-description-match" : "" %>" data-toggle="tab" data-target="<%- component_selector %> .cfw-details-pane">\
                         <i class="icon-chevron-right"></i>\
                         <% if (history.length > 0) { %>\
@@ -3326,7 +3386,9 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                         <strong class="cfw-title"><%= label %></strong>\
                         <%= inline_description %>\
                     </a>\
-                '),
+
+HEREDOC;
+                ?>'),
                 
                 events: {
                     'show a': 'showDetail',
@@ -3410,7 +3472,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             });
             CFW.BenchmarkDetailView = Backbone.View.extend({
                 className: 'cfw-benchmark-detail-view',
-                template: _.template('\
+                template: _.template('<?php echo <<<HEREDOC
                     <div class="container">\
                         <a href="javascript://" class="cfw-back btn btn-link" data-toggle="tab" data-target="<%- back_selector %>">\
                             <i class="icon-chevron-left"></i>Other Benchmarks\
@@ -3445,7 +3507,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                                 </label>\
                                 <textarea id="cfw-repscheme-<%- component_id %>" name="cfw-components[<%- component_id %>][repscheme]" class="input-block-level cfw-repscheme" rows="2"><%- repscheme %></textarea>\
                             <% } else { %>\
-                                <p class="lead cfw-description"><%- description.replace(/^[^\\n]*\\n/,"") %></p>\
+                                <p class="lead cfw-description"><%- description.replace(/^[^\\\\n]*\\\\n/,"") %></p>\
                             <% } %>\
                         </div>\
                         <div class="history">\
@@ -3469,7 +3531,9 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                             </ul>\
                         </div>\
                     </div>\
-                '),
+
+HEREDOC;
+                ?>'),
 
                 events: {
                     'show a.cfw-back': 'triggerRemove',
@@ -4492,6 +4556,8 @@ function cfwhiteboard_json_meta() {
         'athletes_page_id' => $options['athletes_page_id'],
         'athletes_url' => get_permalink( $options['athletes_page_id'] ),
         'wp_name' => get_bloginfo('name'),
+        'noncrossfit_branding' => $options['noncrossfit_branding'],
+        'custom_branding' => empty($options['custom_branding']) ? array() : $options['custom_branding'],
         'wp_version' => get_bloginfo('version'),
         'wp_language' => get_bloginfo('language'),
         'cfw_version' => $CFWHITEBOARD_VERSION
@@ -4683,6 +4749,7 @@ function cfwhiteboard_athletes_scripts_data() {
         $data['athletes_page_name'] = $page->post_name;
         $data['athletes_page_title'] = $page->post_title;
     }
+    $data['athletes_theme'] = $options['athletes_theme'];
 
     // global $wp_rewrite;
     // $data['rewrite_rules'] = $wp_rewrite->rules;
@@ -4706,7 +4773,7 @@ function cfwhiteboard_athletes_flush_rules() {
     if(!empty($page_id)) $page = get_page($page_id);
 
     $rules = get_option( 'rewrite_rules' );
-    if (!empty($page) && !isset( $rules['('.$page->post_name.')/([^/]+)/?$'] ) ) {
+    if (!empty($page) && !isset( $rules['('.$page->post_name.')/(.+)/?$'] ) ) {
         global $wp_rewrite;
         $wp_rewrite->flush_rules();
     }
@@ -4724,7 +4791,7 @@ function cfwhiteboard_athletes_insert_rewrite_rules($rules) {
     $newrules = array();
 
     if (!empty($page)) {
-        $newrules['('.$page->post_name.')/([^/]+)/?$'] = 'index.php?pagename=$matches[1]&cfwathlete=$matches[2]';
+        $newrules['('.$page->post_name.')/(.+)/?$'] = 'index.php?pagename=$matches[1]&cfwathlete=$matches[2]';
     }
 
     return $newrules + $rules;
