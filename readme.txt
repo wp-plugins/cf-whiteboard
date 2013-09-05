@@ -1,15 +1,15 @@
 === CF Whiteboard ===
 Contributors: collindo
-Tags: crossfit, wod, fitness, workout, tracking, tracker, sports, excercise, training, coach
+Tags: crossfit, wod, fitness, workout, tracking, tracker, sports, exercise, training, coach
 Requires at least: 3.3
-Tested up to: 3.5.1
-Stable tag: 2.0
+Tested up to: 3.6
+Stable tag: 2.1
 
-CF Whiteboard is a CrossFit<sup>&reg;</sup> workout tracker that integrates into your affiliate's website.
+CF Whiteboard turns your website and WOD Blog into a full-featured CrossFit<sup>&reg;</sup> workout tracker.
 
 == Description ==
 
-CF Whiteboard is a [CrossFit<sup>&reg;</sup> workout tracker](http://cfwhiteboard.com) that integrates into your affiliate's website. It adds a Whiteboard widget to your WOD blog posts, and creates athlete profiles where your athletes can search past results.
+CF Whiteboard is a [CrossFit<sup>&reg;</sup> workout tracker](http://cfwhiteboard.com) that integrates into your affiliate's website. It adds a Whiteboard widget to your WOD blog posts, and creates athlete profiles where your athletes can search past results, look up benchmark workouts and PRs, see charts of their progress over time, see charts of their attendance over time, and more.
 
 We want to create a service that CrossFitters love, so don't hesitate to [email us](mailto:affiliatesupport@cfwhiteboard.com) with any questions or feedback. We have helped most of our gyms with setting up a custom Whiteboard position, adding the Athletes page to their main menu, and other wordpress-related requests. Let us know how we can help! [affiliatesupport@cfwhiteboard.com](mailto:affiliatesupport@cfwhiteboard.com)
 
@@ -26,6 +26,11 @@ We want to create a service that CrossFitters love, so don't hesitate to [email 
 The whiteboard contains external links for athlete support purposes.  By installing this plugin, you give CF Whiteboard permission to embed these external links.
 
 == Changelog ==
+
+= 2.1 =
+* The workout date now defaults to the "publish date" of the post, unless you customize it.
+* When you insert the workouts into your post, some text will be added at the bottom reminding your athletes to "Post your scores to the Whiteboard."
+* Improved support for exporting posts and importing into another WP blog with the Whiteboards intact.
 
 = 2.0 =
 * Brand new athlete profiles with redesigned logbooks and complete benchmarks integration, including charts and leaderboards.

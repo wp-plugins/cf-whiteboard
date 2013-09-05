@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 2.0.0
+Version: 2.1
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '2.0.0';
+$CFWHITEBOARD_VERSION = '2.1';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -399,6 +399,28 @@ function cfwhiteboard_get_wods($post_id) {
 
     return get_post_meta($post_id, $CFWHITEBOARD_WODS_META_KEY, true);
 }
+function cfwhiteboard_get_whiteboard_id($post_id, $db_only=false) {
+    global $CFWHITEBOARD_WHITEBOARD_ID_META_KEY;
+
+    $whiteboard_id = get_post_meta($post_id, $CFWHITEBOARD_WHITEBOARD_ID_META_KEY, true);
+
+    // optional $db_only parameter prevents the use of a default value in the event that the whiteboard ID is missing from the post meta
+    if (isset($db_only) && $db_only == true) {
+        return $whiteboard_id;
+    }
+
+    if (empty($whiteboard_id)) {
+        return cfwhiteboard_generate_legacy_whiteboard_id($post_id);
+    }
+
+    return $whiteboard_id;
+}
+function cfwhiteboard_generate_whiteboard_id($post_id) {
+    return "$post_id" . strftime('%y%d%M%S');
+}
+function cfwhiteboard_generate_legacy_whiteboard_id($post_id) {
+    return $post_id;
+}
 
 function cfwhiteboard_generate_placeholder($post_id, $options, $wods) {
     if (empty($options) || empty($options['affiliate_id'])) {
@@ -410,11 +432,12 @@ function cfwhiteboard_generate_placeholder($post_id, $options, $wods) {
     if (!is_array($wods)) $wods = array();
 
     $data = array(
-        "affiliateId" => $affiliateId,
-        "postId" => $post_id,
-        "postPermalink" => get_permalink( $post_id ),
-        "postModified" => get_the_modified_time('Y-m-d H:i:s'),
-        "wods" => $wods
+        'affiliateId' => $affiliateId,
+        'whiteboardId' => cfwhiteboard_get_whiteboard_id($post_id),
+        'postId' => $post_id,
+        'postPermalink' => get_permalink( $post_id ),
+        'postModified' => get_the_modified_time('Y-m-d H:i:s'),
+        'wods' => $wods
     );
 
     $authorization = is_user_logged_in() ? 'data-authorization="admin"' : '';
@@ -513,14 +536,14 @@ function cfwhiteboard_scripts() {
     wp_enqueue_script('underscore',
         plugins_url('js/underscore.js', __FILE__),
         false,
-        '1.4.2'
+        '1.5.1'
     );
 
     wp_deregister_script('backbone');
     wp_enqueue_script('backbone',
         plugins_url('js/backbone.js', __FILE__),
         array('underscore', 'jquery'),
-        '0.9.2'
+        '1.0.0'
     );
 
     wp_enqueue_script('cfwhiteboard',
@@ -1386,6 +1409,8 @@ add_filter("plugin_action_links", 'cfwhiteboard_actlinks', 10, 2);
 // Custom Meta Boxes on Add/Edit Post page
 global $CFWHITEBOARD_WODS_META_KEY;
 $CFWHITEBOARD_WODS_META_KEY = 'cfwhiteboard-wods';
+global $CFWHITEBOARD_WHITEBOARD_ID_META_KEY;
+$CFWHITEBOARD_WHITEBOARD_ID_META_KEY = 'cfw-whiteboard-id';
 
 add_action('admin_init', 'cfwhiteboard_init_admin');
 function cfwhiteboard_init_admin() {
@@ -1454,13 +1479,13 @@ function cfwhiteboard_post_meta_scripts() {
     wp_enqueue_script('underscore',
         plugins_url('js/underscore.js', __FILE__),
         false,
-        '1.4.2'
+        '1.5.1'
     );
 
     wp_enqueue_script('backbone',
         plugins_url('js/backbone.js', __FILE__),
         array('underscore', 'jquery'),
-        '0.9.2'
+        '1.0.0'
     );
 }
 function cfwhiteboard_post_meta_styles() {
@@ -1892,9 +1917,9 @@ function cfwhiteboard_wods_meta_box($object, $box) {
         #cfwhiteboard-wods-meta .cfw-wods-date-container label i {
             background: url(<?php echo plugins_url('images/admin-icon-calendar.png', __FILE__); ?>) no-repeat 0 0 transparent;
             display: inline-block; *zoom: 1; *display: inline;
-            float: right;
+            float: left;
             height: 25px;
-            margin: 5px 12px 0 0;
+            margin: 5px 0 0;
             width: 26px;
         }
         #cfwhiteboard-wods-meta .cfw-wods-date-container input {
@@ -1910,7 +1935,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             font-size: 12px;
             font-size: 20px;
             padding: 18px 24px 0px 12px;
-            padding: 1px 39px 0px 12px;
+            padding: 0px 2px 1px 46px;
             position: relative;
             text-align: left;
             text-shadow: 0 1px 0 #000;
@@ -2801,7 +2826,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
         }
     </style>
     <?php
-        $wods = get_post_meta($object->ID, $CFWHITEBOARD_WODS_META_KEY, true);
+        $wods = cfwhiteboard_get_wods($object->ID);
 
         $next_wod_id = 1;
         $next_component_id = 1;
@@ -2855,10 +2880,10 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             <div class="cfw-overview tab-pane active">
                 <div class="cfw-header">
                     <a class="pull-right cfw-admin-tour" href="http://cfwhiteboard.com/wp-admin-tour" target="_blank"><i class="icon-play"></i> Tour the New Admin Area</a>
-                    <div class="cfw-wods-date-container">
-                        <input id="cfwhiteboard-wods-date" type="text" name="cfwhiteboard-wods-date" class="cfw-datepicker" value="<?php esc_attr_e(empty($wods_date) ? '' : $wods_date); ?>"
+                    <div class="cfw-wods-date-container" title="Date of Workouts (click to edit)" rel="tooltip" data-placement="bottom">
+                        <input id="cfwhiteboard-wods-date" type="text" name="cfwhiteboard-wods-date" class="cfw-datepicker" value="<?php esc_attr_e(empty($wods_date) ? '(use publish date)' : $wods_date); ?>"
                         /><label for="cfwhiteboard-wods-date">
-                            <i class="icon-play"></i>
+                            <i></i>
                             Date of Workouts
                         </label>
                     </div>
@@ -2922,7 +2947,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                 -->
                     <div class="cfw-single-column">
                         <div class="cfw-overview-header muted">
-                            Classes Scheduled for this Date
+                            Classes Programmed for this Date
                             <a href="javascript://" rel="tooltip" class="btn btn-link btn-mini pull-right cfw-overview-help" title="Each class appears as a separate tab in the whiteboard.<br>Example:<ul><li>CrossFit Rise offers 3 classes today - Endurance, Oly, and the WOD.</li><li>They can add 1 or all of those classes to the whiteboard so their athletes can track their results.</li></ul>" data-html="true" data-placement="in left">Help</a>
                         </div>
                         <ul class="cfw-wods">
@@ -3123,6 +3148,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
 
                 return markup + linebreak;
             };
+            // CFW.newlineToBr() is used by MCE plugin!
             CFW.newlineToBr = function(str) {
                 return str.replace(/\r\n/g, '<br />').replace(/\r/g, '<br />').replace(/\n/g, '<br />');
             };
@@ -3154,11 +3180,19 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                         showOtherMonths: true,
                         selectOtherMonths: true
                     });
-                    if (!$this.datepicker('getDate')) {
-                        $this.datepicker('setDate', new Date());
-                    }
+                    // if (!$this.datepicker('getDate')) {
+                        // $this.datepicker('setDate', new Date());
+                    // }
                 });
             }
+
+
+            /* define this function so coaches don't think the Whiteboard link is broken */
+            CFW.goToHash = function() {
+                alert('When you publish this post, clicking this link will show people where the Whiteboard is in case they can\'t find it.');
+            };
+            /* needed for Whiteboard link when inserting workouts into the post */
+            CFW.postId = '<?php echo $object->ID; ?>';
 
 
 
@@ -3236,6 +3270,8 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                             classes.push( tempClass );
                         });
 
+                        var footerText = classes.length > 0 ? 'Post your scores to the <a href="javascript://" onclick="window.top.CFW.goToHash(\'#cfwhiteboard-'+CFW.postId+'\');">Whiteboard</a>.\n\n' : '';
+
                         var options = [];
                         if (!classes.length) {
                             // no classes entered, provide link to CFW meta box
@@ -3254,6 +3290,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                             for (var i = 0; i < classes.length; i++) {
                                 markupAll += classes[i].markup;
                             }
+                            markupAll += footerText;
 
                             var $li = $('<li><a href="javascript:// Insert into Post">Insert All '+classes.length+' Classes</a></li>');
                             $li.on('click', function() {
@@ -3270,7 +3307,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                         };
                         for (var i = 0; i < classes.length; i++) {
                             var $li = $('<li><a href="javascript:// Insert into Post">Insert '+classes[i].name+'</a></li>');
-                            $li.on('click', generateInsertMarkupFunc( classes[i].markup ));
+                            $li.on('click', generateInsertMarkupFunc(classes[i].markup + footerText));
                             $menu.append($li);
                         }
                     }, // arg1
@@ -4316,13 +4353,14 @@ function cfwhiteboard_mce_buttons( $buttons ) {
     return $buttons;
 }
 function cfwhiteboard_mce_external_plugins( $plugins ) {
-    $plugins['cfwhiteboard'] = plugins_url('cfwhiteboard-post-editor/cfw-mce-plugin-130225.js' , __FILE__);
+    $plugins['cfwhiteboard'] = plugins_url('cfwhiteboard-post-editor/cfw-mce-plugin-130901.js' , __FILE__);
     return $plugins;
 }
 
 /* Save the meta box's post metadata. */
 function cfwhiteboard_save_post_meta_boxes($post_id, $post) {
     global $CFWHITEBOARD_WODS_META_KEY;
+    global $CFWHITEBOARD_WHITEBOARD_ID_META_KEY;
 
     /* Verify the nonce before proceeding. */
     if ( !isset( $_POST[$CFWHITEBOARD_WODS_META_KEY] ) || !wp_verify_nonce( $_POST[$CFWHITEBOARD_WODS_META_KEY], basename( __FILE__ ) ) )
@@ -4339,7 +4377,26 @@ function cfwhiteboard_save_post_meta_boxes($post_id, $post) {
     // $param_prefix = 'cfwhiteboard-wod-';
     // $param_prefix_len = strlen( $param_prefix );
 
-    if (! is_array($_POST)) return;
+    if (! is_array($_POST)) return $post_id;
+
+    /* ok, all fail-fast mechanisms are in place. let's parse the wod data and save it */
+
+    /* avoid issues where $post_id parameter is actually a revision ID */
+    $post_id = wp_is_post_revision($post);
+    if (empty($post_id)) $post_id = $post->ID;
+
+    // ensure the post has a Whiteboard ID
+    $whiteboard_id = cfwhiteboard_get_whiteboard_id($post_id, true);
+    if (empty($whiteboard_id)) {
+        $wods = cfwhiteboard_get_wods($post_id);
+        if ((!is_array($wods)) || empty($wods)) {
+            // it's new wod data - generate a new whiteboard_id
+            update_post_meta($post_id, $CFWHITEBOARD_WHITEBOARD_ID_META_KEY, cfwhiteboard_generate_whiteboard_id($post_id));
+        } else {
+            // we're updating old wod data - generate a legacy whiteboard_id
+            update_post_meta($post_id, $CFWHITEBOARD_WHITEBOARD_ID_META_KEY, cfwhiteboard_generate_legacy_whiteboard_id($post_id));
+        }
+    }
 
     $wods_date = $_POST['cfwhiteboard-wods-date'];
     if (empty($wods_date)) {
@@ -4537,21 +4594,42 @@ function cfwhiteboard_save_post_meta_notices(){
 function cfwhiteboard_json_meta() {
     global $CFWHITEBOARD_WODS_META_KEY;
     global $CFWHITEBOARD_VERSION;
+    global $CFWHITEBOARD_WHITEBOARD_ID_META_KEY;
     $options = cfwhiteboard_get_options();
     
-    $query_var = cfwhiteboard_get_query_var('cfwhiteboard_post_id');
-    if (!$query_var) return;
+    $post = null;
 
-    $post = get_post($query_var);
+    $query_var_post_id = cfwhiteboard_get_query_var('cfwhiteboard_post_id');
+    $query_var_whiteboard_id = cfwhiteboard_get_query_var('cfw_whiteboard_id');
+    if (!empty($query_var_post_id)) {
+        $post = get_post($query_var_post_id);
+    } elseif (!empty($query_var_whiteboard_id)) {
+        $args = array(
+            'posts_per_page' => 1,
+            'meta_key' => $CFWHITEBOARD_WHITEBOARD_ID_META_KEY,
+            'meta_value' => $query_var_whiteboard_id
+        );
+        $posts = get_posts($args);
+        $post = $posts[0];
+
+        // fallback for legacy post meta that doesn't have a Whiteboard ID post_meta yet
+        if (empty($post)) {
+            // (legacy whiteboard_id defaults to post_id, so fetch by post_id=whiteboard_id)
+            $post = get_post($query_var_whiteboard_id);
+        }
+    } else {
+        return;
+    }
 
     $response = array(
+        'whiteboard_id' => cfwhiteboard_get_whiteboard_id($post->ID),
         'post_id' => $post->ID,
         'post_title' => $post->post_title,
-        'post_date' => $post->post_date,
+        'post_date' => get_the_time('c', $post),
         'post_modified' => $post->post_modified,
         'post_permalink' => get_permalink( $post->ID ),
         'post_type' => $post->post_type,
-        'meta' => cfwhiteboard_clean_post_meta( cfwhiteboard_get_wods($query_var) ),
+        'meta' => cfwhiteboard_clean_post_meta( cfwhiteboard_get_wods($post->ID) ),
         'home_url' => home_url(),
         'athletes_page_id' => $options['athletes_page_id'],
         'athletes_url' => get_permalink( $options['athletes_page_id'] ),
@@ -4632,6 +4710,44 @@ if (!function_exists('json_encode'))
 }
 
 
+add_action('export_wp', 'cfwhiteboard_fill_missing_whiteboard_ids');
+/* Fill missing whiteboard IDs in post meta */
+function cfwhiteboard_fill_missing_whiteboard_ids() {
+    global $CFWHITEBOARD_WODS_META_KEY;
+    global $CFWHITEBOARD_WHITEBOARD_ID_META_KEY;
+    
+    /* get all posts that have wods meta data */
+    $args = array(
+        'meta_key' => $CFWHITEBOARD_WODS_META_KEY,
+        'posts_per_page' => 9999999
+    );
+    $posts = get_posts($args);
+
+    if (empty($posts)) return;
+
+    // loop through every post, get the wods meta (if any), loop through every wod,
+    // and cache the post ID (unless it's already there - don't overwrite!)
+    foreach ($posts as $post) {
+        $id = $post->ID;
+        
+        $whiteboard_id = cfwhiteboard_get_whiteboard_id($id, true);
+        $wods = cfwhiteboard_get_wods($id);
+        if (empty($whiteboard_id) && is_array($wods) && !empty($wods)) {
+            update_post_meta($id, $CFWHITEBOARD_WHITEBOARD_ID_META_KEY, cfwhiteboard_generate_legacy_whiteboard_id($id));
+        }
+
+            // // update the post_modified time to force CFW servers to fetch new wod data
+            // $new_post_modified = strtotime(get_the_modified_time('Y-m-d H:i:s')) + 1000;
+            // $post_data = array(
+            //     'ID' => $id,
+            //     'edit_date' => true,
+            //     'post_modified' => strftime('%Y-%m-%d %H:%M:%S', $new_post_modified),
+            //     'post_modified_gmt' => gmstrftime('%Y-%m-%d %H:%M:%S', $new_post_modified)
+            // );
+            // wp_update_post($post_data);
+    }
+}
+
 
 
 
@@ -4697,7 +4813,7 @@ function cfwhiteboard_trace_content($content, $id = NULL) {
     if (!cfwhiteboard_is_athletes_page($id))
         return $content;
 
-    return '<span class="cfw-content-tracer">' . $content . '</span>';
+    return '<div class="cfw-content-tracer">' . $content . '</div>';
 }
 function cfwhiteboard_trace_category($category, $id = NULL) {
     if (!cfwhiteboard_is_athletes_page($id))
@@ -4719,13 +4835,13 @@ function cfwhiteboard_athletes_scripts() {
     wp_enqueue_script('underscore',
         plugins_url('js/underscore.js', __FILE__),
         false,
-        '1.4.2'
+        '1.5.1'
     );
 
     wp_enqueue_script('backbone',
         plugins_url('js/backbone.js', __FILE__),
         array('underscore', 'jquery'),
-        '0.9.2'
+        '1.0.0'
     );
 
     wp_enqueue_script('cfwhiteboard-athletes',
