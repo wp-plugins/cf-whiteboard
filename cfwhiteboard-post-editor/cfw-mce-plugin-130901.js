@@ -110,6 +110,8 @@
 					classes.push( tempClass );
 				});
 
+                var footerText = classes.length > 0 ? CFW.newlineToBr('Post your scores to the <a href="javascript://" onclick="window.top.CFW.goToHash(\'#cfwhiteboard-'+window.top.CFW.postId+'\');">Whiteboard</a>.\n\n') : '';
+
 				if (!classes.length) {
 					// no classes entered, provide link to CFW meta box
 					var $li = jQuery('<li><a href="#cfwhiteboard-wods-meta">No workouts. Click to add one.</a></li>');
@@ -127,6 +129,7 @@
 					for (var i = 0; i < classes.length; i++) {
 						markupAll += classes[i].markup;
 					}
+					markupAll += footerText;
 
 					var $li = jQuery('<li><a href="javascript:// Insert into Post">Insert All '+classes.length+' Classes</a></li>');
 					$li.on('click', function() {
@@ -143,7 +146,7 @@
 				};
 				for (var i = 0; i < classes.length; i++) {
 					var $li = jQuery('<li><a href="javascript:// Insert into Post">Insert '+classes[i].name+'</a></li>');
-					$li.on('click', generateInsertMarkupFunc( classes[i].markup ));
+					$li.on('click', generateInsertMarkupFunc( classes[i].markup + footerText ));
 					button.$cfwMenu.append($li);
 				}
 			};
