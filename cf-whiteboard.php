@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 2.1
+Version: 2.2
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '2.1';
+$CFWHITEBOARD_VERSION = '2.2';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -83,11 +83,12 @@ function cfwhiteboard_deactivate_athletes_page() {
 // Manage the private Whiteboard example post on activation/deactivation
 function cfwhiteboard_activate_example_post() {
     global $CFWHITEBOARD_WODS_META_KEY;
+    global $CFWHITEBOARD_WHITEBOARD_ID_META_KEY;
     $options = cfwhiteboard_get_options();
 
     $post_id = $options['example_post_id'];
     $post = null;
-    if(!empty($post_id)) $post = get_post($post_id);
+    if (!empty($post_id)) $post = get_post($post_id);
 
     if (empty($post_id) || empty($post)) {
         // there was never a page or the page no longer exists
@@ -176,6 +177,7 @@ Rest 1 minute
             'wp_id' => 2
         );
         update_post_meta($options['example_post_id'], $CFWHITEBOARD_WODS_META_KEY, $wods);
+        update_post_meta($options['example_post_id'], $CFWHITEBOARD_WHITEBOARD_ID_META_KEY, cfwhiteboard_generate_whiteboard_id($options['example_post_id']));
 
         cfwhiteboard_update_options($options);
     }
@@ -1074,7 +1076,15 @@ function cfwhiteboard_options_page() {
                             </p>
                             <div class="row-fluid">
                                 <div class="span4">
-                                    <h4 style="text-align:center;">Benchmark Tracking</h4>
+                                    <h4 style="text-align:center;">Comments, Likes, and Leaderboards</h4>
+    <!-- 
+                                    <p>
+                                        An easy way to post results to Facebook and Twitter. It's fun for your athletes, and it's great marketing for your business.
+                                    </p>
+     -->
+                                </div>
+                                <div class="span4">
+                                    <h4 style="text-align:center;">Custom Benchmark Workouts / Gym Favorites</h4>
     <!-- 
                                     <p>
                                         In-depth benchmark tracking and analysis, without sacrificing the ease-of-use that brought you here in the first place.
@@ -1083,18 +1093,10 @@ function cfwhiteboard_options_page() {
      -->
                                 </div>
                                 <div class="span4">
-                                    <h4 style="text-align:center;">iPhone App</h4>
+                                    <h4 style="text-align:center;">Profile Pictures</h4>
     <!-- 
                                     <p>
                                         Track your results, see how your friends did, and search your past workouts. All on-the-go.
-                                    </p>
-     -->
-                                </div>
-                                <div class="span4">
-                                    <h4 style="text-align:center;">Social Features</h4>
-    <!-- 
-                                    <p>
-                                        An easy way to post results to Facebook and Twitter. It's fun for your athletes, and it's great marketing for your business.
                                     </p>
      -->
                                 </div>
@@ -1627,7 +1629,7 @@ function cfwhiteboard_generate_class_component_fields($component_prefix, $compon
                         .'</textarea>
                         <label for="'. $label_id .'" style="margin-top:15px;">
                             <div class="lead" style="margin:0;">Component Label</div>
-                            <small class="muted">Optional. Short component description used in the Whiteboard and the iPhone app.</small>
+                            <small class="muted">Required. Short component description used in the Whiteboard and in the athlete logbooks.</small>
                         </label>
                         <input type="text" id="'. $label_id .'" name="'. $label_name .'" value="'. esc_attr( $component['label'] ) .'">
                     </div>
@@ -4362,28 +4364,31 @@ function cfwhiteboard_save_post_meta_boxes($post_id, $post) {
     global $CFWHITEBOARD_WODS_META_KEY;
     global $CFWHITEBOARD_WHITEBOARD_ID_META_KEY;
 
+    /* Get the posted data. */
+    // $param_prefix = 'cfwhiteboard-wod-';
+    // $param_prefix_len = strlen( $param_prefix );
+
+    /* avoid issues where $post_id parameter is actually a revision ID */
+    $post_id = wp_is_post_revision($post);
+    if (empty($post_id)) $post_id = $post->ID;
+
+    if (! is_array($_POST)) return $post_id;
+
     /* Verify the nonce before proceeding. */
-    if ( !isset( $_POST[$CFWHITEBOARD_WODS_META_KEY] ) || !wp_verify_nonce( $_POST[$CFWHITEBOARD_WODS_META_KEY], basename( __FILE__ ) ) )
+    if ( !isset($_POST[$CFWHITEBOARD_WODS_META_KEY]) || !wp_verify_nonce($_POST[$CFWHITEBOARD_WODS_META_KEY], basename(__FILE__)) ) {
         return $post_id;
+    }
 
     /* Get the post type object. */
     $post_type = get_post_type_object( $post->post_type );
 
     /* Check if the current user has permission to edit the post. */
-    if ( !current_user_can( $post_type->cap->edit_post, $post_id ) )
+    if ( !current_user_can('edit_post', $post_id) ) {
+        set_transient($CFWHITEBOARD_WODS_META_KEY.'-notice', 'Current user doesn\'t have privileges to edit the Whiteboard data for this post. Please contact affiliatesupport@cfwhiteboard.com so we can help.', 30);
         return $post_id;
-
-    /* Get the posted data. */
-    // $param_prefix = 'cfwhiteboard-wod-';
-    // $param_prefix_len = strlen( $param_prefix );
-
-    if (! is_array($_POST)) return $post_id;
+    }
 
     /* ok, all fail-fast mechanisms are in place. let's parse the wod data and save it */
-
-    /* avoid issues where $post_id parameter is actually a revision ID */
-    $post_id = wp_is_post_revision($post);
-    if (empty($post_id)) $post_id = $post->ID;
 
     // ensure the post has a Whiteboard ID
     $whiteboard_id = cfwhiteboard_get_whiteboard_id($post_id, true);
@@ -4559,7 +4564,7 @@ function cfwhiteboard_validate_post_meta( $wods ) {
 function cfwhiteboard_save_post_meta_notices(){
     global $CFWHITEBOARD_WODS_META_KEY;
     
-    $validations = get_transient($CFWHITEBOARD_WODS_META_KEY.'-notice');
+    $notice = get_transient($CFWHITEBOARD_WODS_META_KEY.'-notice');
 
     // $wods = get_transient($CFWHITEBOARD_WODS_META_KEY.'-wods');
     // echo '<div class="updated" style="white-space:pre-wrap;"><h2>Wods</h2>';
@@ -4567,31 +4572,37 @@ function cfwhiteboard_save_post_meta_notices(){
     // echo '</div>';
     // delete_transient($CFWHITEBOARD_WODS_META_KEY.'-wods');
 
-    if (! is_array($validations) || empty($validations)) return;
+    if (empty($notice)) return;
 
-    $validation_items = '';
-    $counter = 0;
-    foreach ($validations as $wod_id => $validation) {
-        $counter++;
-        $hasName = !empty($validation['name']);
-        $name = $hasName ? $validation['name'] : (__('Class', 'cf-whiteboard').' '.$counter);
-        $willBePublished = $hasName && ($validation['validComponents'] > 0);
-        $totallyValid = $validation['validComponents'] == $validation['totalComponents'];
-        $publishedTail = 'will be published ('.($totallyValid ? '' : '<em>').$validation['validComponents'].' of '.$validation['totalComponents'].($totallyValid ? '' : '</em>').' components saved)';
-        $notPublishedTail = 'will <em>not be published</em> ('.($hasName ? 'please add at least one component' : 'please enter a name for the class').')';
-        $validation_items .= '<li><a href="#cfw-wod-'.$wod_id.'">'.$name.'</a> '.($willBePublished ? $publishedTail : $notPublishedTail ).'</li>';
+    if (is_array($notice)) {
+        $validation_items = '';
+        $counter = 0;
+        foreach ($notice as $wod_id => $validation) {
+            $counter++;
+            $hasName = !empty($validation['name']);
+            $name = $hasName ? $validation['name'] : (__('Class', 'cf-whiteboard').' '.$counter);
+            $willBePublished = $hasName && ($validation['validComponents'] > 0);
+            $totallyValid = $validation['validComponents'] == $validation['totalComponents'];
+            $publishedTail = 'will be published ('.($totallyValid ? '' : '<em>').$validation['validComponents'].' of '.$validation['totalComponents'].($totallyValid ? '' : '</em>').' components saved)';
+            $notPublishedTail = 'will <em>not be published</em> ('.($hasName ? 'please add at least one component' : 'please enter a name for the class').')';
+            $validation_items .= '<li><a href="#cfw-wod-'.$wod_id.'">'.$name.'</a> '.($willBePublished ? $publishedTail : $notPublishedTail ).'</li>';
+        }
+
+        echo '<div id="cfwhiteboard-admin-notice" class="updated">
+           <p>'.__('CF Whiteboard Status:', 'cf-whiteboard').'</p>
+           <ul>'. $validation_items .'</ul>
+        </div>';
+    } else {
+        echo $notice;
     }
 
-    echo '<div id="cfwhiteboard-admin-notice" class="updated">
-       <p>'.__('CF Whiteboard Status:', 'cf-whiteboard').'</p>
-       <ul>'. $validation_items .'</ul>
-    </div>';
 
     delete_transient($CFWHITEBOARD_WODS_META_KEY.'-notice');
 }
 
 
 function cfwhiteboard_json_meta() {
+    global $wpdb;
     global $CFWHITEBOARD_WODS_META_KEY;
     global $CFWHITEBOARD_VERSION;
     global $CFWHITEBOARD_WHITEBOARD_ID_META_KEY;
@@ -4604,13 +4615,26 @@ function cfwhiteboard_json_meta() {
     if (!empty($query_var_post_id)) {
         $post = get_post($query_var_post_id);
     } elseif (!empty($query_var_whiteboard_id)) {
-        $args = array(
-            'posts_per_page' => 1,
-            'meta_key' => $CFWHITEBOARD_WHITEBOARD_ID_META_KEY,
-            'meta_value' => $query_var_whiteboard_id
-        );
-        $posts = get_posts($args);
-        $post = $posts[0];
+        // $args = array(
+        //     'posts_per_page' => 1,
+        //     'offset' => 0,
+        //     'meta_query' => array(
+        //         array(
+        //             'key' => $CFWHITEBOARD_WHITEBOARD_ID_META_KEY,
+        //             'value' => $query_var_whiteboard_id
+        //         )
+        //     ),
+        //     'post_type' => 'any',
+        //     'post_status' => 'any',
+        //     'suppress_filters' => true
+        // );
+        // $posts = get_posts($args);
+        // $post = $posts[0];
+
+        $wpdbpostmeta = $wpdb->postmeta;
+        $querystr = "SELECT * FROM $wpdbpostmeta WHERE $wpdbpostmeta.meta_key = '". $wpdb->escape($CFWHITEBOARD_WHITEBOARD_ID_META_KEY) ."' AND $wpdbpostmeta.meta_value = '". $wpdb->escape($query_var_whiteboard_id) ."'";
+        $metas = $wpdb->get_results($querystr, OBJECT);
+        $post = get_post($metas[0]->post_id);
 
         // fallback for legacy post meta that doesn't have a Whiteboard ID post_meta yet
         if (empty($post)) {

@@ -954,7 +954,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     white-space: nowrap !important;
 }
 .cfwhiteboard .cfw-pane ul.cfw-classes li a:hover {
-    color: #D64A0D !important;
+    color: #d35400 !important;
     text-shadow: 1px 1px 0 black !important;
 }
 .cfwhiteboard .cfw-pane ul.cfw-classes li .cfw-centered {
@@ -1080,7 +1080,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     -webkit-box-shadow: 1px 1px 1px #000 !important;
     -moz-box-shadow: 1px 1px 1px #000 !important;
     box-shadow: 1px 1px 1px #000 !important;
-    color: #d64a0d !important;
+    color: #d35400 !important;
     font-size: 20px !important;
     font-weight: bold !important;
     padding: 2px 6px 3px 6px !important;
@@ -1204,7 +1204,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 
 
 .cfwhiteboard .cfw-window .cfw-contents a {
-    color: #d64a0d !important;
+    color: #d35400 !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents a:hover {
     color: #333 !important;
@@ -1337,7 +1337,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     max-width: 213px !important;
 }
 .cfwhiteboard .cfw-window table .cfw-result {
-    color: #d64a0d !important;
+    color: #d35400 !important;
 }
 .cfwhiteboard .cfw-window table td.cfw-result {
     text-align: right !important;
@@ -1600,7 +1600,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     padding-top: 5px !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd .cfw-result {
-    color: #d64a0d !important;
+    color: #d35400 !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd .cfw-mods {
     color: #6d6a63 !important;
@@ -1706,7 +1706,9 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard .cfw-window form h2 label {
     margin: 0 !important;
 }
-.cfwhiteboard .cfw-window form .cfw-result-notes {
+.cfwhiteboard .cfw-window form .cfw-result-notes,
+.cfwhiteboard .cfw-window form .cfw-email-display,
+.cfwhiteboard .cfw-window form .cfw-field-errors {
     color: #606060 !important;
     font-size: 15px !important;
     line-height: 23px !important;
@@ -1714,6 +1716,17 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     padding: 0 !important;
     text-shadow: 0 1px 0 #fff !important;
     width: 282px !important;
+}
+.cfwhiteboard .cfw-window form .cfw-field-errors {
+    color: #e74c3c !important;
+    font-weight: normal !important;
+}
+.cfwhiteboard .cfw-window form .cfw-field-errors.cfw-muted {
+    color: #909090 !important;
+}
+.cfwhiteboard .cfw-window form .cfw-email-display {
+    overflow: hidden !important;
+    white-space: nowrap !important;
 }
 .cfwhiteboard .cfw-window form label,
 .cfwhiteboard .cfw-window form input,
@@ -1780,6 +1793,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     *display: inline !important;
 }
 .cfwhiteboard .cfw-window form input[type="text"],
+.cfwhiteboard .cfw-window form input[type="password"],
 .cfwhiteboard .cfw-window form input[type="email"],
 .cfwhiteboard .cfw-window form textarea,
 .cfwhiteboard .cfw-window form .cfw-dropdown-toggle {
@@ -1792,36 +1806,46 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     box-shadow: none !important;
     color: #1d1a13 !important;
     cursor: text !important;
-    font-size: 14px !important;
-    line-height: 21px !important;
+    font-size: 15px !important;
+    line-height: normal !important;
     margin: 0 0 6px !important;
+    padding-top: 4px !important;
+    padding-bottom: 5px !important;
+}
+.cfwhiteboard .cfw-window form input[type="password"] {
+    font-size: 24px !important;
 }
 .cfwhiteboard .cfw-window form input[type="text"]::-webkit-input-placeholder,
+.cfwhiteboard .cfw-window form input[type="password"]::-webkit-input-placeholder,
 .cfwhiteboard .cfw-window form input[type="email"]::-webkit-input-placeholder,
 .cfwhiteboard .cfw-window form textarea::-webkit-input-placeholder { /* WebKit browsers */
     color: #aaa !important;
 }
 .cfwhiteboard .cfw-window form input[type="text"]:-moz-placeholder,
+.cfwhiteboard .cfw-window form input[type="password"]:-moz-placeholder,
 .cfwhiteboard .cfw-window form input[type="email"]:-moz-placeholder,
 .cfwhiteboard .cfw-window form textarea:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
     color: #aaa !important;
 }
 .cfwhiteboard .cfw-window form input[type="text"]::-moz-placeholder,
+.cfwhiteboard .cfw-window form input[type="password"]::-moz-placeholder,
 .cfwhiteboard .cfw-window form input[type="email"]::-moz-placeholder,
 .cfwhiteboard .cfw-window form textarea::-moz-placeholder { /* Mozilla Firefox 19+ */
     color: #aaa !important;
 }
 .cfwhiteboard .cfw-window form input[type="text"]:-ms-input-placeholder,
+.cfwhiteboard .cfw-window form input[type="password"]:-ms-input-placeholder,
 .cfwhiteboard .cfw-window form input[type="email"]:-ms-input-placeholder,
 .cfwhiteboard .cfw-window form textarea:-ms-input-placeholder { /* Internet Explorer 10+ */
     color: #aaa !important;
 }
 .cfwhiteboard .cfw-window form input[disabled="disabled"] {
     cursor: default !important;
-    opacity: 0.35 !important;
-    filter: alpha(opacity = 35) !important;
+    opacity: 0.45 !important;
+    filter: alpha(opacity = 45) !important;
 }
 .cfwhiteboard .cfw-window form input[type="text"],
+.cfwhiteboard .cfw-window form input[type="password"],
 .cfwhiteboard .cfw-window form input[type="email"],
 .cfwhiteboard .cfw-window form .cfw-dropdown-toggle {
     height: 21px !important;
@@ -1886,59 +1910,108 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard .cfw-window form input[type="checkbox"] + label {
     display: inline !important;
 }
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn.cfw-btn-block,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn.cfw-btn-block:hover {
+    display: block !important;
+}
 .cfwhiteboard .cfw-window form input[type="submit"],
-.cfwhiteboard .cfw-window form input[type="reset"] {
-    background: #3c3e3f !important;
+.cfwhiteboard .cfw-window form input[type="submit"]:hover,
+.cfwhiteboard .cfw-window form input[type="reset"],
+.cfwhiteboard .cfw-window form input[type="reset"]:hover,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn:hover {
+    background: #95a5a6 !important;
     -webkit-background-clip: padding-box !important;
     -moz-background-clip: padding !important;
     background-clip: padding-box !important;
-    border-color: #5c5e5f #2c2e2f #0c0e0f #4c4e4f !important;
-    border-style: solid !important;
-    border-width: 1px !important;
-    -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.6) !important;
-    -moz-box-shadow: 1px 1px 1px rgba(0,0,0,.6) !important;
-    box-shadow: 1px 1px 1px rgba(0,0,0,.6) !important;
+    border: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
     -webkit-border-radius: 3px !important;
     -moz-border-radius: 3px !important;
     border-radius: 3px !important;
-    color: #01A1EE !important;
+    color: #2c3e50 !important;
     cursor: pointer !important;
     display: inline-block !important;
-    font-size: 14px !important;
-    margin-left: 10px !important;
-    padding: 5px 0 !important;
+    font-size: 15px !important;
+    margin: 0 !important;
+    padding: 9px 12px !important;
     text-align: center !important;
-    text-shadow: 0 -1px 0 #001 !important;
-    width: 62px !important;
+    text-shadow: 0 1px 0 rgba(255,255,255,.2) !important;
+    width: auto !important;
     *zoom: 1 !important;
     *display: inline !important;
 }
+.cfwhiteboard .cfw-window form .cfw-footer input[type="submit"],
+.cfwhiteboard .cfw-window form .cfw-footer input[type="reset"] {
+    margin-left: 10px !important;
+}
 .cfwhiteboard .cfw-window form input[type="submit"]:active,
 .cfwhiteboard .cfw-window form input[type="submit"].loading,
-.cfwhiteboard .cfw-window form input[type="reset"]:active {
-    -webkit-box-shadow: 1px 1px 0 rgba(0,0,0,.4) !important;
-    -moz-box-shadow: 1px 1px 0 rgba(0,0,0,.4) !important;
-    box-shadow: 1px 1px 0 rgba(0,0,0,.4) !important;
+.cfwhiteboard .cfw-window form input[type="reset"]:active,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn:active,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn.loading {
+    -webkit-box-shadow: inset 0 2px 6px 1px rgba(0,0,0,.2) !important;
+    -moz-box-shadow: inset 0 2px 6px 1px rgba(0,0,0,.2) !important;
+    box-shadow: inset 0 2px 6px 1px rgba(0,0,0,.2) !important;
+}
+.cfwhiteboard .cfw-window form input[type="submit"],
+.cfwhiteboard .cfw-window form input[type="submit"]:hover,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-primary,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-primary:hover {
+    background: #01a1ee !important;
 }
 .cfwhiteboard .cfw-window form input[type="reset"] {
-    color: #d74131 !important;
-    margin-left: 1px !important;
-    text-shadow: 0 -1px 0 #100 !important;
 }
-.cfwhiteboard .cfw-window form input[type="submit"].loading {
-    background-image: url('images/loading.gif') !important;
-    background-position: 23px center !important;
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-danger,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-danger:hover {
+    background: #e74c3c !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-orange,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-orange:hover {
+    background: #e67e22 !important;
+    color: #2c3e50 !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-orange-text,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-orange-text:hover {
+    /*background: #2c3e50 !important;*/
+    color: #d35400 !important;
+    /*text-shadow: 0 -1px 0 #100 !important;*/
+}
+/*
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-orange-text:active {
+    -webkit-box-shadow: inset 0 2px 6px 1px rgba(0,0,0,.9) !important;
+    -moz-box-shadow: inset 0 2px 6px 1px rgba(0,0,0,.9) !important;
+    box-shadow: inset 0 2px 6px 1px rgba(0,0,0,.9) !important;
+}
+*/
+.cfwhiteboard .cfw-window form .cfw-footer input[type="reset"] {
+    margin-left: 1px !important;
+}
+.cfwhiteboard .cfw-window form input[type="submit"].loading,
+.cfwhiteboard .cfw-window form input[type="submit"].loading:hover {
+    background-image: url(data:image/gif;base64,R0lGODlhEAALAPQAAAGh7iw+UAaS1weO0AOY4So/Uyw+UCRPbBVwoBtiiguFwyZKZB9ZfRRzpRpkjQuHxiVMZys/UR5bgASW3gaR1QGc5yJTcgWT2AKb5QyEwBB7sgmMzQKZ5AAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCwAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQJCwAAACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQJCwAAACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQJCwAAACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAkLAAAALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkECQsAAAAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAkLAAAALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkECQsAAAAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7AAAAAAAAAAAA) !important;
+    background-position: center center !important;
     background-repeat: no-repeat !important;
-    overflow: hidden !important;
-    text-indent: 100% !important;
+    color: transparent !important;
+    text-shadow: none !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-danger.loading,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-danger.loading:hover {
+    background-image: url(data:image/gif;base64,R0lGODlhEAALAPQAAOdMPCw+UMxJPsRJP9dKPS89Tyw+UE0/S4tERXJCR7RHQEQ/TWJBSZFFRHRCR7dHQEc/TC4+TmRBSdVJPcpJPt5LPFRAS81JPd5KPLFHQKFFQsBIP9pKPQAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCwAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQJCwAAACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQJCwAAACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQJCwAAACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAkLAAAALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkECQsAAAAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAkLAAAALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkECQsAAAAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7AAAAAAAAAAAA) !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    color: transparent !important;
+    text-shadow: none !important;
 }
 
 .cfwhiteboard .cfw-window form label.cfw-invalid {
-    color: #d74131 !important;
+    color: #e74c3c !important;
 }
 .cfwhiteboard .cfw-window form input.cfw-invalid,
 .cfwhiteboard .cfw-window form input:invalid {
-    border-color: #d74131 !important;
+    border-color: #e74c3c !important;
 }
 
 .cfwhiteboard .cfw-hidden {
@@ -1970,12 +2043,13 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     opacity: 1 !important;
     filter: alpha(opacity = 100) !important;
 }
-.cfwhiteboard .cfw-window form a.cfw-add-notes {
+.cfwhiteboard .cfw-window form a.cfw-add-notes,
+.cfwhiteboard .cfw-window form a.cfw-reset-password {
     color: #6d6a63 !important;
     display: inline-block !important;
     float: left !important;
     font-size: 13px !important;
-    line-height: 27px !important;
+    line-height: 31px !important;
     margin-left: 4px !important;
     opacity: 1 !important;
     filter: alpha(opacity = 100) !important;
@@ -1987,8 +2061,9 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     *zoom: 1 !important;
     *display: inline !important;
 }
-.cfwhiteboard .cfw-window form a.cfw-add-notes:hover {
-    color: #d64a0d !important;
+.cfwhiteboard .cfw-window form a.cfw-add-notes:hover,
+.cfwhiteboard .cfw-window form a.cfw-reset-password:hover {
+    color: #d35400 !important;
     text-decoration: none !important;
 }
 .cfwhiteboard .cfw-window form a.cfw-add-notes.cfw-transparent {
