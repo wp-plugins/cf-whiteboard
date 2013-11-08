@@ -12,4 +12,4 @@
 	$.fn.bootstrap_collapse = $.fn.collapse;
 	$.fn.bootstrap_carousel = $.fn.carousel;
 	$.fn.bootstrap_typeahead = $.fn.typeahead;
-})(jQuery);
+})(window.jQuery);
