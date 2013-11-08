@@ -2,8 +2,8 @@
 Contributors: collindo
 Tags: crossfit, wod, fitness, workout, tracking, tracker, sports, exercise, training, coach
 Requires at least: 3.3
-Tested up to: 3.6.1
-Stable tag: 2.2
+Tested up to: 3.7.1
+Stable tag: 2.2.6
 
 CF Whiteboard turns your website and WOD Blog into a full-featured CrossFit<sup>&reg;</sup> workout tracker.
 
@@ -26,6 +26,12 @@ We want to create a service that CrossFitters love, so don't hesitate to [email 
 The whiteboard contains external links for athlete support purposes.  By installing this plugin, you give CF Whiteboard permission to embed these external links.
 
 == Changelog ==
+
+= 2.2.6 =
+* Added ability for athletes to EDIT and DELETE workouts they tracked individually (from their profile).
+* Improve Athlete popups compatibility across websites (experiencing CSS conflicts on at least one customer's site).
+* Fix bug with weightlifting repcount dropdown (for choosing 1RM, 2RM, etc.) on iPad / iPhone.
+* Fix bug that prevented athletes from entering a decimal place on weightlifting benchmarks.
 
 = 2.2 =
 * Athlete login system.

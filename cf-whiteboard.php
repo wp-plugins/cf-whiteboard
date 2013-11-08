@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 2.2
+Version: 2.2.6
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '2.2';
+$CFWHITEBOARD_VERSION = '2.2.6';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -260,6 +260,18 @@ function cfw_notice_ignore() {
     }
 }
 
+
+/* enable auto-update of this plugin.  contact us at affiliatesupport@cfwhiteboard.com if you would like us to add a setting to turn off auto-updates */
+// add_action('admin_init', 'cfwhiteboard_init_auto_update');
+// function cfwhiteboard_init_auto_update() {
+//     add_filter('auto_update_plugin', 'cfwhiteboard_auto_update', 999999, 2);
+// }
+// function cfwhiteboard_auto_update($update, $item) {
+//     set_transient('cfw-auto-update-item', 'please let this work', 30);
+//     // if (0 == strcmp($item, 'cf-whiteboard/cf-whiteboard.php')) {
+//     //     set_transient('cfw-auto-update-item', $item, 30);
+//     // }
+// }
 
 
 
@@ -1460,15 +1472,15 @@ function cfwhiteboard_post_meta_scripts() {
     global $CFWHITEBOARD_VERSION;
     if (!isset($CFWHITEBOARD_VERSION)) $CFWHITEBOARD_VERSION = '0.0';
 
-    wp_enqueue_script('bootstrap',
-        plugins_url('bootstrap/js/bootstrap.min.js', __FILE__),
+    wp_enqueue_script('bootstrap-2.3.2',
+        plugins_url('bootstrap/js/bootstrap-2.3.2.min.js', __FILE__),
         array('jquery'),
         $CFWHITEBOARD_VERSION
     );
 
     wp_enqueue_script('bootstrap-namespacer',
         plugins_url('js/bootstrap-namespacer.js', __FILE__),
-        array('jquery', 'bootstrap'),
+        array('jquery', 'bootstrap-2.3.2'),
         $CFWHITEBOARD_VERSION
     );
 
@@ -1761,6 +1773,10 @@ function cfwhiteboard_wods_meta_box($object, $box) {
     global $CFWHITEBOARD_WODS_META_KEY;
     $options = cfwhiteboard_get_options();
 
+    // $auto_update_item = get_transient('cfw-auto-update-item');
+    // var_dump($auto_update_item);
+    // echo '<br>';
+    // var_dump(get_site_transient('update_plugins')->response);
     ?>
 
     <?php wp_nonce_field(basename( __FILE__ ), $CFWHITEBOARD_WODS_META_KEY); ?>
