@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 2.2
+Version: 2.2.8
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '2.2';
+$CFWHITEBOARD_VERSION = '2.2.8';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -261,6 +261,20 @@ function cfw_notice_ignore() {
 }
 
 
+/* enable auto-update of this plugin.  contact us at affiliatesupport@cfwhiteboard.com if you would like us to add a setting to turn off auto-updates */
+// add_action('admin_init', 'cfwhiteboard_init_auto_update');
+// function cfwhiteboard_init_auto_update() {
+//     add_filter('auto_update_plugin', 'cfwhiteboard_auto_update', 999999, 2);
+// }
+// function cfwhiteboard_auto_update($update, $item) {
+// //     set_transient('cfw-auto-update-item', 'please let this work', 30);
+//     if (0 == strcmp($item, 'cf-whiteboard/cf-whiteboard.php')) {
+//         return true;
+//         //     set_transient('cfw-auto-update-item', $item, 30);
+//     }
+//     return $update;
+// }
+
 
 
 // Utility Classes for normalization of Settings values
@@ -296,7 +310,7 @@ abstract class cfwhiteboard_AthletesTheme {
 
 global $CFWHITEBOARD_DEFAULT_OPTIONS;
 $CFWHITEBOARD_DEFAULT_OPTIONS = array();
-$CFWHITEBOARD_DEFAULT_OPTIONS['affiliate_id'] = urlencode( str_replace(array('.', '/'), '-', str_replace(array('http://', 'https://', 'www.'), '', home_url())) );
+$CFWHITEBOARD_DEFAULT_OPTIONS['affiliate_id'] = strtolower( preg_replace( '/[^a-zA-Z0-9-]/', '', str_replace( array('.', '/'), '-', str_replace(array('http://', 'https://', 'www.'), '', home_url()) ) ) );
 $CFWHITEBOARD_DEFAULT_OPTIONS['visibility'] = cfwhiteboard_Visibility::Everyone;
 $CFWHITEBOARD_DEFAULT_OPTIONS['position'] = cfwhiteboard_Position::CustomSelector;
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectorinsertion'] = cfwhiteboard_Position::CustomSelectorInsertionPrepend;
@@ -556,12 +570,12 @@ function cfwhiteboard_scripts() {
 }
 
 function cfwhiteboard_latest_jquery($version) {
-    wp_deregister_script('jquery');
-    wp_register_script('jquery',
-        plugins_url('js/jquery.js', __FILE__),
-        false,
-        '1.8.3'
-    );
+    // wp_deregister_script('jquery');
+    // wp_register_script('jquery',
+    //     plugins_url('js/jquery.js', __FILE__),
+    //     false,
+    //     '1.8.3'
+    // );
     wp_enqueue_script('jquery');
 }
 
@@ -1070,37 +1084,38 @@ function cfwhiteboard_options_page() {
                                 What We're Working On Now
                             </h3>
                             <p>
-                                Our goal is to get ALL of your athletes tracking their workouts and measuring their progress.
+                                Our goal is to get ALL of your athletes tracking their workouts and measuring their progress EVERY DAY.
                                 The best way you can help is by sending us ideas and passing along anything you hear from your athletes.
-                                Based on feedback from you, here's what we're working on right now:
+                                And encourage your athletes to track their results! Every training session matters.
                             </p>
+                            <p>
+                                Right now we're doubling down on delivering more value to both coaches and athletes. We're already collecting a ton of data about your athletes,
+                                but that doesn't do you any good unless it's delivered to you <strong>at the right time</strong> and <strong>in an actionable way</strong>. Stay
+                                tuned for a whole new relationship with your athletes.
+                            </p>
+<!-- 
                             <div class="row-fluid">
                                 <div class="span4">
                                     <h4 style="text-align:center;">Comments, Likes, and Leaderboards</h4>
-    <!-- 
                                     <p>
                                         An easy way to post results to Facebook and Twitter. It's fun for your athletes, and it's great marketing for your business.
                                     </p>
-     -->
                                 </div>
                                 <div class="span4">
                                     <h4 style="text-align:center;">Custom Benchmark Workouts / Gym Favorites</h4>
-    <!-- 
                                     <p>
                                         In-depth benchmark tracking and analysis, without sacrificing the ease-of-use that brought you here in the first place.
                                         Athlete-by-athlete and gym-wide analysis, charts, and monthly emails to keep you up-to-date with your gym's progress.
                                     </p>
-     -->
                                 </div>
                                 <div class="span4">
                                     <h4 style="text-align:center;">Profile Pictures</h4>
-    <!-- 
                                     <p>
                                         Track your results, see how your friends did, and search your past workouts. All on-the-go.
                                     </p>
-     -->
                                 </div>
                             </div>
+     -->
                         </div><!-- #welcome -->
 
                         <!--<hr style="max-width:600px; border:2px solid #CCC; margin:25px 0 5px;" />-->
@@ -1325,7 +1340,7 @@ function cfwhiteboard_options_page() {
         jQuery(function($) {
             $('.cfw-twb .navbar .nav.internal a').click(function(event) {
                 event.preventDefault();
-                $(this).tab('show');
+                $(this).bootstrap_tab('show');
             });
 
             $('a[href="'+window.location.hash+'"]').click();
@@ -1356,7 +1371,7 @@ function cfwhiteboard_add_menu_link() {
 
     $hook_suffix = add_options_page(
         'CF Whiteboard ' . __("Settings"),
-        (cfwhiteboard_is_site_enabled() ? 'CF Whiteboard' : 'Get CF Whiteboard!'),
+        (cfwhiteboard_is_site_enabled() ? 'CF Whiteboard' : 'Workout Tracking by CF Whiteboard'),
         'manage_options',
         basename(__FILE__),
         'cfwhiteboard_options_page'
@@ -1371,9 +1386,20 @@ function cfwhiteboard_settings_scripts() {
     global $CFWHITEBOARD_VERSION;
     if (!isset($CFWHITEBOARD_VERSION)) $CFWHITEBOARD_VERSION = '0.0';
 
-    wp_enqueue_script('bootstrap',
-        plugins_url('bootstrap/js/bootstrap.min.js', __FILE__),
+    // wp_enqueue_script('bootstrap',
+    //     plugins_url('bootstrap/js/bootstrap.min.js', __FILE__),
+    //     array('jquery'),
+    //     $CFWHITEBOARD_VERSION
+    // );
+    wp_enqueue_script('cfwbootstrap',
+        plugins_url('bootstrap/js/bootstrap-3.0.2.1.js', __FILE__),
         array('jquery'),
+        $CFWHITEBOARD_VERSION
+    );
+
+    wp_enqueue_script('bootstrap-namespacer',
+        plugins_url('js/bootstrap-namespacer-3.0.2.1.js', __FILE__),
+        array('cfwbootstrap'),
         $CFWHITEBOARD_VERSION
     );
 }
@@ -1460,15 +1486,15 @@ function cfwhiteboard_post_meta_scripts() {
     global $CFWHITEBOARD_VERSION;
     if (!isset($CFWHITEBOARD_VERSION)) $CFWHITEBOARD_VERSION = '0.0';
 
-    wp_enqueue_script('bootstrap',
-        plugins_url('bootstrap/js/bootstrap.min.js', __FILE__),
+    wp_enqueue_script('cfwbootstrap',
+        plugins_url('bootstrap/js/bootstrap-3.0.2.1.js', __FILE__),
         array('jquery'),
-        $CFWHITEBOARD_VERSION
+        '3.0.2.1'
     );
 
     wp_enqueue_script('bootstrap-namespacer',
-        plugins_url('js/bootstrap-namespacer.js', __FILE__),
-        array('jquery', 'bootstrap'),
+        plugins_url('js/bootstrap-namespacer-3.0.2.1.js', __FILE__),
+        array('cfwbootstrap'),
         $CFWHITEBOARD_VERSION
     );
 
@@ -1488,6 +1514,12 @@ function cfwhiteboard_post_meta_scripts() {
         plugins_url('js/backbone.js', __FILE__),
         array('underscore', 'jquery'),
         '1.0.0'
+    );
+
+    wp_enqueue_script('easyxdm',
+        plugins_url('js/easyXDM.min.js', __FILE__),
+        false,
+        '2.4.18.25'
     );
 }
 function cfwhiteboard_post_meta_styles() {
@@ -1761,6 +1793,10 @@ function cfwhiteboard_wods_meta_box($object, $box) {
     global $CFWHITEBOARD_WODS_META_KEY;
     $options = cfwhiteboard_get_options();
 
+    // $auto_update_item = get_transient('cfw-auto-update-item');
+    // var_dump($auto_update_item);
+    // echo '<br>';
+    // var_dump(get_site_transient('update_plugins')->response);
     ?>
 
     <?php wp_nonce_field(basename( __FILE__ ), $CFWHITEBOARD_WODS_META_KEY); ?>
@@ -2000,20 +2036,22 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             padding-right: 0;
             padding-left: 0;
         }
-        #cfwhiteboard-wods-meta .cfw-overview .cfw-overview-help .tooltip {
+        #cfwhiteboard-wods-meta .cfw-overview .tooltip {
             font-weight: normal;
             text-shadow: none;
             text-transform: none;
+        }
+        #cfwhiteboard-wods-meta .cfw-overview-header .tooltip {
             width: 320px;
         }
-        #cfwhiteboard-wods-meta .cfw-overview .cfw-overview-help .tooltip-inner {
+        #cfwhiteboard-wods-meta .cfw-overview .tooltip-inner {
             max-width: none;
             text-align: left;
         }
-        #cfwhiteboard-wods-meta .cfw-overview .cfw-overview-help ul {
+        #cfwhiteboard-wods-meta .cfw-overview .tooltip-inner ul {
             margin: 6px 0 6px 25px;
         }
-        #cfwhiteboard-wods-meta .cfw-overview .cfw-overview-help ul li {
+        #cfwhiteboard-wods-meta .cfw-overview .tooltip-inner ul li {
             list-style: disc outside;
             line-height: 16px;
         }
@@ -2882,7 +2920,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             <div class="cfw-overview tab-pane active">
                 <div class="cfw-header">
                     <a class="pull-right cfw-admin-tour" href="http://cfwhiteboard.com/wp-admin-tour" target="_blank"><i class="icon-play"></i> Tour the New Admin Area</a>
-                    <div class="cfw-wods-date-container" title="Date of Workouts (click to edit)" rel="tooltip" data-placement="bottom">
+                    <div class="cfw-wods-date-container" title="Date of Workouts (click to edit)" rel="tooltip" data-placement="right">
                         <input id="cfwhiteboard-wods-date" type="text" name="cfwhiteboard-wods-date" class="cfw-datepicker" value="<?php esc_attr_e(empty($wods_date) ? '(use publish date)' : $wods_date); ?>"
                         /><label for="cfwhiteboard-wods-date">
                             <i></i>
@@ -3007,92 +3045,36 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                 var attempt = _.inject(args, function(memo, arg) { return typeof(memo) != 'undefined' ? memo[arg] : memo }, args.shift());
                 return typeof(attempt) != 'undefined' ? attempt : default_value;
             };
-            CFW.ajaxOptions = !jQuery.browser.msie || !window.XDomainRequest ? {} : {
-                xhr: function() {
-                    try {
-                        var xdr = new XDomainRequest();
-                        xdr.timeout = 15000;
-                        var xdr2;
-
-                        xdr.getAllResponseHeaders = function() {return '';};
-
-                        var xdrRespond = function(status, statusText) {
-                            xdr.onload = xdr.onerror = xdr.ontimeout = jQuery.noop;
-                            xdr.status = status;
-                            xdr.statusText = statusText;
-                            xdr.readyState = 4;
-                            if (xdr2) xdr.responseText = xdr2.responseText;
-                            xdr.onreadystatechange && xdr.onreadystatechange();
-                        };
-                        var xdrRetry = function() {
-                            xdr2 = new XDomainRequest();
-                            xdr2.timeout = xdr.timeout;
-                            xdr2.onload = xdr.onload;
-                            xdr2.onerror = xdr.onerror;
-                            xdr2.ontimeout = xdr.ontimeout;
-                            xdr2.open(xdr.openArgs[0], xdr.openArgs[1]);
-                            xdr2.send(xdr.sendArgs[0]);
-                        };
-
-                        xdr.onload = function() {
-                            xdrRespond(200, 'OK');
-                        };
-                        xdr.onerror = function() {
-                            if (! xdr2)
-                                xdrRetry();
-                            else
-                                xdrRespond(400, 'Error');
-                        };
-                        xdr.ontimeout = function() {
-                            if (! xdr2)
-                                xdrRetry();
-                            else
-                                xdrRespond(0, 'timeout');
-                        };
-
-                        xdr.originalOpen = xdr.open;
-                        xdr.open = function(type, url) {
-                            if (type === 'PUT') {
-                                url = url + '/revise';
-                                type = 'POST';
-                            } else if (type === 'DELETE') {
-                                url = url + '/annihilate';
-                                type = 'POST';
-                            }
-                            
-                            xdr.openArgs = [type, url];
-                            xdr.originalOpen(type, url);
-                        };
-
-                        xdr.originalSend = xdr.send;
-                        xdr.send = function(data) {
-                            var recursiveEncode = function(obj) {
-                                for (var key in obj) {
-                                    if (typeof(obj[key]) == 'object') {
-                                        obj[key] = recursiveEncode(obj[key]);
-                                    } else {
-                                        obj[key] = encodeURIComponent(obj[key]);
-                                    }
-                                }
-                                return obj;
-                            };
-                            data = JSON.stringify( recursiveEncode( JSON.parse(data) ) );
-
-                            xdr.sendArgs = [data];
-
-                            setTimeout(function() {
-                                xdr.originalSend(data);
-                            }, 0);
-                        }
-                        return xdr;
-                    } catch(e) {
-                        return jQuery.ajaxSettings.xhr();
-                    }
+            CFW.tunnel = new easyXDM.Rpc({
+                remote: CFW.domain + '/tunnel'
+            }, {
+                remote: {
+                    request: {}
                 }
+            });
+            CFW.ajax = function(options) {
+                var deferred = jQuery.Deferred();
+                deferred.done(function() {
+                    options.success && options.success.apply(this, arguments);
+                });
+                deferred.fail(function(errorObject) {
+                    var xhr = errorObject.message;
+                    options.error && options.error.apply(this, [xhr]);
+                });
+                deferred.always(function() {
+                    options.complete && options.complete.apply(this);
+                });
+
+                options.method = options.type;
+                CFW.tunnel.request(_.extend({}, options, {model: null, collection: null}), function() {
+                    deferred.resolveWith(this, arguments);
+                }, function() {
+                    deferred.rejectWith(this, arguments);
+                });
+
+                return deferred.promise();
             };
-            if ($.browser.msie && window.XDomainRequest) {
-                jQuery.support.cors = true;
-            }
+            Backbone.ajax = CFW.ajax;
 
             CFW.getAffiliateDetails = function() {
                 $.getJSON(CFW.domain+'/affiliates/<?php echo preg_replace('/_preview$/', '', $options['affiliate_id']); ?>.json', function(data) {
@@ -3430,8 +3412,8 @@ HEREDOC;
                 ?>'),
                 
                 events: {
-                    'show a': 'showDetail',
-                    'shown a': 'deactivate'
+                    'show.bs.tab a': 'showDetail',
+                    'shown.bs.tab a': 'deactivate'
                 },
                 // 'click .cfw-select-benchmark:not(.active)': 'triggerSelect',
                 // 'click .cfw-select-benchmark.active': 'triggerDeselect'
@@ -3575,8 +3557,8 @@ HEREDOC;
                 ?>'),
 
                 events: {
-                    'show a.cfw-back': 'triggerRemove',
-                    'shown a.cfw-back': 'remove',
+                    'show.bs.tab a.cfw-back': 'triggerRemove',
+                    'shown.bs.tab a.cfw-back': 'remove',
                     'click .repcount .dropdown-menu a': 'selectRepCount'
                 },
                 // 'click .cfw-select-benchmark:not(.active)': 'triggerSelect',
@@ -3608,7 +3590,7 @@ HEREDOC;
                     );
 
                     // tooltips
-                    this.$el.bootstrap_tooltip({selector:'a[rel=tooltip]'});
+                    this.$el.bootstrap_tooltip({selector:'[rel="tooltip"]'});
 
                     return this;
                 },
@@ -3803,7 +3785,7 @@ HEREDOC;
                     });
                 });
             };
-            CFW.allBenchmarks.fetch($.extend({
+            CFW.allBenchmarks.fetch({
                 success: function(collection, response, options) {
                     // Populate benchmark lists for all existing components
                     var $uls = $('#cfwhiteboard-wods-meta .cfw-benchmark-list');
@@ -3816,7 +3798,7 @@ HEREDOC;
                         $notice.fadeTo(300, 1);
                     });
                 }
-            }, CFW.ajaxOptions));
+            });
 
             // // Save & Close events
             // // switching between Custom / Benchmarks tabs
@@ -3886,9 +3868,9 @@ HEREDOC;
                     'click .cfw-select-and-continue': 'updateOverview',
                     'click .cfw-select-and-continue  ': 'swapRemoveComponentText',
                     'click .cfw-remove-this-component': 'removeThisComponent',
-                    'show .cfw-component-fields-nav a.cfw-benchmarks': 'attachBenchmarkFields',
-                    'shown .cfw-component-fields-nav a.cfw-custom-component-tab': 'detachBenchmarkFields',
-                    'shown .cfw-component-fields-nav a': 'updateSelectButtonHighlight',
+                    'show.bs.tab .cfw-component-fields-nav a.cfw-benchmarks': 'attachBenchmarkFields',
+                    'shown.bs.tab .cfw-component-fields-nav a.cfw-custom-component-tab': 'detachBenchmarkFields',
+                    'shown.bs.tab .cfw-component-fields-nav a': 'updateSelectButtonHighlight',
                     'blur .cfw-custom-component textarea': 'updateSelectButtonHighlight',
                     'keyup .cfw-custom-component textarea': 'updateSelectButtonHighlight',
                     'paste .cfw-custom-component textarea': 'updateSelectButtonHighlight',
@@ -3902,7 +3884,7 @@ HEREDOC;
                     'focus .cfw-custom-component input[type="text"]': 'monitorComponentLabelOwnership',
                     'blur .cfw-custom-component input[type="text"]': 'verifyComponentLabelOwnership'
                 },
-                // 'show .cfw-custom-component-tab': 'confirmDeselectBenchmark',
+                // 'show.bs.tab .cfw-custom-component-tab': 'confirmDeselectBenchmark',
             
                 initialize: function(options) {
                     // this.model.on('change', this.render, this);
@@ -3938,13 +3920,13 @@ HEREDOC;
                             view.$('.cfw-benchmark-id').remove();
 
                             // selectedBenchmark.trigger('select:c'+view.component_id, selectedBenchmark);
-                            view.$('.cfw-component-fields-nav .cfw-benchmarks').tab('show');
+                            view.$('.cfw-component-fields-nav .cfw-benchmarks').bootstrap_tab('show');
                             view.showDetail($.Event(), selectedBenchmark);
 
                             var $detailsPane = view.detailView.$el.closest('.cfw-details-pane');
-                            (new $.fn.tab.Constructor()).activate($detailsPane, $detailsPane.parent());
+                            (new $.fn.bootstrap_tab.Constructor()).activate($detailsPane, $detailsPane.parent());
                         } else {
-                            view.$('.cfw-component-fields-nav .cfw-custom-component-tab').tab('show');
+                            view.$('.cfw-component-fields-nav .cfw-custom-component-tab').bootstrap_tab('show');
                         }
 
                         view.updateOverview();
@@ -4101,7 +4083,7 @@ HEREDOC;
                     if (this.options.el) message += ' This component will be removed from today\'s Whiteboard, but no athlete data will be affected.';
                     if (confirm(message)) {
                         var view = this;
-                        this.$('.cfw-remove-this-component').on('shown', function() {
+                        this.$('.cfw-remove-this-component').on('shown.bs.tab', function() {
                             var $nav = view.componentOverview.$el;
 
                             view.componentOverview.remove();
@@ -4322,7 +4304,7 @@ HEREDOC;
             });
 
             // tooltips
-            $('#cfwhiteboard-wods-meta').bootstrap_tooltip({selector:'a[rel=tooltip]'});
+            $('#cfwhiteboard-wods-meta').bootstrap_tooltip({selector:'[rel="tooltip"]'});
         });
     </script>
 
