@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 2.2.8
+Version: 2.2.9
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '2.2.8';
+$CFWHITEBOARD_VERSION = '2.2.9';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -319,6 +319,7 @@ $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectorparent'] = '';
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectoralignment'] = cfwhiteboard_Position::CustomSelectorAlignmentFloatRight;
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectormargin'] = '0 0 10px 10px';
 $CFWHITEBOARD_DEFAULT_OPTIONS['position_customselectordisplay'] = cfwhiteboard_Position::CustomSelectorDisplayButton;
+$CFWHITEBOARD_DEFAULT_OPTIONS['whiteboard_exclude_selector'] = '';
 $CFWHITEBOARD_DEFAULT_OPTIONS['metabox_on_custom_post_types'] = false;
 $CFWHITEBOARD_DEFAULT_OPTIONS['noncrossfit_branding'] = false;
 $CFWHITEBOARD_DEFAULT_OPTIONS['athletes_theme'] = cfwhiteboard_AthletesTheme::Auto;
@@ -336,7 +337,7 @@ function cfwhiteboard_get_options() {
         if (empty($CFWHITEBOARD_DEFAULT_OPTIONS)) $CFWHITEBOARD_DEFAULT_OPTIONS = array();
         $CFWHITEBOARD_SITE_OPTIONS = array_merge($CFWHITEBOARD_DEFAULT_OPTIONS, $CFWHITEBOARD_SITE_OPTIONS);
 
-        if (function_exists(cfwhiteboard_custom_branding)) {
+        if (function_exists('cfwhiteboard_custom_branding')) {
             $custom_branding = cfwhiteboard_custom_branding();
             if (is_array($custom_branding)) {
                 $CFWHITEBOARD_SITE_OPTIONS['custom_branding'] = $custom_branding;
@@ -362,7 +363,7 @@ function cfwhiteboard_update_options($new_options) {
 }
 
 function cfwhiteboard_is_site_enabled() {
-    return !function_exists(is_multisite) || !is_multisite() || (get_option('cfwhiteboard_enabled') == 'yes');
+    return !function_exists('is_multisite') || !is_multisite() || (get_option('cfwhiteboard_enabled') == 'yes');
 }
 
 function cfwhiteboard_is_authorized($options) {
@@ -470,7 +471,7 @@ function cfwhiteboard_init_whiteboard() {
         return;
 
     // always allow template_redirect, as long as the plugin is activated.
-    add_action('template_redirect', 'cfwhiteboard_json_meta');
+    add_action('template_redirect', 'cfwhiteboard_json_meta', 1);
 
     // Debugging
     // if (! (is_user_logged_in() && wp_get_current_user()->first_name == "Collin"))
@@ -585,6 +586,9 @@ function cfwhiteboard_scripts_data() {
     $data = array();
     $data['athletes_page_permalink'] = preg_replace('/\/$/', '', get_permalink($options['athletes_page_id']) ) . '/';
 
+    if (!empty($options['whiteboard_exclude_selector'])) {
+        $data['whiteboard_exclude_selector'] = $options['whiteboard_exclude_selector'];
+    }
     if ($options['position'] == cfwhiteboard_Position::CustomSelector) {
         $data['position'] = array();
         $data['position']['insertion'] = $options['position_customselectorinsertion'];
@@ -681,16 +685,20 @@ function cfwhiteboard_options_page() {
         // Custom Selector Fields
         if (!empty($_POST['CFWHITEBOARD_position_customselectorinsertion']))
             $new_options['position_customselectorinsertion'] = @$_POST['CFWHITEBOARD_position_customselectorinsertion'];
-        if (!empty($_POST['CFWHITEBOARD_position_customselectortarget']))
+        if (is_string($_POST['CFWHITEBOARD_position_customselectortarget']))
             $new_options['position_customselectortarget'] = @$_POST['CFWHITEBOARD_position_customselectortarget'];
-        if (!empty($_POST['CFWHITEBOARD_position_customselectorparent']))
+        if (is_string($_POST['CFWHITEBOARD_position_customselectorparent']))
             $new_options['position_customselectorparent'] = @$_POST['CFWHITEBOARD_position_customselectorparent'];
         if (!empty($_POST['CFWHITEBOARD_position_customselectoralignment']))
             $new_options['position_customselectoralignment'] = @$_POST['CFWHITEBOARD_position_customselectoralignment'];
-        if (!empty($_POST['CFWHITEBOARD_position_customselectormargin']))
+        if (is_string($_POST['CFWHITEBOARD_position_customselectormargin']))
             $new_options['position_customselectormargin'] = @$_POST['CFWHITEBOARD_position_customselectormargin'];
         if (!empty($_POST['CFWHITEBOARD_position_customselectordisplay']))
             $new_options['position_customselectordisplay'] = @$_POST['CFWHITEBOARD_position_customselectordisplay'];
+
+        // Whiteboard Exclude Selector
+        if (is_string($_POST['CFWHITEBOARD_whiteboard_exclude_selector']))
+            $new_options['whiteboard_exclude_selector'] = @$_POST['CFWHITEBOARD_whiteboard_exclude_selector'];
 
         // Athletes Theme
         if (isset($_POST['CFWHITEBOARD_athletes_theme']))
@@ -1141,18 +1149,6 @@ function cfwhiteboard_options_page() {
                             </fieldset>
                             
                             <fieldset style="margin-bottom:40px;">
-                                <legend><?php _e('Visibility Mode', 'cf-whiteboard'); ?></legend>
-                                <label for="CFWHITEBOARD_visibility_everyone" class="radio">
-                                    <input type="radio" id="CFWHITEBOARD_visibility_everyone" name="CFWHITEBOARD_visibility" value="<?php echo esc_attr( cfwhiteboard_Visibility::Everyone ); ?>" <?php echo $options['visibility'] == cfwhiteboard_Visibility::Everyone ? 'checked="checked"' : ''; ?> />
-                                    <strong><?php _e('Live Mode.', 'cf-whiteboard'); ?></strong> <?php _e('Anyone on the web can see the whiteboard. Whiteboard entries will be saved.', 'cf-whiteboard'); ?>
-                                </label>
-                                <label for="CFWHITEBOARD_visibility_users" class="radio">
-                                    <input type="radio" id="CFWHITEBOARD_visibility_users" name="CFWHITEBOARD_visibility" value="<?php echo esc_attr( cfwhiteboard_Visibility::Users ); ?>" <?php echo $options['visibility'] == cfwhiteboard_Visibility::Users ? 'checked="checked"' : ''; ?> />
-                                    <strong><?php _e('Developer Mode.', 'cf-whiteboard'); ?></strong> <?php _e('Athletes cannot see the whiteboard. Only logged-in WordPress users can see the whiteboard.  Whiteboard entries will be removed when you switch to Live Mode, so feel free to experiment.', 'cf-whiteboard'); ?>
-                                </label>
-                            </fieldset>
-                            
-                            <fieldset style="margin-bottom:60px;">
                                 <legend><?php _e('Whiteboard Position', 'cf-whiteboard'); ?></legend>
                                 <script type="text/javascript">
                                     jQuery(function($) {
@@ -1194,14 +1190,14 @@ function cfwhiteboard_options_page() {
                                     <div class="control-group">
                                         <label for="CFWHITEBOARD_position_customselectortarget" class="control-label"><?php _e('Target Selector', 'cf-whiteboard'); ?></label>
                                         <div class="controls">
-                                            <input id="CFWHITEBOARD_position_customselectortarget" type="text" name="CFWHITEBOARD_position_customselectortarget" value="<?php echo esc_attr( $options['position_customselectortarget'] ); ?>" class="input-xlarge" placeholder=".title" />
+                                            <input id="CFWHITEBOARD_position_customselectortarget" type="text" name="CFWHITEBOARD_position_customselectortarget" value="<?php echo esc_attr( $options['position_customselectortarget'] ); ?>" class="input-xlarge" placeholder=".title-for-post" />
                                         </div>
                                     </div>
 
                                     <div class="control-group">
                                         <label for="CFWHITEBOARD_position_customselectorparent" class="control-label"><?php _e('Parent Selector', 'cf-whiteboard'); ?></label>
                                         <div class="controls">
-                                            <input id="CFWHITEBOARD_position_customselectorparent" type="text" name="CFWHITEBOARD_position_customselectorparent" value="<?php echo esc_attr( $options['position_customselectorparent'] ); ?>" class="input-xlarge" placeholder=".post" />
+                                            <input id="CFWHITEBOARD_position_customselectorparent" type="text" name="CFWHITEBOARD_position_customselectorparent" value="<?php echo esc_attr( $options['position_customselectorparent'] ); ?>" class="input-xlarge" placeholder=".post-outer-container" />
                                         </div>
                                     </div>
 
@@ -1240,6 +1236,18 @@ function cfwhiteboard_options_page() {
                                     <input type="radio" id="CFWHITEBOARD_position_titleright" name="CFWHITEBOARD_position" value="<?php echo esc_attr( cfwhiteboard_Position::TitleRight ); ?>" <?php echo $options['position'] == cfwhiteboard_Position::TitleRight ? 'checked="checked"' : ''; ?> />
                                     <strong><?php _e('Post Title.', 'cf-whiteboard'); ?></strong> <?php _e('The whiteboard is positioned to the right of the post title. Optimized for performance but not compatible with all themes.', 'cf-whiteboard'); ?>
                                 </label>
+                            </fieldset>
+
+                            <fieldset style="margin-bottom:60px;">
+                                <label for="CFWHITEBOARD_whiteboard_exclude_selector">
+                                    <legend>
+                                        <?php _e('Whiteboard Exclude Selector', 'cf-whiteboard'); ?>
+                                    </legend>
+                                </label>
+                                <input class="input-xlarge" type="text" id="CFWHITEBOARD_whiteboard_exclude_selector" name="CFWHITEBOARD_whiteboard_exclude_selector" placeholder=".page-header, .related-posts-widget, .sidebar-widgets" value="<?php echo esc_attr( $options['whiteboard_exclude_selector'] ); ?>" />
+                                <p>
+                                    <?php _e('The Whiteboard will NEVER be displayed within elements matching this selector. Commonly used to clean up after other widgets or plugins that cause the Whiteboard to be displayed in places you didn\'t expect. Any jQuery-compatible selector is allowed.', 'cf-whiteboard'); ?>
+                                </p>
                             </fieldset>
 
                     <!--
@@ -1285,6 +1293,18 @@ function cfwhiteboard_options_page() {
                             </fieldset>
 
                             <fieldset style="margin-bottom:40px;">
+                                <legend><?php _e('Whiteboard Visibility', 'cf-whiteboard'); ?></legend>
+                                <label for="CFWHITEBOARD_visibility_everyone" class="radio">
+                                    <input type="radio" id="CFWHITEBOARD_visibility_everyone" name="CFWHITEBOARD_visibility" value="<?php echo esc_attr( cfwhiteboard_Visibility::Everyone ); ?>" <?php echo $options['visibility'] == cfwhiteboard_Visibility::Everyone ? 'checked="checked"' : ''; ?> />
+                                    <strong><?php _e('Live Mode.', 'cf-whiteboard'); ?></strong> <?php _e('Anyone on the web can see the whiteboard. Whiteboard entries will be saved.', 'cf-whiteboard'); ?>
+                                </label>
+                                <label for="CFWHITEBOARD_visibility_users" class="radio">
+                                    <input type="radio" id="CFWHITEBOARD_visibility_users" name="CFWHITEBOARD_visibility" value="<?php echo esc_attr( cfwhiteboard_Visibility::Users ); ?>" <?php echo $options['visibility'] == cfwhiteboard_Visibility::Users ? 'checked="checked"' : ''; ?> />
+                                    <strong><?php _e('Developer Mode.', 'cf-whiteboard'); ?></strong> <?php _e('Only logged-in WordPress users can see the whiteboard.  Whiteboard entries will be removed when you switch to Live Mode, so feel free to experiment.', 'cf-whiteboard'); ?>
+                                </label>
+                            </fieldset>
+                            
+                            <fieldset style="margin-bottom:40px;">
                                 <legend><?php _e('Non-CrossFit Branding', 'cf-whiteboard'); ?></legend>
                                 <input type="hidden" name="CFWHITEBOARD_noncrossfit_branding" value="no">
                                 <label for="CFWHITEBOARD_noncrossfit_branding" class="checkbox">
@@ -1296,7 +1316,7 @@ function cfwhiteboard_options_page() {
                                 </p>
                             </fieldset>
 
-                            <?php if (function_exists(is_multisite) && is_multisite()) { ?>
+                            <?php if (function_exists('is_multisite') && is_multisite()) { ?>
                                 <fieldset style="margin-bottom:40px;">
                                     <label>
                                         <legend>
@@ -1911,7 +1931,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             font-size: 11px;
             font-weight: bold;
             line-height: 14px;
-            padding: 10px 0 0;
+            padding: 10px 10px 0;
             position: relative;
             text-decoration: none;
             white-space: normal;
@@ -1925,7 +1945,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
         #cfwhiteboard-wods-meta .cfw-header .cfw-admin-tour i {
             background: url(<?php echo plugins_url('images/admin-arrows.png', __FILE__); ?>) no-repeat center -4px;
             float: left;
-            margin: 7px 6px 0 11px;
+            margin: 7px 6px 0 1px;
         }
         /*
         #cfwhiteboard-wods-meta .cfw-header .cfw-admin-tour:hover i {
@@ -2877,7 +2897,8 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             $wods[] = array(
                 'name' => 'Workout of the Day',
                 'components' => array(),
-                'wp_id' => $next_wod_id++
+                'wp_id' => $next_wod_id++,
+                'date' => ''
             );
         } else {
             // Gather the next_wod_id and next_component_id values
@@ -2919,7 +2940,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
         <div class="tab-content cfw-component-fields-container">
             <div class="cfw-overview tab-pane active">
                 <div class="cfw-header">
-                    <a class="pull-right cfw-admin-tour" href="http://cfwhiteboard.com/wp-admin-tour" target="_blank"><i class="icon-play"></i> Tour the New Admin Area</a>
+                    <a class="pull-right cfw-admin-tour" href="http://cfwhiteboard.com/wp-admin-tour" target="_blank"><i class="icon-play"></i> Tour the Admin Area</a>
                     <div class="cfw-wods-date-container" title="Date of Workouts (click to edit)" rel="tooltip" data-placement="right">
                         <input id="cfwhiteboard-wods-date" type="text" name="cfwhiteboard-wods-date" class="cfw-datepicker" value="<?php esc_attr_e(empty($wods_date) ? '(use publish date)' : $wods_date); ?>"
                         /><label for="cfwhiteboard-wods-date">
@@ -3254,7 +3275,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                             classes.push( tempClass );
                         });
 
-                        var footerText = classes.length > 0 ? 'Post your scores to the <a href="javascript://" onclick="window.top.CFW.goToHash(\'#cfwhiteboard-'+CFW.postId+'\');">Whiteboard</a>.\n\n' : '';
+                        var footerText = classes.length > 0 ? 'Post your results on the <a href="javascript://" onclick="window.top.CFW.goToHash(\'#cfwhiteboard-'+CFW.postId+'\');">Whiteboard</a>.\n\n' : '';
 
                         var options = [];
                         if (!classes.length) {
