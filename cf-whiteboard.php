@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 2.2.9
+Version: 2.2.10
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '2.2.9';
+$CFWHITEBOARD_VERSION = '2.2.10';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -1711,7 +1711,7 @@ function cfwhiteboard_generate_class_component_fields($component_prefix, $compon
                                 </li><li class="cfw-other" style="display:none;">
                                     <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-other-benchmarks" title="Other">Other</a>
                                 </li><li class="cfw-games-tab">
-                                    <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-games-workouts" title="Games">CrossFit Open</a>
+                                    <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-games-workouts" title="Games">Games</a>
                                 </li><li style="display:none;">
                                     <a href="javascript://" class="cfw-all" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-all-benchmarks">All</a>
                                 </li>
@@ -2618,7 +2618,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             cursor: default;
             font-weight: bold;
         }
-/*
+/* highlight games tab */
         #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.cfw-games-tab a,
         #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.cfw-games-tab a:visited {
             color: #e51231;
@@ -2635,7 +2635,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
         #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.active.cfw-games-tab {
             border-bottom-color: #2d2e2e;
         }
-*/
+/* end highlight games tab */
         #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-list {
             display: none;
         }
