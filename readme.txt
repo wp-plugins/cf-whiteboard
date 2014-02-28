@@ -1,9 +1,9 @@
 === CF Whiteboard ===
 Contributors: collindo
-Tags: crossfit, wod, fitness, workout, tracking, tracker, sports, exercise, training, coach
-Requires at least: 3.3
-Tested up to: 3.6.1
-Stable tag: 2.2
+Tags: crossfit, wod, fitness, workout, tracking, tracker, sports, exercise, team, training, trainer, coach, athlete, gym, logbook, attendance
+Requires at least: 3.5
+Tested up to: 3.8.1
+Stable tag: 2.2.10
 
 CF Whiteboard turns your website and WOD Blog into a full-featured CrossFit<sup>&reg;</sup> workout tracker.
 
@@ -19,13 +19,31 @@ We want to create a service that CrossFitters love, so don't hesitate to [email 
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Check your blog for a private example post that will be created so you can try out the Whiteboard
 1. The plugin will add a new Athletes page to your website. Be sure to add a link to the Athletes page in your navigation menu
-1. [Email Affiliate Support](mailto:affiliatesupport@cfwhiteboard.com) if we can help you in any way
+1. [Email Affiliate Support](mailto:affiliatesupport@cfwhiteboard.com) if you want to chat, have any questions, or would like a product demo
 
 == External Links ==
 
 The whiteboard contains external links for athlete support purposes.  By installing this plugin, you give CF Whiteboard permission to embed these external links.
 
 == Changelog ==
+
+= 2.2.10 =
+* Highlight the CrossFit Games section to remind coaches to use it!
+
+= 2.2.9 =
+* New Whiteboard setting for more control over where the Whiteboard appears on your blog.
+* Minor bugfix.
+
+= 2.2.8 =
+* Optimized for WordPress 3.7
+* Improved compatibility with third-party plugins and themes.
+* Ended official support for WordPress versions 3.4.X and below (version 3.5 was released December 2012). Please contact us if you need help upgrading to the latest and greatest WordPress.
+
+= 2.2.6 =
+* Added ability for athletes to EDIT and DELETE workouts they tracked individually (from their profile).
+* Improve Athlete popups compatibility across websites (experiencing CSS conflicts on at least one customer's site).
+* Fix bug with weightlifting repcount dropdown (for choosing 1RM, 2RM, etc.) on iPad / iPhone.
+* Fix bug that prevented athletes from entering a decimal place on weightlifting benchmarks.
 
 = 2.2 =
 * Athlete login system.
@@ -189,6 +207,9 @@ The whiteboard contains external links for athlete support purposes.  By install
 * Added settings for custom whiteboard positioning.
 
 == Upgrade Notice ==
+
+= 2.2 =
+Version 2.2 brings a new athlete login system that allows athletes to track workouts they did on their own, and makes it easier for athletes to keep their PRs up-to-date. Please upgrade immediately so your athletes can take advantage of these new features.
 
 = 1.55 =
 CF Whiteboard now has security for editing Whiteboard entries. Starting Monday, June 11, athletes will not be able to edit their entries until you upgrade the CF Whiteboard plugin to version 1.55 or newer.
