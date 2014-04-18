@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 2.2.10
+Version: 2.2.11
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '2.2.10';
+$CFWHITEBOARD_VERSION = '2.2.11';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -553,14 +553,14 @@ function cfwhiteboard_scripts() {
     wp_enqueue_script('underscore',
         plugins_url('js/underscore.js', __FILE__),
         false,
-        '1.5.1'
+        '1.6.0'
     );
 
     wp_deregister_script('backbone');
     wp_enqueue_script('backbone',
         plugins_url('js/backbone.js', __FILE__),
         array('underscore', 'jquery'),
-        '1.0.0'
+        '1.1.2'
     );
 
     wp_enqueue_script('cfwhiteboard',
@@ -897,7 +897,7 @@ function cfwhiteboard_options_page() {
                     <div class="navbar-inner" style="padding-right:0;">
                         <ul class="nav">
                             <li class="dropdown">
-                                <a href="javascript://" class="dropdown-toggle brand" data-toggle="dropdown" data-target=".cfw-dummy-selector" style="background:url(<?php echo plugins_url('images/cfwhiteboard.png', __FILE__); ?>) no-repeat 5px 4px; text-indent:140px;">
+                                <a href="javascript://" class="dropdown-toggle brand" data-toggle="bsdropdown" data-target=".cfw-dummy-selector" style="background:url(<?php echo plugins_url('images/cfwhiteboard.png', __FILE__); ?>) no-repeat 5px 4px; text-indent:140px;">
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu" style="left:-14px;">
@@ -1006,7 +1006,7 @@ function cfwhiteboard_options_page() {
                             <div class="accordion" id="accordion76i2c">
                                 <div class="accordion-group">
                                     <div class="accordion-heading">
-                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion76i2c" href="#collapse2398yg">
+                                        <a class="accordion-toggle" data-toggle="bscollapse" data-parent="#accordion76i2c" href="#collapse2398yg">
                                             1. Try out the whiteboard
                                         </a>
                                     </div>
@@ -1021,7 +1021,7 @@ function cfwhiteboard_options_page() {
                                 </div>
                                 <div class="accordion-group">
                                     <div class="accordion-heading">
-                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion76i2c" href="#collapse23lfi">
+                                        <a class="accordion-toggle" data-toggle="bscollapse" data-parent="#accordion76i2c" href="#collapse23lfi">
                                             2. Check out your athlete profile
                                         </a>
                                     </div>
@@ -1046,7 +1046,7 @@ function cfwhiteboard_options_page() {
                                 </div>
                                 <div class="accordion-group">
                                     <div class="accordion-heading">
-                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion76i2c" href="#collapse45k5">
+                                        <a class="accordion-toggle" data-toggle="bscollapse" data-parent="#accordion76i2c" href="#collapse45k5">
                                             3. Activate your free trial
                                         </a>
                                     </div>
@@ -1060,7 +1060,7 @@ function cfwhiteboard_options_page() {
                                 </div>
                                 <div class="accordion-group">
                                     <div class="accordion-heading">
-                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion76i2c" href="#collapse87ae2">
+                                        <a class="accordion-toggle" data-toggle="bscollapse" data-parent="#accordion76i2c" href="#collapse87ae2">
                                             4. Update the example post &amp; publish
                                         </a>
                                     </div>
@@ -1412,13 +1412,13 @@ function cfwhiteboard_settings_scripts() {
     //     $CFWHITEBOARD_VERSION
     // );
     wp_enqueue_script('cfwbootstrap',
-        plugins_url('bootstrap/js/bootstrap-3.0.2.1.js', __FILE__),
+        plugins_url('bootstrap/js/bootstrap-3.0.2.2.js', __FILE__),
         array('jquery'),
         $CFWHITEBOARD_VERSION
     );
 
     wp_enqueue_script('bootstrap-namespacer',
-        plugins_url('js/bootstrap-namespacer-3.0.2.1.js', __FILE__),
+        plugins_url('js/bootstrap-namespacer-3.0.2.2.js', __FILE__),
         array('cfwbootstrap'),
         $CFWHITEBOARD_VERSION
     );
@@ -1507,13 +1507,13 @@ function cfwhiteboard_post_meta_scripts() {
     if (!isset($CFWHITEBOARD_VERSION)) $CFWHITEBOARD_VERSION = '0.0';
 
     wp_enqueue_script('cfwbootstrap',
-        plugins_url('bootstrap/js/bootstrap-3.0.2.1.js', __FILE__),
+        plugins_url('bootstrap/js/bootstrap-3.0.2.2.js', __FILE__),
         array('jquery'),
         '3.0.2.1'
     );
 
     wp_enqueue_script('bootstrap-namespacer',
-        plugins_url('js/bootstrap-namespacer-3.0.2.1.js', __FILE__),
+        plugins_url('js/bootstrap-namespacer-3.0.2.2.js', __FILE__),
         array('cfwbootstrap'),
         $CFWHITEBOARD_VERSION
     );
@@ -1527,13 +1527,13 @@ function cfwhiteboard_post_meta_scripts() {
     wp_enqueue_script('underscore',
         plugins_url('js/underscore.js', __FILE__),
         false,
-        '1.5.1'
+        '1.6.0'
     );
 
     wp_enqueue_script('backbone',
         plugins_url('js/backbone.js', __FILE__),
         array('underscore', 'jquery'),
-        '1.0.0'
+        '1.1.2'
     );
 
     wp_enqueue_script('easyxdm',
@@ -1590,7 +1590,7 @@ function cfwhiteboard_generate_class_nav($class) {
         <li id="cfw-wod-'. $class_id .'">
             <h5>
                 <div class="btn-group pull-right cfw-class-options">
-                    <a href="javascript:// More Options" class="btn btn-stealth dropdown-toggle" data-toggle="dropdown" data-target=".cfw-dummy-selector">
+                    <a href="javascript:// More Options" class="btn btn-stealth dropdown-toggle" data-toggle="bsdropdown" data-target=".cfw-dummy-selector">
                         <i class="cfw-settings-icon"></i><span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
@@ -1599,7 +1599,7 @@ function cfwhiteboard_generate_class_nav($class) {
                     </ul>
                 </div>
                 <input type="text" id="'. $class_id_attr .'" name="'. $class_name_attr .'" value="'. esc_attr( $class['name'] ) .'"
-                    placeholder="Enter the class name" title="Class Name - Click to Edit" class="cfw-edit-wod-title" data-toggle="tab" data-target="#cfwhiteboard-wods-meta .cfw-overview" />
+                    placeholder="Enter the class name" title="Class Name - Click to Edit" class="cfw-edit-wod-title" data-toggle="bstab" data-target="#cfwhiteboard-wods-meta .cfw-overview" />
             </h5>
             '. $components_nav .'
             <div class="cfw-new-component-row">
@@ -1621,7 +1621,7 @@ Loading&hellip;';
     return '
         <div class="cfw-component">
             <input type="hidden" class="cfw-component-id" name="'. $class_components_name .'" value="'. $cmp_id .'">
-            <a href="javascript:// Edit Component" class="cfw-edit-component" data-toggle="tab" data-target="#'. $component_prefix .'-'. $cmp_id .'">
+            <a href="javascript:// Edit Component" class="cfw-edit-component" data-toggle="bstab" data-target="#'. $component_prefix .'-'. $cmp_id .'">
                 <i class="icon-chevron-right"></i>
                 <small class="cfw-hover-text pull-right muted">edit</small>
                 <span class="cfw-description">'. $description .'</span>
@@ -1664,10 +1664,10 @@ function cfwhiteboard_generate_class_component_fields($component_prefix, $compon
             <div class="cfw-main">
                 <ul class="nav nav-tabs cfw-component-fields-nav">
                     <li class="active">
-                        <a href="javascript://" data-target="#cfw-component-benchmark-'. $cmp_id .'" class="cfw-benchmarks" data-toggle="tab">Benchmarks</a>
+                        <a href="javascript://" data-target="#cfw-component-benchmark-'. $cmp_id .'" class="cfw-benchmarks" data-toggle="bstab">Benchmarks</a>
                     </li>
                     <li>
-                        <a href="javascript://" data-target="#cfw-component-custom-'. $cmp_id .'" class="cfw-custom-component-tab" data-toggle="tab">Non-Benchmark Component</a>
+                        <a href="javascript://" data-target="#cfw-component-custom-'. $cmp_id .'" class="cfw-custom-component-tab" data-toggle="bstab">Non-Benchmark Component</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -1697,23 +1697,23 @@ function cfwhiteboard_generate_class_component_fields($component_prefix, $compon
                             </div>
                             <ul class="cfw-benchmark-nav">
                                 <li class="active">
-                                    <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-weightlifting" title="Weightlifting">Weightlifting</a>
+                                    <a href="javascript://" data-toggle="bstab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-weightlifting" title="Weightlifting">Weightlifting</a>
                                 </li><li>
-                                    <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-named-workouts" title="Named Workouts">Named Workouts</a>
+                                    <a href="javascript://" data-toggle="bstab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-named-workouts" title="Named Workouts">Named Workouts</a>
                                 </li><li style="display:none;">
-                                    <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-girls" title="Girls">Girls</a>
+                                    <a href="javascript://" data-toggle="bstab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-girls" title="Girls">Girls</a>
                                 </li><li style="display:none;">
-                                    <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-heroes" title="Heroes">Heroes</a>
+                                    <a href="javascript://" data-toggle="bstab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-heroes" title="Heroes">Heroes</a>
                                 </li><li>
-                                    <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-gymnastics" title="Gymnastics">Gymnastics</a>
+                                    <a href="javascript://" data-toggle="bstab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-gymnastics" title="Gymnastics">Gymnastics</a>
                                 </li><li>
-                                    <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-monostructural" title="Monostructural">Monostructural</a>
+                                    <a href="javascript://" data-toggle="bstab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-monostructural" title="Monostructural">Monostructural</a>
                                 </li><li class="cfw-other" style="display:none;">
-                                    <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-other-benchmarks" title="Other">Other</a>
+                                    <a href="javascript://" data-toggle="bstab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-other-benchmarks" title="Other">Other</a>
                                 </li><li class="cfw-games-tab">
-                                    <a href="javascript://" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-games-workouts" title="Games">Games</a>
+                                    <a href="javascript://" data-toggle="bstab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-games-workouts" title="Games">Games</a>
                                 </li><li style="display:none;">
-                                    <a href="javascript://" class="cfw-all" data-toggle="tab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-all-benchmarks">All</a>
+                                    <a href="javascript://" class="cfw-all" data-toggle="bstab" data-target="#cfw-component-benchmark-'. $cmp_id .' .cfw-all-benchmarks">All</a>
                                 </li>
                             </ul>
                             <ul class="cfw-benchmark-list cfw-weightlifting active nav nav-tabs nav-stacked">
@@ -1752,9 +1752,9 @@ function cfwhiteboard_generate_class_component_fields($component_prefix, $compon
             <ul class="cfw-footer">
                 <li class="cfw-component-actions">
                     <div><!-- without this div, the bootstrap.js tab functionality only works once. after that, it thinks this is a "tab" thats already active so it does nothing -->
-                        <a class="cfw-remove-this-component" href="javascript:// Remove this Component" data-toggle="tab" data-target="#cfwhiteboard-wods-meta .cfw-overview">
+                        <a class="cfw-remove-this-component" href="javascript:// Remove this Component" data-toggle="bstab" data-target="#cfwhiteboard-wods-meta .cfw-overview">
                             <i class="icon-minus-sign icon-white"></i><div class="cfw-text">Delete this Component</div>
-                        </a><a class="cfw-select-and-continue" href="javascript:// Select & Go Back to Classes Overview" data-toggle="tab" data-target="#cfwhiteboard-wods-meta .cfw-overview">
+                        </a><a class="cfw-select-and-continue" href="javascript:// Select & Go Back to Classes Overview" data-toggle="bstab" data-target="#cfwhiteboard-wods-meta .cfw-overview">
                             <i class="icon-ok icon-white"></i><div class="cfw-text">Select &amp; Continue</div>
                         </a>
                     <div>
@@ -2618,7 +2618,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             cursor: default;
             font-weight: bold;
         }
-/* highlight games tab */
+/* highlight games tab
         #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.cfw-games-tab a,
         #cfwhiteboard-wods-meta .cfw-component-fields .cfw-benchmark-nav li.cfw-games-tab a:visited {
             color: #e51231;
@@ -3238,7 +3238,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
 
                         var $menu = $button.data('cfwmenu');
                         if (!$menu) {
-                            $button.attr('data-toggle','dropdown');
+                            $button.attr('data-toggle','bsdropdown');
                             $button.attr('data-target','.cfw-dummy-selector');
                             $button.wrap('<div class="dropdown" style="display:inline-block; vertical-align:top; *zoom:1; *display:inline;"></div>');
                             $button.closest('.dropdown').wrap('<span class="cfw-twb"></span>');
@@ -3420,7 +3420,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             CFW.BenchmarkItemView = Backbone.View.extend({
                 tagName: "li",
                 template: _.template('<?php echo <<<HEREDOC
-                    <a href="javascript:// Click to Choose" class="<%- description_match ? "cfw-description-match" : "" %>" data-toggle="tab" data-target="<%- component_selector %> .cfw-details-pane">\
+                    <a href="javascript:// Click to Choose" class="<%- description_match ? "cfw-description-match" : "" %>" data-toggle="bstab" data-target="<%- component_selector %> .cfw-details-pane">\
                         <i class="icon-chevron-right"></i>\
                         <% if (history.length > 0) { %>\
                             <small class="pull-right"><%- history[0].time_ago_in_words %>, <%- history.length %> times total</small>\
@@ -3440,6 +3440,7 @@ HEREDOC;
                 // 'click .cfw-select-benchmark.active': 'triggerDeselect'
             
                 initialize: function(options) {
+                    this.options = options || {};
                     // this.model.on('change', this.render, this);
                     // this.model.on('destroy', this.remove, this);
                     
@@ -3516,7 +3517,7 @@ HEREDOC;
                 className: 'cfw-benchmark-detail-view',
                 template: _.template('<?php echo <<<HEREDOC
                     <div class="container">\
-                        <a href="javascript://" class="cfw-back btn btn-link" data-toggle="tab" data-target="<%- back_selector %>">\
+                        <a href="javascript://" class="cfw-back btn btn-link" data-toggle="bstab" data-target="<%- back_selector %>">\
                             <i class="icon-chevron-left"></i>Other Benchmarks\
                         </a>\
                         <div class="details">\
@@ -3527,7 +3528,7 @@ HEREDOC;
                                     Find your\
                                     <input type="hidden" name="cfw-components[<%- component_id %>][repcount]" value="<%- repcount %>" class="cfw-repcount">\
                                     <div class="btn-group">\
-                                        <button class="btn dropdown-toggle" data-toggle="dropdown">\
+                                        <button class="btn dropdown-toggle" data-toggle="bsdropdown">\
                                             <span class="value"><%- repcount %></span>\
                                             <span class="caret"></span>\
                                         </button>\
@@ -3587,6 +3588,7 @@ HEREDOC;
                 // 'focus .cfw-repscheme': 'maybeRemindUserToSelectBenchmark'
 
                 initialize: function(options) {
+                    this.options = options || {};
                     this.back_selector = options.back_selector;
                     this.component_id = options.component_id;
                     // this.selected = options.selected;
@@ -3694,6 +3696,7 @@ HEREDOC;
                 },
 
                 initialize: function(options) {
+                    this.options = options || {};
                     // this.collection = options && options.collection || new CFW.BenchmarkList();
                     this.groupRegexp = RegExp(options && options.group || '', 'i');
                     this.component_selector = '#'+ this.$el.closest('.cfw-component-fields').attr('id');
@@ -3853,6 +3856,7 @@ HEREDOC;
                 template: _.template('<?php echo str_replace(array("\r\n", "\n", "\r"), "", cfwhiteboard_generate_class_component_nav("cfw-components", $empty_component, "cfw-wods[<%- wod_id %>][components][]")); ?>'),
                 
                 initialize: function(options) {
+                    this.options = options || {};
                     this.wod_id = options.wod_id;
                     this.component_id = options.component_id;
 
@@ -3908,6 +3912,7 @@ HEREDOC;
                 // 'show.bs.tab .cfw-custom-component-tab': 'confirmDeselectBenchmark',
             
                 initialize: function(options) {
+                    this.options = options || {};
                     // this.model.on('change', this.render, this);
                     // this.model.on('destroy', this.remove, this);
                     
@@ -4358,7 +4363,15 @@ function cfwhiteboard_mce_buttons( $buttons ) {
     return $buttons;
 }
 function cfwhiteboard_mce_external_plugins( $plugins ) {
-    $plugins['cfwhiteboard'] = plugins_url('cfwhiteboard-post-editor/cfw-mce-plugin-130901.js' , __FILE__);
+    global $tinymce_version;
+
+    if (substr($tinymce_version, 0, 1) === '4') {
+        // TinyMCE 4.x
+        $plugins['cfwhiteboard'] = plugins_url('cfwhiteboard-post-editor/cfw-mce-plugin-4x-140420.js' , __FILE__);
+    } else {
+        // TinyMCE 3.x
+        $plugins['cfwhiteboard'] = plugins_url('cfwhiteboard-post-editor/cfw-mce-plugin-140323.js' , __FILE__);
+    }
     return $plugins;
 }
 
@@ -4862,13 +4875,13 @@ function cfwhiteboard_athletes_scripts() {
     wp_enqueue_script('underscore',
         plugins_url('js/underscore.js', __FILE__),
         false,
-        '1.5.1'
+        '1.6.0'
     );
 
     wp_enqueue_script('backbone',
         plugins_url('js/backbone.js', __FILE__),
         array('underscore', 'jquery'),
-        '1.0.0'
+        '1.1.2'
     );
 
     wp_enqueue_script('cfwhiteboard-athletes',

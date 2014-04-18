@@ -2,8 +2,8 @@
 
 	// Get the URL to this script file (as JavaScript is loaded in order)
 	// (http://stackoverflow.com/questions/2255689/how-to-get-the-file-path-of-the-currenctly-executing-javascript-code)
-	var scripts = document.getElementsByTagName("script"),
-	src = scripts[scripts.length-1].src;
+	var scripts = document.getElementsByTagName("script");
+	var src = scripts[scripts.length-1].src;
 	
 	if ( scripts.length ) {
 	
@@ -160,7 +160,7 @@
 				this.$cfwButton.find('img').remove();
 				this.$cfwButton.append('<span style="position:absolute; top:0; right:0; bottom:0; left:0; background: url('+ icon_url +') no-repeat 1px center transparent;"></span>');
 
-                this.$cfwButton.attr('data-toggle','dropdown');
+                this.$cfwButton.attr('data-toggle','bsdropdown');
                 this.$cfwButton.attr('data-target','.cfw-dummy-selector');
 				this.$cfwButton.wrap('<div class="dropdown" style="display:inline-block; vertical-align:top; *zoom:1; *display:inline;"></div>');
 				this.$cfwButton.closest('.dropdown').wrap('<span class="cfw-twb"></span>');
