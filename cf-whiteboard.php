@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 2.2.11
+Version: 2.3
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '2.2.11';
+$CFWHITEBOARD_VERSION = '2.3';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -53,11 +53,11 @@ function cfwhiteboard_activate_athletes_page() {
             // 'post_excerpt' => [ <an excerpt> ] //For all your post excerpt needs.
             // 'post_name' => 'athletes' // The name (slug) for your post
             // 'post_parent' => [ <post ID> ] //Sets the parent of the new post.
-            'post_status' => 'publish', // [ 'draft' | 'publish' | 'pending'| 'future' | 'private' ] //Set the status of the new post. 
+            'post_status' => 'publish', // [ 'draft' | 'publish' | 'pending'| 'future' | 'private' ] //Set the status of the new post.
             'post_title' => 'Athletes', //The title of your post.
             'post_type' => 'page' //You may want to insert a regular post, page, link, a menu item or some custom post type
             // 'tags_input' => [ '<tag>, <tag>, <...>' ] //For tags.
-            // 'tax_input' => [ array( 'taxonomy_name' => array( 'term', 'term2', 'term3' ) ) ] // support for custom taxonomies. 
+            // 'tax_input' => [ array( 'taxonomy_name' => array( 'term', 'term2', 'term3' ) ) ] // support for custom taxonomies.
         );
         $options['athletes_page_id'] = wp_insert_post( $page );
 
@@ -126,11 +126,11 @@ Rest 1 minute
             // 'post_excerpt' => [ <an excerpt> ] //For all your post excerpt needs.
             // 'post_name' => 'athletes' // The name (slug) for your post
             // 'post_parent' => [ <post ID> ] //Sets the parent of the new post.
-            'post_status' => 'private', // [ 'draft' | 'publish' | 'pending'| 'future' | 'private' ] //Set the status of the new post. 
+            'post_status' => 'private', // [ 'draft' | 'publish' | 'pending'| 'future' | 'private' ] //Set the status of the new post.
             'post_title' => 'Athletes - Track your progress using CF Whiteboard!', //The title of your post.
             'post_type' => 'post' //You may want to insert a regular post, page, link, a menu item or some custom post type
             // 'tags_input' => [ '<tag>, <tag>, <...>' ] //For tags.
-            // 'tax_input' => [ array( 'taxonomy_name' => array( 'term', 'term2', 'term3' ) ) ] // support for custom taxonomies. 
+            // 'tax_input' => [ array( 'taxonomy_name' => array( 'term', 'term2', 'term3' ) ) ] // support for custom taxonomies.
         );
         $options['example_post_id'] = wp_insert_post( $post );
 
@@ -333,7 +333,7 @@ function cfwhiteboard_get_options() {
         $CFWHITEBOARD_SITE_OPTIONS = get_option('cfwhiteboard_options');
         if ($CFWHITEBOARD_SITE_OPTIONS == FALSE) $CFWHITEBOARD_SITE_OPTIONS = array();
 
-        
+
         if (empty($CFWHITEBOARD_DEFAULT_OPTIONS)) $CFWHITEBOARD_DEFAULT_OPTIONS = array();
         $CFWHITEBOARD_SITE_OPTIONS = array_merge($CFWHITEBOARD_DEFAULT_OPTIONS, $CFWHITEBOARD_SITE_OPTIONS);
 
@@ -390,7 +390,7 @@ function cfwhiteboard_is_preview_mode($options) {
 
 function cfwhiteboard_is_proper_post($id = -1) {
     $currentId = get_the_ID();
-    
+
     return ($id == $currentId) &&
         !is_feed();
 
@@ -445,7 +445,7 @@ function cfwhiteboard_generate_placeholder($post_id, $options, $wods) {
     }
 
     $affiliateId = !empty($options['affiliate_id']) ? $options['affiliate_id'] : 'testaffiliate';
-    
+
     if (!is_array($wods)) $wods = array();
 
     $data = array(
@@ -480,7 +480,7 @@ function cfwhiteboard_init_whiteboard() {
     // don't include cfw files on admin pages, the athletes pages, or if the whiteboard is not visible to the current user
     if (is_admin() || !cfwhiteboard_is_authorized($options) || is_page($options['athletes_page_id']))
         return;
-        
+
     add_action('wp_print_styles', 'cfwhiteboard_stylesheet', 999999);
     add_action('wp_enqueue_scripts', 'cfwhiteboard_scripts', 999999);
     add_action('wp_enqueue_scripts', 'cfwhiteboard_scripts_data', 1000000);
@@ -504,7 +504,7 @@ function cfwhiteboard_add_to_post($titleOrContent, $id = NULL) {
     if (isset($id, $id->ID)) {
         $id = $id->ID;
     }
-    
+
     // Debug info
     // if (cfwhiteboard_is_preview_mode($options)) {
     //     $titleOrContent .= '<span style="display:none !important;width:0;height:0;">' .
@@ -528,7 +528,7 @@ function cfwhiteboard_add_to_post($titleOrContent, $id = NULL) {
     $wods = cfwhiteboard_clean_post_meta($wods);
     if ((!is_array($wods)) || empty($wods))
         return $titleOrContent;
-    
+
     $cfw_placeholder = cfwhiteboard_generate_placeholder(get_the_ID(), $options, $wods);
 	return $cfw_placeholder . $titleOrContent;
 }
@@ -536,7 +536,7 @@ function cfwhiteboard_add_to_post($titleOrContent, $id = NULL) {
 function cfwhiteboard_stylesheet() {
     global $CFWHITEBOARD_VERSION;
     if (!isset($CFWHITEBOARD_VERSION)) $CFWHITEBOARD_VERSION = '0.0';
-    
+
     wp_register_style('cfwhiteboard',
         plugins_url("cfwhiteboard-$CFWHITEBOARD_VERSION.css", __FILE__),
         false,
@@ -618,10 +618,10 @@ function cfwhiteboard_options_page() {
 	// Require admin privs
 	if ( ! current_user_can('manage_options') )
 		return false;
-	
+
 
     // $category_prefix = 'CFWHITEBOARD_category_';
-  
+
     // Make available services extensible via plugins, themes (functions.php), etc.
     // $CFW_SHARE_SAVE_services = apply_filters('CFW_SHARE_SAVE_services', $CFW_SHARE_SAVE_services);
 
@@ -629,13 +629,13 @@ function cfwhiteboard_options_page() {
 
         // Nonce verification
         check_admin_referer('cfwhiteboard-update-options');
-    
+
         // Site Enabled (for Multisite)
         add_option('cfwhiteboard_enabled', 'yes', '', 'no');
 
         cfwhiteboard_activate_athletes_page();
         cfwhiteboard_activate_example_post();
-    
+
         ?>
         <div class="updated fade">
             <p>
@@ -648,13 +648,13 @@ function cfwhiteboard_options_page() {
 
         // Nonce verification
         check_admin_referer('cfwhiteboard-update-options');
-    
+
         // Site Disabled (for Multisite)
         delete_option('cfwhiteboard_enabled');
 
         cfwhiteboard_deactivate_athletes_page();
         cfwhiteboard_deactivate_example_post();
-    
+
         ?>
         <div class="updated fade">
             <p>
@@ -664,12 +664,12 @@ function cfwhiteboard_options_page() {
         <?php
 
     } else if (isset($_POST['Submit'])) {
-        
+
         // Nonce verification
         check_admin_referer('cfwhiteboard-update-options');
-    
+
         $new_options = cfwhiteboard_get_options();
-        
+
         // Affiliate ID
         if (!empty($_POST['CFWHITEBOARD_affiliate_id']))
             $new_options['affiliate_id'] = @$_POST['CFWHITEBOARD_affiliate_id'];
@@ -737,7 +737,7 @@ function cfwhiteboard_options_page() {
         // $new_options['additional_js_variables'] = trim(@$_POST['A2A_SHARE_SAVE_additional_js_variables']);
         // $new_options['inline_css'] = (@$_POST['A2A_SHARE_SAVE_inline_css']=='1') ? '1':'-1';
         // $new_options['cache'] = (@$_POST['A2A_SHARE_SAVE_cache']=='1') ? '1':'-1';
-        // 
+        //
         // // Schedule cache refresh?
         // if (@$_POST['A2A_SHARE_SAVE_cache']=='1') {
         //  A2A_SHARE_SAVE_schedule_cache();
@@ -745,7 +745,7 @@ function cfwhiteboard_options_page() {
         // } else {
         //  A2A_SHARE_SAVE_unschedule_cache();
         // }
-        // 
+        //
         // // Store desired text if 16 x 16px buttons or text-only is chosen:
         // if( $new_options['button'] == 'favicon.png|16|16' )
         //  $new_options['button_text'] = $_POST['A2A_SHARE_SAVE_button_favicon_16_16_text'];
@@ -753,7 +753,7 @@ function cfwhiteboard_options_page() {
         //  $new_options['button_text'] = $_POST['A2A_SHARE_SAVE_button_share_16_16_text'];
         // else
         //  $new_options['button_text'] = ( trim($_POST['A2A_SHARE_SAVE_button_text']) != '' ) ? $_POST['A2A_SHARE_SAVE_button_text'] : __('Share/Bookmark','add-to-any');
-        //  
+        //
         // // Store chosen individual services to make active
         // $active_services = Array();
         // if ( ! isset($_POST['A2A_SHARE_SAVE_active_services']))
@@ -761,7 +761,7 @@ function cfwhiteboard_options_page() {
         // foreach ( $_POST['A2A_SHARE_SAVE_active_services'] as $dummy=>$sitename )
         //  $active_services[] = substr($sitename, 7);
         // $new_options['active_services'] = $active_services;
-        // 
+        //
         // // Store special service options
         // $new_options['special_facebook_like_options'] = array(
         //  'verb' => ((@$_POST['addtoany_facebook_like_verb'] == 'recommend') ? 'recommend' : 'like')
@@ -772,9 +772,9 @@ function cfwhiteboard_options_page() {
         // $new_options['special_google_plusone_options'] = array(
         //  'show_count' => ((@$_POST['addtoany_google_plusone_show_count'] == '1') ? '1' : '-1')
         // );
-		
+
     	cfwhiteboard_update_options($new_options);
-    
+
 		?>
     	<div class="updated fade">
             <p>
@@ -783,11 +783,11 @@ function cfwhiteboard_options_page() {
             </p>
         </div>
 		<?php
-		
+
     } else if (isset($_POST['Reset'])) {
-        // Nonce verification 
+        // Nonce verification
         check_admin_referer('cfwhiteboard-update-options');
-		  
+
 		delete_option('cfwhiteboard_options');
     }
 
@@ -803,10 +803,10 @@ function cfwhiteboard_options_page() {
     // $categories = get_categories($category_args);
     // foreach($categories as $category) {
     //     $category->selected = empty($options['categories']) ? true : in_array($category->cat_ID, $options['categories']);
-    // } 
-	
+    // }
+
     ?>
-    
+
     <!--
     <style>
         form > fieldset {
@@ -885,9 +885,9 @@ function cfwhiteboard_options_page() {
     </style>
 
     <div class="wrap">
-    
+
         <h2><!-- Leave Empty so that admin notices don't separate our navbar from our content --></h2>
-    
+
         <div class="cfw-twb">
             <form method="post" action="<?php echo $show_multisite_welcome ? '' : '#whiteboard'; ?>" style="max-width:600px;">
 
@@ -930,7 +930,7 @@ function cfwhiteboard_options_page() {
                     <strong>Yo!</strong> You have unsaved changes.
                     <input class="btn btn-primary btn-mini pull-right" type="submit" name="Submit" style="margin:-1px -25px 0 10px;" value="<?php esc_attr_e('Save Now', 'cf-whiteboard' ); ?>" />
                 </div>
-                
+
                 <?php if ($show_multisite_welcome) { ?>
 
                     <!-- what is cf whiteboard? -->
@@ -1101,7 +1101,7 @@ function cfwhiteboard_options_page() {
                                 but that doesn't do you any good unless it's delivered to you <strong>at the right time</strong> and <strong>in an actionable way</strong>. Stay
                                 tuned for a whole new relationship with your athletes.
                             </p>
-<!-- 
+<!--
                             <div class="row-fluid">
                                 <div class="span4">
                                     <h4 style="text-align:center;">Comments, Likes, and Leaderboards</h4>
@@ -1129,7 +1129,7 @@ function cfwhiteboard_options_page() {
                         <!--<hr style="max-width:600px; border:2px solid #CCC; margin:25px 0 5px;" />-->
 
                         <div id="whiteboard" class="tab-pane">
-                        
+
                             <h3>
                                 <div id="icon-options-general" class="icon32" style="margin-top:2px;"></div>
                                 Whiteboard <?php _e( 'Settings' ); ?>
@@ -1147,7 +1147,7 @@ function cfwhiteboard_options_page() {
                                     <?php _e('Changing this value could result in data loss.', 'cf-whiteboard'); ?>
                                 </span>
                             </fieldset>
-                            
+
                             <fieldset style="margin-bottom:40px;">
                                 <legend><?php _e('Whiteboard Position', 'cf-whiteboard'); ?></legend>
                                 <script type="text/javascript">
@@ -1282,7 +1282,7 @@ function cfwhiteboard_options_page() {
                                     <strong><?php _e('Light.', 'cf-whiteboard'); ?></strong> <?php _e('Best for websites with dark backgrounds.', 'cf-whiteboard'); ?>
                                 </label>
                             </fieldset>
-                            
+
                             <fieldset style="margin-bottom:60px;">
                                 <legend><?php _e('Custom Post Types', 'cf-whiteboard'); ?></legend>
                                 <input type="hidden" name="CFWHITEBOARD_metabox_on_custom_post_types" value="no">
@@ -1303,7 +1303,7 @@ function cfwhiteboard_options_page() {
                                     <strong><?php _e('Developer Mode.', 'cf-whiteboard'); ?></strong> <?php _e('Only logged-in WordPress users can see the whiteboard.  Whiteboard entries will be removed when you switch to Live Mode, so feel free to experiment.', 'cf-whiteboard'); ?>
                                 </label>
                             </fieldset>
-                            
+
                             <fieldset style="margin-bottom:40px;">
                                 <legend><?php _e('Non-CrossFit Branding', 'cf-whiteboard'); ?></legend>
                                 <input type="hidden" name="CFWHITEBOARD_noncrossfit_branding" value="no">
@@ -1353,7 +1353,7 @@ function cfwhiteboard_options_page() {
 
             </form>
         </div><!-- .cfw-twb -->
-    
+
     </div><!-- .wrap -->
 
     <script type="text/javascript">
@@ -1380,7 +1380,7 @@ function cfwhiteboard_options_page() {
     </script>
 
 <?php
- 
+
 }
 
 
@@ -1396,7 +1396,7 @@ function cfwhiteboard_add_menu_link() {
         basename(__FILE__),
         'cfwhiteboard_options_page'
     );
-    
+
     /* Using registered $hook_suffix handle to hook script load, to only load in CFW admin */
     add_action('admin_print_scripts-' . $hook_suffix, 'cfwhiteboard_settings_scripts');
     /* Using registered $hook_suffix handle to hook stylesheet load, to only load in CFW admin */
@@ -1440,7 +1440,7 @@ function cfwhiteboard_actlinks($links, $file){
     // Static so we don't call plugin_basename on every plugin row.
     static $this_plugin;
     if ( ! $this_plugin ) $this_plugin = plugin_basename(__FILE__);
-    
+
     if ( $file == $this_plugin ){
         $support_link = '<a href="mailto:affiliatesupport@cfwhiteboard.com" target="_blank">' . __('Support') . '</a>';
         $settings_link = '<a href="options-general.php?page=cf-whiteboard.php">' . __('Settings') . '</a>';
@@ -3243,7 +3243,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                             $button.wrap('<div class="dropdown" style="display:inline-block; vertical-align:top; *zoom:1; *display:inline;"></div>');
                             $button.closest('.dropdown').wrap('<span class="cfw-twb"></span>');
                             $button.after('<ul class="dropdown-menu"></ul>');
-                            
+
                             $menu = $button.closest('.dropdown').find('.dropdown-menu');
                             $menu.on('click', function() {
                                 $button.bootstrap_dropdown('toggle');
@@ -3355,7 +3355,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             });
             CFW.BenchmarkList = Backbone.Collection.extend({
                 model: CFW.Component,
-                
+
                 url: function() {
                     return CFW.domain+'/affiliates/<?php echo preg_replace('/_preview$/', '', $options['affiliate_id']); ?>/benchmarks.json';
                 },
@@ -3431,31 +3431,31 @@ function cfwhiteboard_wods_meta_box($object, $box) {
 
 HEREDOC;
                 ?>'),
-                
+
                 events: {
                     'show.bs.tab a': 'showDetail',
                     'shown.bs.tab a': 'deactivate'
                 },
                 // 'click .cfw-select-benchmark:not(.active)': 'triggerSelect',
                 // 'click .cfw-select-benchmark.active': 'triggerDeselect'
-            
+
                 initialize: function(options) {
                     this.options = options || {};
                     // this.model.on('change', this.render, this);
                     // this.model.on('destroy', this.remove, this);
-                    
+
                     // this.model.on('show', this.lookSelected, this);
                     // this.model.on('unshow', this.unlookSelected, this);
 
                     this.component_selector = options.component_selector;
                     this.component_id = options.component_id;
-                    
+
                     // this.model.on('select:c'+this.component_id, this.activateSelect, this);
                     // this.model.on('deselect:c'+this.component_id, this.deactivateSelect, this);
 
                     return this.render();
                 },
-          
+
                 render: function() {
                     // html
                     this.$el.html(
@@ -3468,14 +3468,14 @@ HEREDOC;
                     );
 
                     delete this.model.queryResult;
-                        
+
                     return this;
                 },
-                
+
                 lookSelected: function() {
                     this.$el.addClass('cfw-selected');
                 },
-                
+
                 unlookSelected: function() {
                     this.$el.removeClass('cfw-selected');
                 },
@@ -3735,7 +3735,7 @@ HEREDOC;
 
                     this.addNotFoundMessage();
                 },
-                
+
                 addOne: function(component) {
                     // create view for model
                     var view = new CFW.BenchmarkItemView({
@@ -3836,7 +3836,7 @@ HEREDOC;
             // // closing the currently open component fields
             // $('.cfw-save-and-close a').live('click', function() {
             //     $(this).closest('.inside .cfw-sidebar .nav li:first input').click();
-                
+
             //     // update component label ?  or should this be done dynamically?
 
             //     // do a little highlight thing on the label for this component?  either a flash or a light gray until they choose something else
@@ -3854,7 +3854,7 @@ HEREDOC;
             ?>
             CFW.ComponentNavView = Backbone.View.extend({
                 template: _.template('<?php echo str_replace(array("\r\n", "\n", "\r"), "", cfwhiteboard_generate_class_component_nav("cfw-components", $empty_component, "cfw-wods[<%- wod_id %>][components][]")); ?>'),
-                
+
                 initialize: function(options) {
                     this.options = options || {};
                     this.wod_id = options.wod_id;
@@ -3862,7 +3862,7 @@ HEREDOC;
 
                     return options.el ? this : this.render();
                 },
-          
+
                 render: function() {
                     // html
                     this.$el.html(
@@ -3885,7 +3885,7 @@ HEREDOC;
             });
             CFW.ComponentFieldsView = Backbone.View.extend({
                 template: _.template('<?php echo str_replace(array("\r\n", "\n", "\r"), "", cfwhiteboard_generate_class_component_fields("cfw-components", $empty_component)); ?>'),
-                
+
                 events: {
                     'showDetail': 'showDetail',
                     'descriptionrequest': 'getDescription',
@@ -3910,12 +3910,12 @@ HEREDOC;
                     'blur .cfw-custom-component input[type="text"]': 'verifyComponentLabelOwnership'
                 },
                 // 'show.bs.tab .cfw-custom-component-tab': 'confirmDeselectBenchmark',
-            
+
                 initialize: function(options) {
                     this.options = options || {};
                     // this.model.on('change', this.render, this);
                     // this.model.on('destroy', this.remove, this);
-                    
+
                     // this.model.on('show', this.lookSelected, this);
                     // this.model.on('unshow', this.unlookSelected, this);
 
@@ -3925,7 +3925,7 @@ HEREDOC;
 
                     // CFW.allBenchmarks.on('select:c'+this.component_id, this.renderBenchmarkFields, this);
                     // CFW.allBenchmarks.on('deselect:c'+this.component_id, this.destroyBenchmarkFields, this);
-                    
+
                     if (options.el) {
                         this.initializeExistingElement();
                     } else {
@@ -3964,7 +3964,7 @@ HEREDOC;
                         CFW.allBenchmarks.on('fetched', onBenchmarksReady);
                     }
                 },
-          
+
                 render: function() {
                     // html
                     this.$el.html(
@@ -3989,7 +3989,7 @@ HEREDOC;
                     this.$('.cfw-class-name').text(this.componentOverview.$el.closest('li').find('.cfw-edit-wod-title').val());
                     this.$('.cfw-component-index').text(this.componentOverview.$el.prevAll('.cfw-component').length + 1);
                 },
-                
+
                 // renderBenchmarkFields: function(model) {
                 //     // console.log('adding benchmark fields for component '+this.component_id+', benchmark_id: '+model.id);
 
@@ -4086,7 +4086,7 @@ HEREDOC;
                             var $repcount = this.$('input.cfw-repcount');
                             if (!$repcount.length) $repcount = this.$('.cfw-benchmark-repcount');
                             d = selectedBenchmark.get('label') +'\r\nFind your '+ $repcount.val() +' rep max.' + d;
-                            
+
                             return d;
                         } else {
                             return selectedBenchmark.get('description');
@@ -4206,7 +4206,7 @@ HEREDOC;
 
 
             // Add a Class Button
-            <?php 
+            <?php
                 $empty_wod = array(
                     "name" => "",
                     "components" => array(),
@@ -4247,7 +4247,7 @@ HEREDOC;
                 });
                 CFW.populateBenchmarkLists(fieldsView.$('.cfw-benchmark-list'));
                 $container.append( fieldsView.$el );
-                
+
                 // don't click "edit component" until after the fields are rendered
                 navView.$('a').click();
             });
@@ -4512,7 +4512,7 @@ function cfwhiteboard_save_post_meta_boxes($post_id, $post) {
 
         //     $wod['components'] = $temp_cmps;
         //     $temp_wods[] = $wod;
-        // }    
+        // }
         // $new_wods = $temp_wods;
     // }
 
@@ -4579,7 +4579,7 @@ function cfwhiteboard_validate_post_meta( $wods ) {
 }
 function cfwhiteboard_save_post_meta_notices(){
     global $CFWHITEBOARD_WODS_META_KEY;
-    
+
     $notice = get_transient($CFWHITEBOARD_WODS_META_KEY.'-notice');
 
     // $wods = get_transient($CFWHITEBOARD_WODS_META_KEY.'-wods');
@@ -4623,7 +4623,7 @@ function cfwhiteboard_json_meta() {
     global $CFWHITEBOARD_VERSION;
     global $CFWHITEBOARD_WHITEBOARD_ID_META_KEY;
     $options = cfwhiteboard_get_options();
-    
+
     $post = null;
 
     $query_var_post_id = cfwhiteboard_get_query_var('cfwhiteboard_post_id');
@@ -4685,7 +4685,7 @@ function cfwhiteboard_json_meta() {
     header('Content-Type: application/json; charset=UTF-8', true);
     // echo cfwhiteboard_strip_magic_quotes($response);
     echo json_encode($response);
-    
+
     exit;
 }
 function cfwhiteboard_get_query_var($key) {
@@ -4693,7 +4693,7 @@ function cfwhiteboard_get_query_var($key) {
     if ($wp_query_var) {
       return $wp_query_var;
     }
-    
+
     return isset($_REQUEST[$key]) ? $_REQUEST[$key] : null;
 }
 function cfwhiteboard_strip_magic_quotes($value) {
@@ -4755,7 +4755,7 @@ add_action('export_wp', 'cfwhiteboard_fill_missing_whiteboard_ids');
 function cfwhiteboard_fill_missing_whiteboard_ids() {
     global $CFWHITEBOARD_WODS_META_KEY;
     global $CFWHITEBOARD_WHITEBOARD_ID_META_KEY;
-    
+
     /* get all posts that have wods meta data */
     $args = array(
         'meta_key' => $CFWHITEBOARD_WODS_META_KEY,
@@ -4769,7 +4769,7 @@ function cfwhiteboard_fill_missing_whiteboard_ids() {
     // and cache the post ID (unless it's already there - don't overwrite!)
     foreach ($posts as $post) {
         $id = $post->ID;
-        
+
         $whiteboard_id = cfwhiteboard_get_whiteboard_id($id, true);
         $wods = cfwhiteboard_get_wods($id);
         if (empty($whiteboard_id) && is_array($wods) && !empty($wods)) {
@@ -4810,7 +4810,7 @@ function cfwhiteboard_init_athletes_page() {
 
     if (! is_page($options['athletes_page_id']))
         return;
-        
+
     // add_action('wp_print_styles', 'cfwhiteboard_stylesheet', 999999);
     add_action('wp_enqueue_scripts', 'cfwhiteboard_athletes_scripts', 999999);
     add_action('wp_enqueue_scripts', 'cfwhiteboard_athletes_scripts_data', 1000000);
@@ -4871,7 +4871,7 @@ function cfwhiteboard_trace_tags($tags, $id = NULL) {
 function cfwhiteboard_athletes_scripts() {
     global $CFWHITEBOARD_VERSION;
     if (!isset($CFWHITEBOARD_VERSION)) $CFWHITEBOARD_VERSION = '0.0';
-    
+
     wp_enqueue_script('underscore',
         plugins_url('js/underscore.js', __FILE__),
         false,
