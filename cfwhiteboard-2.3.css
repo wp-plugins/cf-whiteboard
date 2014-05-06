@@ -1135,31 +1135,31 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 /* 3 components */
 .cfwhiteboard .cfw-window .cfw-classes.cfw-components-3 {
-    width: 404px !important; 
+    width: 404px !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents.cfw-components-3 {
-    width: 402px !important; 
+    width: 402px !important;
 }
 /* 4 components */
 .cfwhiteboard .cfw-window .cfw-classes.cfw-components-4 {
-    width: 508px !important; 
+    width: 508px !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents.cfw-components-4 {
-    width: 506px !important; 
+    width: 506px !important;
 }
 /* 5 components */
 .cfwhiteboard .cfw-window .cfw-classes.cfw-components-5 {
-    width: 612px !important; 
+    width: 612px !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents.cfw-components-5 {
-    width: 610px !important; 
+    width: 610px !important;
 }
 /* 6 components */
 .cfwhiteboard .cfw-window .cfw-classes.cfw-components-6 {
-    width: 716px !important; 
+    width: 716px !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents.cfw-components-6 {
-    width: 714px !important; 
+    width: 714px !important;
 }
 
 .cfwhiteboard .cfw-window .cfw-contents .cfw-page {
@@ -1267,7 +1267,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     text-indent: 8px !important;
     min-width: 85px !important;
     width: 85px !important;
-    max-width: 85px !important; 
+    max-width: 85px !important;
 }
 .cfwhiteboard .cfw-window table td.cfw-known-as,
 .cfwhiteboard .cfw-window table td.cfw-known-as a,
@@ -1325,7 +1325,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     text-indent: 10px !important;
     min-width: 104px !important;
     width: 104px !important;
-    max-width: 104px !important;  
+    max-width: 104px !important;
 }
 
 /* single component column */
@@ -1336,6 +1336,31 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     width: 213px !important;
     max-width: 213px !important;
 }
+
+/* sortable component columns */
+.cfwhiteboard .cfw-window thead th {
+    cursor: pointer !important;
+}
+.cfwhiteboard .cfw-window thead th:hover,
+.cfwhiteboard .cfw-window thead th.cfw-sort-active {
+    border-bottom-color: #01a1ee !important;
+}
+.cfwhiteboard .cfw-window table th .cfw-icon-sort-asc,
+.cfwhiteboard .cfw-window table th .cfw-icon-sort-desc {
+    background: #999 !important;
+    cursor: pointer !important;
+    display: inline-block !important; *zoom:1 !important; *display: inline !important;
+    float: right !important;
+    height: 8px !important;
+    margin: 0 0 0 3px !important;
+    padding: 0 !important;
+    width: 12px !important;
+}
+.cfwhiteboard .cfw-window table th.cfw-sort-active .cfw-icon-sort-asc,
+.cfwhiteboard .cfw-window table th.cfw-sort-active .cfw-icon-sort-desc {
+    background: #0f5 !important;
+}
+
 .cfwhiteboard .cfw-window table .cfw-result {
     color: #d35400 !important;
 }
@@ -1378,7 +1403,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     text-indent: 10px !important;
     min-width: 109px !important;
     width: 109px !important;
-    max-width: 109px !important;  
+    max-width: 109px !important;
 }
 /* 2 components */
 .cfwhiteboard .cfw-window table.cfw-components-2 td.cfw-component + td.cfw-component,
@@ -1390,7 +1415,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard .cfw-window table.cfw-components-5 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component,
 /* 6 components */
 .cfwhiteboard .cfw-window table.cfw-components-6 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component {
-    padding: 0 !important; 
+    padding: 0 !important;
 }
 
 /* Rx */
