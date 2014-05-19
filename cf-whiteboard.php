@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 2.3
+Version: 2.4
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '2.3';
+$CFWHITEBOARD_VERSION = '2.4';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -3275,7 +3275,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                             classes.push( tempClass );
                         });
 
-                        var footerText = classes.length > 0 ? 'Post your results on the <a href="javascript://" onclick="window.top.CFW.goToHash(\'#cfwhiteboard-'+CFW.postId+'\');">Whiteboard</a>.\n\n' : '';
+                        var footerText = classes.length > 0 ? 'Post your results to <span class="cfw-link-to-whiteboard" data-post-id="'+CFW.postId+'" style="border-bottom: 1px dotted;">the Whiteboard</span>.\n\n' : '';
 
                         var options = [];
                         if (!classes.length) {
@@ -3577,7 +3577,6 @@ HEREDOC;
 
 HEREDOC;
                 ?>'),
-
                 events: {
                     'show.bs.tab a.cfw-back': 'triggerRemove',
                     'shown.bs.tab a.cfw-back': 'remove',
@@ -4367,10 +4366,10 @@ function cfwhiteboard_mce_external_plugins( $plugins ) {
 
     if (substr($tinymce_version, 0, 1) === '4') {
         // TinyMCE 4.x
-        $plugins['cfwhiteboard'] = plugins_url('cfwhiteboard-post-editor/cfw-mce-plugin-4x-140420.js' , __FILE__);
+        $plugins['cfwhiteboard'] = plugins_url('cfwhiteboard-post-editor/cfw-mce-plugin-4x-140510.js' , __FILE__);
     } else {
         // TinyMCE 3.x
-        $plugins['cfwhiteboard'] = plugins_url('cfwhiteboard-post-editor/cfw-mce-plugin-140323.js' , __FILE__);
+        $plugins['cfwhiteboard'] = plugins_url('cfwhiteboard-post-editor/cfw-mce-plugin-140510.js' , __FILE__);
     }
     return $plugins;
 }
