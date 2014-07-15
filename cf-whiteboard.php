@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 2.4.1
+Version: 2.4.2
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '2.4.1';
+$CFWHITEBOARD_VERSION = '2.4.2';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -478,7 +478,7 @@ function cfwhiteboard_init_whiteboard() {
     //     return;
 
     // don't include cfw files on admin pages, the athletes pages, or if the whiteboard is not visible to the current user
-    if (is_admin() || !cfwhiteboard_is_authorized($options) || is_page($options['athletes_page_id']))
+    if (is_admin() || !cfwhiteboard_is_authorized($options))// || is_page($options['athletes_page_id']))
         return;
 
     add_action('wp_print_styles', 'cfwhiteboard_stylesheet', 999999);
@@ -1334,7 +1334,7 @@ function cfwhiteboard_options_page() {
 
                         <div id="account" class="tab-pane">
 
-                            <iframe src="http://<?php esc_attr_e(preg_match('/testaffiliate/', $options['affiliate_id']) ? 'tameron.herokuapp.com' : 'cfwhiteboard.com'); ?>/affiliates/<?php esc_attr_e( preg_replace('/_preview$/', '', $options['affiliate_id']) ); ?>/subscription" style="background:transparent; border:none; padding:0; width:100%; height:1200px; overflow:hidden;" seamless></iframe>
+                            <iframe src="//<?php esc_attr_e(preg_match('/testaffiliate/', $options['affiliate_id']) ? 'tameron.herokuapp.com' : 'cfwhiteboard.com'); ?>/affiliates/<?php esc_attr_e( preg_replace('/_preview$/', '', $options['affiliate_id']) ); ?>/subscription" style="background:transparent; border:none; padding:0; width:100%; height:1200px; overflow:hidden;" seamless></iframe>
 
                         </div><!-- #account -->
 
@@ -1412,13 +1412,13 @@ function cfwhiteboard_settings_scripts() {
     //     $CFWHITEBOARD_VERSION
     // );
     wp_enqueue_script('cfwbootstrap',
-        plugins_url('bootstrap/js/bootstrap-3.0.2.2.js', __FILE__),
+        plugins_url('bootstrap/js/bootstrap-3.0.2.3.js', __FILE__),
         array('jquery'),
         $CFWHITEBOARD_VERSION
     );
 
     wp_enqueue_script('bootstrap-namespacer',
-        plugins_url('js/bootstrap-namespacer-3.0.2.2.js', __FILE__),
+        plugins_url('js/bootstrap-namespacer-3.0.2.3.js', __FILE__),
         array('cfwbootstrap'),
         $CFWHITEBOARD_VERSION
     );
@@ -1507,13 +1507,13 @@ function cfwhiteboard_post_meta_scripts() {
     if (!isset($CFWHITEBOARD_VERSION)) $CFWHITEBOARD_VERSION = '0.0';
 
     wp_enqueue_script('cfwbootstrap',
-        plugins_url('bootstrap/js/bootstrap-3.0.2.2.js', __FILE__),
+        plugins_url('bootstrap/js/bootstrap-3.0.2.3.js', __FILE__),
         array('jquery'),
         '3.0.2.1'
     );
 
     wp_enqueue_script('bootstrap-namespacer',
-        plugins_url('js/bootstrap-namespacer-3.0.2.2.js', __FILE__),
+        plugins_url('js/bootstrap-namespacer-3.0.2.3.js', __FILE__),
         array('cfwbootstrap'),
         $CFWHITEBOARD_VERSION
     );
@@ -3057,7 +3057,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                 return;
             }
             window.CFW = {};
-            CFW.domain = /[.]local/.test(window.location.host) || /yestech/.test(window.location.host) || /squatc/.test(window.location.host) ? 'http://tameron.herokuapp.com' : 'http://cfwhiteboard.com';
+            CFW.domain = (window.location.protocol == 'https:' ? 'https:' : 'http:') + (/[.]local/.test(window.location.host) || /yestech/.test(window.location.host) || /squatc/.test(window.location.host) ? '//tameron.herokuapp.com' : '//cfwhiteboard.com');
             // Safely pull a property from the depths of an object.  Default value is returned if the requested property was not defined.
             // CFW.oxygenTank = function(base_object, 'level_1_property_name', ..., 'level_N_property_name', default_value) {...};
             CFW.oxygenTank = function() {
@@ -4807,7 +4807,18 @@ function cfwhiteboard_init_athletes_page() {
     if (!cfwhiteboard_is_site_enabled())
         return;
 
+    $id = get_the_ID();
+    if (post_password_required($id))
+        return;
+
     if (! is_page($options['athletes_page_id']))
+        return;
+
+    // Paid Memberships Pro plugin compatibility.
+    // They try to override the post content with a "You must register or login
+    // to view this content", but then our athletes page rips it out and displays
+    // the athletes page anyway. So let's just be nice and check for access here.
+    if (function_exists('pmpro_has_membership_access') && !pmpro_has_membership_access())
         return;
 
     // add_action('wp_print_styles', 'cfwhiteboard_stylesheet', 999999);
