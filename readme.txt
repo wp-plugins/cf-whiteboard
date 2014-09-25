@@ -28,7 +28,7 @@ The whiteboard contains external links for athlete support purposes.  By install
 == Changelog ==
 
 = 2.4.3 =
-* Major improvements for popups on mobile.  Effects sign in / sign up / forgot password / track workout / edit profile.
+* Major improvements for popups on mobile.  Affects sign in / sign up / forgot password / track workout / edit profile.
 
 = 2.4.2 =
 * Compatibility improvements for Password Protected athletes area, Prototype.js, "Paid Memberships Pro" plugin, SSL.
