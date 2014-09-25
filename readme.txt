@@ -2,8 +2,8 @@
 Contributors: collindo
 Tags: crossfit, wod, fitness, workout, tracking, tracker, sports, exercise, team, training, trainer, coach, athlete, gym, logbook, attendance
 Requires at least: 3.5
-Tested up to: 3.8.1
-Stable tag: 2.2.10
+Tested up to: 4.0
+Stable tag: 2.4.3
 
 CF Whiteboard turns your website and WOD Blog into a full-featured CrossFit<sup>&reg;</sup> workout tracker.
 
@@ -26,6 +26,28 @@ We want to create a service that CrossFitters love, so don't hesitate to [email 
 The whiteboard contains external links for athlete support purposes.  By installing this plugin, you give CF Whiteboard permission to embed these external links.
 
 == Changelog ==
+
+= 2.4.3 =
+* Major improvements for popups on mobile.  Effects sign in / sign up / forgot password / track workout / edit profile.
+
+= 2.4.2 =
+* Compatibility improvements for Password Protected athletes area, Prototype.js, "Paid Memberships Pro" plugin, SSL.
+
+= 2.4.1 =
+* Allow decimal places in the "seconds" field when entering your time in the Whiteboard.
+
+= 2.4 =
+* Athlete photos! Athletes can upload a profile photo.
+* Athletes can edit their profile information (name, email, profile URL).
+* Whiteboard "Remember Me" feature so athletes don't have to type their email so often on their personal computers.
+
+= 2.3 =
+* No more name field required when adding entries in the Whiteboard. Name comes from your profile.
+* Sort the Whiteboard in order of athlete results.
+
+= 2.2.11 =
+* New & improved mobile support on the athlete profiles for signing in, signing up, and tracking workouts.
+* Updated to support WordPress 3.9
 
 = 2.2.10 =
 * Highlight the CrossFit Games section to remind coaches to use it!
