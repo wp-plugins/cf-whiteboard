@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 2.4.3
+Version: 2.4.4
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '2.4.3';
+$CFWHITEBOARD_VERSION = '2.4.4';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -171,7 +171,7 @@ Rest 1 minute
 Rest 1 minute
 ',
                     'label' => 'Hill Sprints',
-                    'wp_id' => 1
+                    'wp_id' => 3
                 )
             ),
             'wp_id' => 2
@@ -220,7 +220,7 @@ function cfw_admin_notice() {
         $pointer_content .= '<p style="margin:0; padding:0 0 12px;">';
 
         if ($show_installation_notice) {
-            $pointer_content .= 'Thank you for installing <a href="http://cfwhiteboard.com" target="_blank" style="color:#01a1ff; text-decoration:underline;">CF Whiteboard</a>! Please visit Settings > CF Whiteboard > <a href="options-general.php?page=cf-whiteboard.php#account" style="color:#01a1ff; text-decoration:underline;">My Account</a> to activate your free trial and get started.';
+            $pointer_content .= 'Thank you for installing <a href="http://cfwhiteboard.com" target="_blank" style="color:#01a1ff; text-decoration:underline;">CF Whiteboard</a>! Please visit Settings > CF Whiteboard > <a href="options-general.php?page=cf-whiteboard.php#account" style="color:#01a1ff; text-decoration:underline;">Account</a> to activate your free trial and get started.';
         } elseif ($show_upgrade_notice) {
             // benchmarks upgrade 1 of 3 (admin side)
             $pointer_content .= '<strong style="display:block; font-size:19px; font-weight:bold; line-height:26px; color:#e63108;">Start tracking benchmarks now.</strong> Watch the <strong><a href="http://cfwhiteboard.com/wp-admin-tour" target="_blank">tour video</a></strong> to find out how.';
@@ -517,6 +517,8 @@ function cfwhiteboard_add_to_post($titleOrContent, $id = NULL) {
     //         '</span>';
     // }
 
+    if (post_password_required($id))
+        return $titleOrContent;
 
     if (! cfwhiteboard_is_proper_post($id))
         return $titleOrContent;
@@ -918,7 +920,7 @@ function cfwhiteboard_options_page() {
                                 <li class="divider-vertical" style="margin:0;"></li>
                                 <li><a href="#whiteboard">Whiteboard Settings</a></li>
                                 <li class="divider-vertical" style="margin:0;"></li>
-                                <li><a href="#account">My Account</a></li>
+                                <li><a href="#account">Account</a></li>
                             </ul>
                         <?php } ?>
                     </div>
@@ -1053,7 +1055,7 @@ function cfwhiteboard_options_page() {
                                     <div id="collapse45k5" class="accordion-body collapse">
                                         <div class="accordion-inner">
                                             <p>
-                                                Click the My Account tab above!
+                                                Click the <strong>Account</strong> tab above!
                                             </p>
                                         </div>
                                     </div>
@@ -1755,7 +1757,7 @@ function cfwhiteboard_generate_class_component_fields($component_prefix, $compon
                         <a class="cfw-remove-this-component" href="javascript:// Remove this Component" data-toggle="bstab" data-target="#cfwhiteboard-wods-meta .cfw-overview">
                             <i class="icon-minus-sign icon-white"></i><div class="cfw-text">Delete this Component</div>
                         </a><a class="cfw-select-and-continue" href="javascript:// Select & Go Back to Classes Overview" data-toggle="bstab" data-target="#cfwhiteboard-wods-meta .cfw-overview">
-                            <i class="icon-ok icon-white"></i><div class="cfw-text">Select &amp; Continue</div>
+                            <i class="icon-ok icon-white"></i><div class="cfw-text">Continue</div>
                         </a>
                     <div>
                 </li>
@@ -2982,15 +2984,15 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                         </div>
                         <div class="past_due well well-small" style="margin:0 0 20px; display:none;">
                             <strong>Your subscription is past due.</strong>
-                            Visit Settings > CF Whiteboard > <a href="options-general.php?page=cf-whiteboard.php#account">My Account</a> for more information, or <a href="mailto:affiliatesupport@cfwhiteboard.com" target="_blank">email us</a> with any questions.
+                            Visit Settings > CF Whiteboard > <a href="options-general.php?page=cf-whiteboard.php#account">Account</a> for more information, or <a href="mailto:affiliatesupport@cfwhiteboard.com" target="_blank">email us</a> with any questions.
                         </div>
                         <div class="canceled well well-small" style="margin:0 0 20px; display:none;">
                             <strong>Your subscription is canceled.</strong>
-                            Visit Settings > CF Whiteboard > <a href="options-general.php?page=cf-whiteboard.php#account">My Account</a> for more information, or <a href="mailto:affiliatesupport@cfwhiteboard.com" target="_blank">email us</a> with any questions.
+                            Visit Settings > CF Whiteboard > <a href="options-general.php?page=cf-whiteboard.php#account">Account</a> for more information, or <a href="mailto:affiliatesupport@cfwhiteboard.com" target="_blank">email us</a> with any questions.
                         </div>
                         <div class="expired well well-small" style="margin:0 0 20px; display:none;">
                             <strong>Your subscription has expired.</strong>
-                            Visit Settings > CF Whiteboard > <a href="options-general.php?page=cf-whiteboard.php#account">My Account</a> for more information, or <a href="mailto:affiliatesupport@cfwhiteboard.com" target="_blank">email us</a> with any questions.
+                            Visit Settings > CF Whiteboard > <a href="options-general.php?page=cf-whiteboard.php#account">Account</a> for more information, or <a href="mailto:affiliatesupport@cfwhiteboard.com" target="_blank">email us</a> with any questions.
                         </div>
                     </div>
                     <div id="cfw-error-fetching-benchmarks-notice" style="display:none;">
@@ -3940,24 +3942,23 @@ HEREDOC;
                 },
 
                 initializeExistingElement: function() {
-                    var view = this;
-                    onBenchmarksReady = function() {
-                        var selectedBenchmark = CFW.allBenchmarks.get(view.$('.cfw-benchmark-id').val());
+                    var onBenchmarksReady = _.bind(function() {
+                        var selectedBenchmark = CFW.allBenchmarks.get(this.$('.cfw-benchmark-id').val());
                         if (selectedBenchmark) {
-                            view.$('.cfw-benchmark-id').remove();
+                            this.$('.cfw-benchmark-id').remove();
 
-                            // selectedBenchmark.trigger('select:c'+view.component_id, selectedBenchmark);
-                            view.$('.cfw-component-fields-nav .cfw-benchmarks').bootstrap_tab('show');
-                            view.showDetail($.Event(), selectedBenchmark);
+                            // selectedBenchmark.trigger('select:c'+this.component_id, selectedBenchmark);
+                            this.$('.cfw-component-fields-nav .cfw-benchmarks').bootstrap_tab('show');
+                            this.showDetail($.Event(), selectedBenchmark);
 
-                            var $detailsPane = view.detailView.$el.closest('.cfw-details-pane');
+                            var $detailsPane = this.detailView.$el.closest('.cfw-details-pane');
                             (new $.fn.bootstrap_tab.Constructor()).activate($detailsPane, $detailsPane.parent());
                         } else {
-                            view.$('.cfw-component-fields-nav .cfw-custom-component-tab').bootstrap_tab('show');
+                            this.$('.cfw-component-fields-nav .cfw-custom-component-tab').bootstrap_tab('show');
                         }
 
-                        view.updateOverview();
-                    }
+                        this.updateOverview();
+                    }, this);
 
                     if (CFW.allBenchmarks.length > 0) {
                         onBenchmarksReady();

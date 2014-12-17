@@ -2,8 +2,8 @@
 Contributors: collindo
 Tags: crossfit, wod, fitness, workout, tracking, tracker, sports, exercise, team, training, trainer, coach, athlete, gym, logbook, attendance
 Requires at least: 3.5
-Tested up to: 4.0
-Stable tag: 2.4.3
+Tested up to: 4.0.1
+Stable tag: 2.4.4
 
 CF Whiteboard turns your website and WOD Blog into a full-featured CrossFit<sup>&reg;</sup> workout tracker.
 
