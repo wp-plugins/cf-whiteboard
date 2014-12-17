@@ -27,6 +27,9 @@ The whiteboard contains external links for athlete support purposes.  By install
 
 == Changelog ==
 
+= 2.4.4 =
+* Password-protected blog posts now hide the Whiteboard until the blog post is unlocked by entering the password.
+
 = 2.4.3 =
 * Major improvements for popups on mobile.  Affects sign in / sign up / forgot password / track workout / edit profile.
 
