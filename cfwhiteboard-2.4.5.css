@@ -690,6 +690,18 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     font-family: Helvetica !important;
     margin-left: 10px !important;
     position: relative !important;
+
+    /* break words as needed */
+    -ms-word-break: break-all;
+    word-break: break-all;
+    /* Non standard for webkit */
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    /* end break words */
+
 }
 /* override defaults */
 .cfwhiteboard.position-inline,
@@ -765,8 +777,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     -moz-background-clip: padding !important;
     background-clip: padding-box !important;
     border: 1px solid #aaa !important;
-    -webkit-border-radius: 3px !important;
-    -moz-border-radius: 3px !important;
     border-radius: 3px !important;
     color: #2f2f2f !important;
     display: inline-block !important;
@@ -784,10 +794,12 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     *display: inline !important;
 }
 .cleanslate.cfwhiteboard > h1:hover {
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.25),inset 0 0 3px #fff !important;
-    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.25),inset 0 0 3px #fff !important;
     box-shadow: 0 1px 2px rgba(0,0,0,0.25),inset 0 0 3px #fff !important;
     border-color: #777 !important;
+}
+.cfwhiteboard.cfw-active > h1:hover {
+    background: #f5f5f5 !important;
+    box-shadow: none !important;
 }
 .cleanslate.cfwhiteboard > h1:active,
 .cfwhiteboard.cfw-active > h1 {
@@ -796,13 +808,8 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     background: -webkit-linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
     background: -o-linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
     background: linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
-    -webkit-box-shadow: inset 0 1px 1px #888 !important;
-    -moz-box-shadow: inset 0 1px 1px #888 !important;
     box-shadow: inset 0 1px 1px #888 !important;
     border-color: #777 !important;
-}
-.cfwhiteboard.cfw-active > h1:hover {
-    background: #f5f5f5 !important;
 }
 .cfwhiteboard.cfw-active > h1:active {
     background: -moz-linear-gradient(bottom,  #ffffff 0%, #e0e0e6 100%) !important;
@@ -817,11 +824,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     -moz-background-clip: padding !important;
     background-clip: padding-box !important;
     border: 2px solid #fff !important;
-    -webkit-border-radius: 11px !important;
-    -moz-border-radius: 11px !important;
     border-radius: 11px !important;
-    -webkit-box-shadow: 0 2px 1px rgba(0,0,0,.4) !important;
-    -moz-box-shadow: 0 2px 1px rgba(0,0,0,.4) !important;
     box-shadow: 0 2px 1px rgba(0,0,0,.4) !important;
     color: #fff !important;
     font-size: 14px !important;
@@ -838,8 +841,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     -webkit-background-clip: padding-box !important;
     -moz-background-clip: padding !important;
     background-clip: padding-box !important;
-    -webkit-border-radius: 5px !important;
-    -moz-border-radius: 5px !important;
     border-radius: 5px !important;
 }
 .cfwhiteboard .cfw-pane {
@@ -847,8 +848,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 	border-width: 1px !important;
 	border-style: solid !important;
 	border-color: #727471 #3d3c3a #121210 #666865 !important;
-	-webkit-box-shadow: 1px 2px 1px rgba(0,0,0,0.4) !important;
-    -moz-box-shadow: 1px 2px 1px rgba(0,0,0,0.4) !important;
 	box-shadow: 1px 2px 1px rgba(0,0,0,0.4) !important;
     display: none !important;
     opacity: 1 !important;
@@ -862,6 +861,16 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     -o-transition: 300ms all !important;
     transition: 300ms all !important;
     z-index: 99990 !important;
+
+	/* hardware acceleration ? */
+	-webkit-transform: translateZ(0) !important;
+	transform: translateZ(0) !important;
+	-webkit-backface-visibility: hidden !important;
+	backface-visibility: hidden !important;
+	-webkit-perspective: 1000 !important;
+	perspective: 1000 !important;
+	/* end hardware acceleration */
+
 }
 .cfwhiteboard .cfw-pane > div {
     overflow: hidden !important;
@@ -891,8 +900,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     background: rgba(30, 30, 30, .65) !important;
     border-top-left-radius: 4px !important;
     border-top-right-radius: 4px !important;
-    -webkit-box-shadow: inset 1px 2px 5px black !important;
-    -moz-box-shadow: inset 1px 2px 5px black !important;
     box-shadow: inset 1px 2px 5px black !important;
     list-style: none !important;
     margin-bottom: -3px !important;
@@ -976,6 +983,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     position: absolute !important;
     left: 100% !important;
     top: 4px !important;
+    white-space: nowrap !important;
 }
 .cfwhiteboard .cfw-pane ul.cfw-classes li .cfw-link-text {
     display: block !important;
@@ -1009,8 +1017,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     border-style: solid solid none solid !important;
     border-width: 1px !important;
     border-color: #fff #ddd #f5f5f5 #fafafa !important;
-    -webkit-box-shadow: 1px 1px 5px #000 !important;
-    -moz-box-shadow: 1px 1px 5px #000 !important;
     box-shadow: 1px 1px 5px #000 !important;
 }
 .cfwhiteboard .cfw-pane ul.cfw-classes li.cfw-selected a {
@@ -1033,8 +1039,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     border-bottom-left-radius: 3px !important;
     border-bottom-right-radius: 3px !important;
     bottom: -29px !important;
-    -webkit-box-shadow: 1px 2px 1px rgba(0,0,0,0.2) !important;
-    -moz-box-shadow: 1px 2px 1px rgba(0,0,0,0.2) !important;
     box-shadow: 1px 2px 1px rgba(0,0,0,0.2) !important;
     color: #444 !important;
     font-size: 15px !important;
@@ -1049,8 +1053,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 
 .cfwhiteboard .cfw-window {
-    -webkit-box-shadow: inset 0 1px 3px #bbb, inset 0 -1px 1px #000 !important;
-    -moz-box-shadow: inset 0 1px 3px #bbb, inset 0 -1px 1px #000 !important;
     box-shadow: inset 0 1px 3px #bbb, inset 0 -1px 1px #000 !important;
     padding: 11px 19px 0 10px !important;
     position: relative !important;
@@ -1072,13 +1074,9 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     -moz-background-clip: padding !important;
     background-clip: padding-box !important;
     border-color: #fff #ddd #bbb #fafafa !important;
-    -webkit-border-radius: 2px !important;
-    -moz-border-radius: 2px !important;
     border-radius: 2px !important;
     border-style: solid !important;
     border-width: 1px !important;
-    -webkit-box-shadow: 1px 1px 1px #000 !important;
-    -moz-box-shadow: 1px 1px 1px #000 !important;
     box-shadow: 1px 1px 1px #000 !important;
     color: #d35400 !important;
     font-size: 20px !important;
@@ -1094,8 +1092,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     text-decoration: none !important;
 }
 .cfwhiteboard .cfw-window > a.cfw-new-entry:active {
-    -webkit-box-shadow: 1px 1px 0 #000 !important;
-    -moz-box-shadow: 1px 1px 0 #000 !important;
     box-shadow: 1px 1px 0 #000 !important;
 }
 .cfwhiteboard .cfw-window > a.cfw-new-entry[disabled] {
@@ -1116,8 +1112,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     border-width: 1px !important;
     border-style: solid !important;
     border-color: #fff #ddd #bbb #fafafa !important;
-    -webkit-box-shadow: 1px 1px 1px #000 !important;
-    -moz-box-shadow: 1px 1px 1px #000 !important;
     box-shadow: 1px 1px 1px #000 !important;
     overflow: hidden !important;
     position: relative !important;
@@ -1129,43 +1123,41 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     -webkit-background-clip: padding-box !important;
     -moz-background-clip: padding !important;
     background-clip: padding-box !important;
-    -webkit-border-radius: 3px !important;
-    -moz-border-radius: 3px !important;
     border-radius: 3px !important;
 }
 /* 3 components */
 .cfwhiteboard .cfw-window .cfw-classes.cfw-components-3 {
-    width: 404px !important; 
+    width: 404px !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents.cfw-components-3 {
-    width: 402px !important; 
+    width: 402px !important;
 }
 /* 4 components */
 .cfwhiteboard .cfw-window .cfw-classes.cfw-components-4 {
-    width: 508px !important; 
+    width: 508px !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents.cfw-components-4 {
-    width: 506px !important; 
+    width: 506px !important;
 }
 /* 5 components */
 .cfwhiteboard .cfw-window .cfw-classes.cfw-components-5 {
-    width: 612px !important; 
+    width: 612px !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents.cfw-components-5 {
-    width: 610px !important; 
+    width: 610px !important;
 }
 /* 6 components */
 .cfwhiteboard .cfw-window .cfw-classes.cfw-components-6 {
-    width: 716px !important; 
+    width: 716px !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents.cfw-components-6 {
-    width: 714px !important; 
+    width: 714px !important;
 }
 
 .cfwhiteboard .cfw-window .cfw-contents .cfw-page {
     display: inline-block !important;
     height: 378px !important;
-    margin: 0 0 0 -100% !important;
+    margin: 0 0% 0 -100% !important;
     min-width: 100% !important;
     overflow: hidden !important;
     -webkit-transition: 300ms all !important;
@@ -1177,16 +1169,26 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     width: 100% !important;
     *zoom: 1 !important;
     *display: inline !important;
+
+    /* hardware acceleration ? */
+    -webkit-transform: translateZ(0) !important;
+    transform: translateZ(0) !important;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-perspective: 1000 !important;
+    perspective: 1000 !important;
+    /* end hardware acceleration */
+
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-page.active {
-    margin: 0 0 0 0 !important;
+    margin: 0 0% 0 0% !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page,
 .cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page + .cfw-page,
 .cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page + .cfw-page + .cfw-page,
 .cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page + .cfw-page + .cfw-page + .cfw-page,
 .cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page + .cfw-page + .cfw-page + .cfw-page + .cfw-page {
-    margin: 0 -100% 0 0 !important;
+    margin: 0 -100% 0 0% !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-scrollable {
     overflow: auto !important;
@@ -1245,6 +1247,12 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     text-shadow: 0 1px 0 #fff !important;
     vertical-align: middle !important;
     white-space: nowrap !important;
+
+    /* no text wrap */
+    -ms-word-break: normal;
+    word-break: normal;
+    /* end no text wrap */
+
 }
 .cfwhiteboard .cfw-window table th *,
 .cfwhiteboard .cfw-window table td * {
@@ -1267,7 +1275,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     text-indent: 8px !important;
     min-width: 85px !important;
     width: 85px !important;
-    max-width: 85px !important; 
+    max-width: 85px !important;
 }
 .cfwhiteboard .cfw-window table td.cfw-known-as,
 .cfwhiteboard .cfw-window table td.cfw-known-as a,
@@ -1286,8 +1294,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     border-color: transparent !important;
     border-style: solid !important;
     border-width: 1px !important;
-    -webkit-border-radius: 2px !important;
-    -moz-border-radius: 2px !important;
     border-radius: 2px !important;
     display: inline-block !important;
     margin-left: -4px !important;
@@ -1301,8 +1307,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard .cfw-window table tr:hover td.cfw-known-as a {
     background: url('images/profile-link.png') no-repeat right 3px #71D2FE !important;
     border-color: #7ad5ff #48C5FE #098ac6 !important;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.4) !important;
-    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.4) !important;
     box-shadow: 0 1px 2px rgba(0,0,0,.4) !important;
     max-width: 52px !important;
     text-shadow: none !important;
@@ -1325,7 +1329,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     text-indent: 10px !important;
     min-width: 104px !important;
     width: 104px !important;
-    max-width: 104px !important;  
+    max-width: 104px !important;
 }
 
 /* single component column */
@@ -1336,6 +1340,31 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     width: 213px !important;
     max-width: 213px !important;
 }
+
+/* sortable component columns */
+.cfwhiteboard .cfw-window thead th {
+    cursor: pointer !important;
+}
+.cfwhiteboard .cfw-window thead th:hover,
+.cfwhiteboard .cfw-window thead th.cfw-sort-active {
+    border-bottom-color: #01a1ee !important;
+}
+.cfwhiteboard .cfw-window table th .cfw-icon-sort-asc,
+.cfwhiteboard .cfw-window table th .cfw-icon-sort-desc {
+    background: #999 !important;
+    cursor: pointer !important;
+    display: inline-block !important; *zoom:1 !important; *display: inline !important;
+    float: right !important;
+    height: 8px !important;
+    margin: 0 0 0 3px !important;
+    padding: 0 !important;
+    width: 12px !important;
+}
+.cfwhiteboard .cfw-window table th.cfw-sort-active .cfw-icon-sort-asc,
+.cfwhiteboard .cfw-window table th.cfw-sort-active .cfw-icon-sort-desc {
+    background: #0f5 !important;
+}
+
 .cfwhiteboard .cfw-window table .cfw-result {
     color: #d35400 !important;
 }
@@ -1378,7 +1407,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     text-indent: 10px !important;
     min-width: 109px !important;
     width: 109px !important;
-    max-width: 109px !important;  
+    max-width: 109px !important;
 }
 /* 2 components */
 .cfwhiteboard .cfw-window table.cfw-components-2 td.cfw-component + td.cfw-component,
@@ -1390,7 +1419,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard .cfw-window table.cfw-components-5 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component,
 /* 6 components */
 .cfwhiteboard .cfw-window table.cfw-components-6 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component {
-    padding: 0 !important; 
+    padding: 0 !important;
 }
 
 /* Rx */
@@ -1464,6 +1493,16 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     transition: 300ms opacity !important;
     width: 8px !important;
     z-index: 1 !important;
+
+    /* hardware acceleration ? */
+    -webkit-transform: translateZ(0) !important;
+    transform: translateZ(0) !important;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-perspective: 1000 !important;
+    perspective: 1000 !important;
+    /* end hardware acceleration */
+
 }
 .cfwhiteboard .cfw-window table tr span.cfw-more.cfw-notes-hint {
     opacity: .5 !important;
@@ -1570,11 +1609,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     border-color: #7ad5ff #48C5FE #098ac6 !important;
     border-style: solid !important;
     border-width: 1px !important;
-    -webkit-border-radius: 2px !important;
-    -moz-border-radius: 2px !important;
     border-radius: 2px !important;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.4) !important;
-    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.4) !important;
     box-shadow: 0 1px 2px rgba(0,0,0,.4) !important;
     color: #1d1a13 !important;
     display: inline-block !important;
@@ -1649,6 +1684,14 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     transition: 300ms all !important;
     width: 298px !important;
     z-index: 1000 !important;
+
+    /* hardware acceleration ? */
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-perspective: 1000 !important;
+    perspective: 1000 !important;
+    /* end hardware acceleration */
+
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-modal.cfw-scrollable {
     padding-right: 20px !important;
@@ -1736,6 +1779,11 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     font-size: 15px !important;
     width: 274px !important;
 }
+.cfwhiteboard .cfw-window form [type="checkbox"],
+.cfwhiteboard .cfw-window form [type="radio"] {
+    display: inline !important;
+    width: auto !important;
+}
 .cfwhiteboard .cfw-window form input,
 .cfwhiteboard .cfw-window form textarea,
 .cfwhiteboard .cfw-window form .cfw-dropdown-toggle {
@@ -1801,8 +1849,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     border-color: #8D8A83 !important;
     border-style: solid !important;
     border-width: 1px !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
     box-shadow: none !important;
     color: #1d1a13 !important;
     cursor: text !important;
@@ -1885,15 +1931,11 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 .cfwhiteboard .cfw-window form .cfw-dropdown-toggle:hover {
     border-color: #8D8A83 !important;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.25),inset 0 0 3px #fff !important;
-    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.25),inset 0 0 3px #fff !important;
     box-shadow: 0 1px 2px rgba(0,0,0,0.25),inset 0 0 3px #fff !important;
 }
 .cfwhiteboard .cfw-window form .cfw-dropdown-toggle:active,
 .cfwhiteboard .cfw-window form .open .cfw-dropdown-toggle {
     border-color: #8D8A83 !important;
-    -webkit-box-shadow: inset 0 1px 1px #888 !important;
-    -moz-box-shadow: inset 0 1px 1px #888 !important;
     box-shadow: inset 0 1px 1px #888 !important;
 }
 .cfwhiteboard .cfw-window form .cfw-dropdown-menu li a {
@@ -1925,11 +1967,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     -moz-background-clip: padding !important;
     background-clip: padding-box !important;
     border: none !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
     box-shadow: none !important;
-    -webkit-border-radius: 3px !important;
-    -moz-border-radius: 3px !important;
     border-radius: 3px !important;
     color: #2c3e50 !important;
     cursor: pointer !important;
@@ -1952,8 +1990,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 .cfwhiteboard .cfw-window form input[type="reset"]:active,
 .cfwhiteboard .cfw-window .cfw-contents .cfw-btn:active,
 .cfwhiteboard .cfw-window .cfw-contents .cfw-btn.loading {
-    -webkit-box-shadow: inset 0 2px 6px 1px rgba(0,0,0,.2) !important;
-    -moz-box-shadow: inset 0 2px 6px 1px rgba(0,0,0,.2) !important;
     box-shadow: inset 0 2px 6px 1px rgba(0,0,0,.2) !important;
 }
 .cfwhiteboard .cfw-window form input[type="submit"],
@@ -1981,8 +2017,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
 }
 /*
 .cfwhiteboard .cfw-window .cfw-contents .cfw-btn-orange-text:active {
-    -webkit-box-shadow: inset 0 2px 6px 1px rgba(0,0,0,.9) !important;
-    -moz-box-shadow: inset 0 2px 6px 1px rgba(0,0,0,.9) !important;
     box-shadow: inset 0 2px 6px 1px rgba(0,0,0,.9) !important;
 }
 */
@@ -2035,6 +2069,16 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     -o-transition: 200ms all !important;
     transition: 200ms all !important;
     width: 282px !important;
+
+    /* hardware acceleration ? */
+    -webkit-transform: translateZ(0) !important;
+    transform: translateZ(0) !important;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-perspective: 1000 !important;
+    perspective: 1000 !important;
+    /* end hardware acceleration */
+
 }
 .cfwhiteboard .cfw-window form .cfw-notes.cfw-open {
     max-height: 320px !important;
@@ -2043,6 +2087,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     opacity: 1 !important;
     filter: alpha(opacity = 100) !important;
 }
+.cfwhiteboard .cfw-window form a.cfw-forget-me,
 .cfwhiteboard .cfw-window form a.cfw-add-notes,
 .cfwhiteboard .cfw-window form a.cfw-reset-password {
     color: #6d6a63 !important;
@@ -2061,6 +2106,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     *zoom: 1 !important;
     *display: inline !important;
 }
+.cfwhiteboard .cfw-window form a.cfw-forget-me:hover,
 .cfwhiteboard .cfw-window form a.cfw-add-notes:hover,
 .cfwhiteboard .cfw-window form a.cfw-reset-password:hover {
     color: #d35400 !important;
@@ -2074,6 +2120,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     display: none !important;
 }
 .cfwhiteboard .cfw-window form a.cfw-add-notes label {
+    color: inherit !important;
     display: inline !important;
 }
 .cfwhiteboard .cfw-window form a.cfw-add-notes strong {
@@ -2113,11 +2160,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     -moz-background-clip: padding !important;
     background-clip: padding-box !important;
     border: 1px solid #617193 !important;
-    -webkit-border-radius: 3px !important;
-    -moz-border-radius: 3px !important;
     border-radius: 3px !important;
-    -webkit-box-shadow: inset 0 1px 0 #adc2d7, 0 1px 1px #aaa !important;
-    -mox-box-shadow: inset 0 1px 0 #adc2d7, 0 1px 1px #aaa !important;
     box-shadow: inset 0 1px 0 #adc2d7, 0 1px 1px #aaa !important;
     height: 117px !important;
     padding: 51px 28px 0 !important;
@@ -2148,15 +2191,11 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     background: -ms-linear-gradient(top, #637bad 0%, #5872a7 100%) !important;
     background: linear-gradient(to bottom, #637bad 0%, #5872a7 100%) !important;
     border: 1px solid #29447e !important;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .3), inset 0 1px 0 #8a9cc2 !important;
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .3), inset 0 1px 0 #8a9cc2 !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .3), inset 0 1px 0 #8a9cc2 !important;
     color: #fff !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-card a.cfw-fb-action:active {
     background: #4f6aa3 !important;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .3) !important;
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .3) !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .3) !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-card a.cfw-fb-inaction {
@@ -2168,15 +2207,11 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
     background: -ms-linear-gradient(top, #f5f6f6 0%, #e0e0df 100%) !important;
     background: linear-gradient(to bottom, #f5f6f6 0%, #e0e0df 100%) !important;
     border: 1px solid #464646 !important;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .3), inset 0 1px 0 #fff !important;
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .3), inset 0 1px 0 #fff !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .3), inset 0 1px 0 #fff !important;
     color: #333 !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-card a.cfw-fb-inaction:active {
     background: #ddd !important;
-    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.3) !important;
-    -moz-box-shadow: 0 1px 1px rgba(0,0,0,.3) !important;
     box-shadow: 0 1px 1px rgba(0,0,0,.3) !important;
 }
 .cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-card .cfw-fb-footer {
@@ -2260,11 +2295,7 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
   border: 1px solid rgba(0, 0, 0, 0.2) !important;
   *border-right-width: 2px !important;
   *border-bottom-width: 2px !important;
-  -webkit-border-radius: 6px !important;
-  -moz-border-radius: 6px !important;
   border-radius: 6px !important;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !important;
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !important;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !important;
   -webkit-background-clip: padding-box !important;
   -moz-background-clip: padding !important;
@@ -2350,8 +2381,6 @@ body, button, input, select, textarea { font-family: sans-serif !important; colo
   left: 100% !important;
   margin-top: -6px !important;
   margin-left: -1px !important;
-  -webkit-border-radius: 0 6px 6px 6px !important;
-  -moz-border-radius: 0 6px 6px 6px !important;
   border-radius: 0 6px 6px 6px !important;
 }
 .cfwhiteboard .cfw-dropdown-submenu:hover .cfw-dropdown-menu {
