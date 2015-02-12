@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact affiliatesupport@cfwhiteboard.com for more information or for a product demo.
-Version: 2.4.5
+Version: 2.4.6
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '2.4.5';
+$CFWHITEBOARD_VERSION = '2.4.6';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -3061,7 +3061,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                 return;
             }
             window.CFW = {};
-            CFW.domain = (window.location.protocol == 'https:' ? 'https:' : 'http:') + (/[.]local/.test(window.location.host) || /yestech/.test(window.location.host) || /squatc/.test(window.location.host) ? '//tameron.herokuapp.com' : '//cfwhiteboard.com');
+            CFW.domain = (window.location.protocol == 'https:' ? 'https:' : 'http:') + (/[.]local/.test(window.location.host) || /ollli/.test(window.location.host) || /squatc/.test(window.location.host) ? '//tameron.herokuapp.com' : '//cfwhiteboard.com');
             // Safely pull a property from the depths of an object.  Default value is returned if the requested property was not defined.
             // CFW.oxygenTank = function(base_object, 'level_1_property_name', ..., 'level_N_property_name', default_value) {...};
             CFW.oxygenTank = function() {
@@ -4752,9 +4752,12 @@ if (!function_exists('json_encode'))
 }
 
 
-add_action('export_wp', 'cfwhiteboard_fill_missing_whiteboard_ids');
-/* Fill missing whiteboard IDs in post meta */
-function cfwhiteboard_fill_missing_whiteboard_ids() {
+add_action('export_wp', 'cfwhiteboard_prepare_for_export');
+// This function does 2 things:
+// 1 - Fill missing whiteboard IDs in post meta.
+// 2 - Replace all instances of \r\n with \n, to prevent data corruption when exporting serialized DB fields to XML.
+// http://wordpress.stackexchange.com/questions/42360/with-wordpress-importer-why-cant-i-import-post-meta-containing-a-multi-dimensi
+function cfwhiteboard_prepare_for_export() {
     global $CFWHITEBOARD_WODS_META_KEY;
     global $CFWHITEBOARD_WHITEBOARD_ID_META_KEY;
 
@@ -4772,11 +4775,21 @@ function cfwhiteboard_fill_missing_whiteboard_ids() {
     foreach ($posts as $post) {
         $id = $post->ID;
 
-        $whiteboard_id = cfwhiteboard_get_whiteboard_id($id, true);
         $wods = cfwhiteboard_get_wods($id);
+
+        // 1 - Fill missing whiteboard IDs in post meta
+        $whiteboard_id = cfwhiteboard_get_whiteboard_id($id, true);
         if (empty($whiteboard_id) && is_array($wods) && !empty($wods)) {
             update_post_meta($id, $CFWHITEBOARD_WHITEBOARD_ID_META_KEY, cfwhiteboard_generate_legacy_whiteboard_id($id));
         }
+
+        // 2 - Replace all instances of \r\n with \n, to prevent data corruption when exporting serialized DB fields to XML.
+        // http://wordpress.stackexchange.com/questions/42360/with-wordpress-importer-why-cant-i-import-post-meta-containing-a-multi-dimensi
+        if (is_array($wods) && !empty($wods)) {
+            $clean_wods = cfwhiteboard_clean_post_meta_linebreaks($wods);
+            update_post_meta($id, $CFWHITEBOARD_WODS_META_KEY, $clean_wods);
+        }
+
 
             // // update the post_modified time to force CFW servers to fetch new wod data
             // $new_post_modified = strtotime(get_the_modified_time('Y-m-d H:i:s')) + 1000;
@@ -4788,6 +4801,27 @@ function cfwhiteboard_fill_missing_whiteboard_ids() {
             // );
             // wp_update_post($post_data);
     }
+}
+function cfwhiteboard_clean_post_meta_linebreaks( $wods ) {
+    // Clean the meta values (\r\n line breaks replaced with just \n)
+
+    if (! is_array($wods)) return $wods;
+
+    foreach ($wods as &$wod) {
+        if (! is_array($wod['components'])) continue;
+
+        foreach ($wod['components'] as &$component) {
+            if (!empty($component['label'])) {
+                $component['label'] = str_replace("\r\n", "\n", $component['label']);
+            }
+
+            if (!empty($component['description'])) {
+                $component['description'] = str_replace("\r\n", "\n", $component['description']);
+            }
+        }
+    }
+
+    return $wods;
 }
 
 
