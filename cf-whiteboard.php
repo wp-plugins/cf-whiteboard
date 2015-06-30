@@ -3,11 +3,11 @@
 Plugin Name: CF Whiteboard
 Plugin URI: http://cfwhiteboard.com
 Description: Connects CF Whiteboard to your blog. Please contact help@cfwhiteboard.com for more information or for a product demo.
-Version: 2.5.0
+Version: 2.5.1
 Author: CF Whiteboard
 */
 global $CFWHITEBOARD_VERSION;
-$CFWHITEBOARD_VERSION = '2.5.0';
+$CFWHITEBOARD_VERSION = '2.5.1';
 
 
 register_activation_hook(__FILE__, 'cfwhiteboard_install');
@@ -975,7 +975,7 @@ function cfwhiteboard_options_page() {
                     </div>
 
                     <p style="font-size:16px; font-weight:200;">
-                        While installation is just one click away, it's always good to contact us for free support so we can make sure there aren't any conflicts with themes, plugins, or site specific settings. Just call or email us! <strong>(720) 432-1204</strong> or <strong><a href="mailto:faye@cfwhiteboard.com" target="_blank">faye@cfwhiteboard.com</a></strong>
+                        While installation is just one click away, it's always good to contact us for free support so we can make sure there aren't any conflicts with themes, plugins, or site specific settings. <strong><a href="mailto:help@cfwhiteboard.com" target="_blank">help@cfwhiteboard.com</a></strong>
                     </p>
                 <?php } else { ?>
 
@@ -2998,8 +2998,7 @@ function cfwhiteboard_wods_meta_box($object, $box) {
                     <div id="cfw-error-fetching-benchmarks-notice" style="display:none;">
                         <div class="well well-small" style="margin:0 0 20px;">
                             Error getting data for the benchmark workouts. If <a href="javascript:window.location.reload(true);">refreshing the page</a> doesn't help (don't forget to save your work!),
-                            please contact us so that we can look into it. Call or Text: <strong>(720) 432-1204</strong>,
-                            or Email: <strong><a href="mailto:help@cfwhiteboard.com" target="_blank">help@cfwhiteboard.com</a></strong>
+                            please contact us so that we can look into it. <strong><a href="mailto:help@cfwhiteboard.com" target="_blank">help@cfwhiteboard.com</a></strong>
                         </div>
                     </div>
                 <!--
@@ -3116,65 +3115,79 @@ function cfwhiteboard_wods_meta_box($object, $box) {
             if (typeof(window.Palette) != 'undefined') {
                 // Restore original version of Backbone.sync...
                 // BackboneJS v1.2.1
-                Backbone.sync = function(method, model, options) {
-                    var type = methodMap[method];
-
-                    // Default options, unless specified.
-                    _.defaults(options || (options = {}), {
-                      emulateHTTP: Backbone.emulateHTTP,
-                      emulateJSON: Backbone.emulateJSON
-                    });
-
-                    // Default JSON-request options.
-                    var params = {type: type, dataType: 'json'};
-
-                    // Ensure that we have a URL.
-                    if (!options.url) {
-                      params.url = _.result(model, 'url') || urlError();
-                    }
-
-                    // Ensure that we have the appropriate request data.
-                    if (options.data == null && model && (method === 'create' || method === 'update' || method === 'patch')) {
-                      params.contentType = 'application/json';
-                      params.data = JSON.stringify(options.attrs || model.toJSON(options));
-                    }
-
-                    // For older servers, emulate JSON by encoding the request into an HTML-form.
-                    if (options.emulateJSON) {
-                      params.contentType = 'application/x-www-form-urlencoded';
-                      params.data = params.data ? {model: params.data} : {};
-                    }
-
-                    // For older servers, emulate HTTP by mimicking the HTTP method with `_method`
-                    // And an `X-HTTP-Method-Override` header.
-                    if (options.emulateHTTP && (type === 'PUT' || type === 'DELETE' || type === 'PATCH')) {
-                      params.type = 'POST';
-                      if (options.emulateJSON) params.data._method = type;
-                      var beforeSend = options.beforeSend;
-                      options.beforeSend = function(xhr) {
-                        xhr.setRequestHeader('X-HTTP-Method-Override', type);
-                        if (beforeSend) return beforeSend.apply(this, arguments);
-                      };
-                    }
-
-                    // Don't process data on a non-GET request.
-                    if (params.type !== 'GET' && !options.emulateJSON) {
-                      params.processData = false;
-                    }
-
-                    // Pass along `textStatus` and `errorThrown` from jQuery.
-                    var error = options.error;
-                    options.error = function(xhr, textStatus, errorThrown) {
-                      options.textStatus = textStatus;
-                      options.errorThrown = errorThrown;
-                      if (error) error.call(options.context, xhr, textStatus, errorThrown);
+                (function() {
+                    var methodMap = {
+                        'create': 'POST',
+                        'update': 'PUT',
+                        'patch':  'PATCH',
+                        'delete': 'DELETE',
+                        'read':   'GET'
                     };
 
-                    // Make the request, allowing the user to override any Ajax options.
-                    var xhr = options.xhr = Backbone.ajax(_.extend(params, options));
-                    model.trigger('request', model, xhr, options);
-                    return xhr;
-                };
+                    var urlError = function() {
+                        throw new Error('A "url" property or function must be specified');
+                    };
+
+                    Backbone.sync = function(method, model, options) {
+                        var type = methodMap[method];
+
+                        // Default options, unless specified.
+                        _.defaults(options || (options = {}), {
+                          emulateHTTP: Backbone.emulateHTTP,
+                          emulateJSON: Backbone.emulateJSON
+                        });
+
+                        // Default JSON-request options.
+                        var params = {type: type, dataType: 'json'};
+
+                        // Ensure that we have a URL.
+                        if (!options.url) {
+                          params.url = _.result(model, 'url') || urlError();
+                        }
+
+                        // Ensure that we have the appropriate request data.
+                        if (options.data == null && model && (method === 'create' || method === 'update' || method === 'patch')) {
+                          params.contentType = 'application/json';
+                          params.data = JSON.stringify(options.attrs || model.toJSON(options));
+                        }
+
+                        // For older servers, emulate JSON by encoding the request into an HTML-form.
+                        if (options.emulateJSON) {
+                          params.contentType = 'application/x-www-form-urlencoded';
+                          params.data = params.data ? {model: params.data} : {};
+                        }
+
+                        // For older servers, emulate HTTP by mimicking the HTTP method with `_method`
+                        // And an `X-HTTP-Method-Override` header.
+                        if (options.emulateHTTP && (type === 'PUT' || type === 'DELETE' || type === 'PATCH')) {
+                          params.type = 'POST';
+                          if (options.emulateJSON) params.data._method = type;
+                          var beforeSend = options.beforeSend;
+                          options.beforeSend = function(xhr) {
+                            xhr.setRequestHeader('X-HTTP-Method-Override', type);
+                            if (beforeSend) return beforeSend.apply(this, arguments);
+                          };
+                        }
+
+                        // Don't process data on a non-GET request.
+                        if (params.type !== 'GET' && !options.emulateJSON) {
+                          params.processData = false;
+                        }
+
+                        // Pass along `textStatus` and `errorThrown` from jQuery.
+                        var error = options.error;
+                        options.error = function(xhr, textStatus, errorThrown) {
+                          options.textStatus = textStatus;
+                          options.errorThrown = errorThrown;
+                          if (error) error.call(options.context, xhr, textStatus, errorThrown);
+                        };
+
+                        // Make the request, allowing the user to override any Ajax options.
+                        var xhr = options.xhr = Backbone.ajax(_.extend(params, options));
+                        model.trigger('request', model, xhr, options);
+                        return xhr;
+                    };
+                })();
             }
 
             CFW.getAffiliateDetails = function() {

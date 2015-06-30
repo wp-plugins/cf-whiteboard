@@ -3,7 +3,7 @@ Contributors: collindo
 Tags: crossfit, wod, fitness, workout, tracking, tracker, sports, exercise, team, training, trainer, coach, athlete, gym, logbook, attendance
 Requires at least: 3.5
 Tested up to: 4.2.2
-Stable tag: 2.5.0
+Stable tag: 2.5.1
 
 CF Whiteboard turns your website and WOD Blog into a full-featured CrossFit<sup>&reg;</sup> workout tracker.
 
@@ -27,9 +27,11 @@ The whiteboard contains external links for athlete support purposes.  By install
 
 == Changelog ==
 
+= 2.5.1 =
+* Workaround for sites using Theme Fusion themes.
+
 = 2.5.0 =
 * Updated Whiteboard theme.
-* Workaround for sites using Theme Fusion themes.
 
 = 2.4.6 =
 * Workaround a WordPress bug with WordPress export/import that caused corrupted Whiteboard data (had no effect on athlete data).
