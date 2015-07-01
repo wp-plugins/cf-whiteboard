@@ -1,0 +1,2400 @@
+.cfwhiteboard div, .cfwhiteboard span, .cfwhiteboard object, .cfwhiteboard iframe,
+.cfwhiteboard h1, .cfwhiteboard h2, .cfwhiteboard h3, .cfwhiteboard h4, .cfwhiteboard h5, .cfwhiteboard h6, .cfwhiteboard p, .cfwhiteboard blockquote, .cfwhiteboard pre,
+.cfwhiteboard abbr, .cfwhiteboard address, .cfwhiteboard cite, .cfwhiteboard code,
+.cfwhiteboard del, .cfwhiteboard dfn, .cfwhiteboard em, .cfwhiteboard img, .cfwhiteboard ins, .cfwhiteboard kbd, .cfwhiteboard q, .cfwhiteboard samp,
+.cfwhiteboard small, .cfwhiteboard strong, .cfwhiteboard sub, .cfwhiteboard sup, .cfwhiteboard var,
+.cfwhiteboard b, .cfwhiteboard i,
+.cfwhiteboard dl, .cfwhiteboard dt, .cfwhiteboard dd, .cfwhiteboard ol, .cfwhiteboard ul, .cfwhiteboard li,
+.cfwhiteboard fieldset, .cfwhiteboard form, .cfwhiteboard label, .cfwhiteboard legend,
+.cfwhiteboard table, .cfwhiteboard caption, .cfwhiteboard tbody, .cfwhiteboard tfoot, .cfwhiteboard thead, .cfwhiteboard tr, .cfwhiteboard th, .cfwhiteboard td,
+.cfwhiteboard article, .cfwhiteboard aside, .cfwhiteboard canvas, .cfwhiteboard details, .cfwhiteboard figcaption, .cfwhiteboard figure,
+.cfwhiteboard footer, .cfwhiteboard header, .cfwhiteboard hgroup, .cfwhiteboard menu, .cfwhiteboard nav, .cfwhiteboard section, .cfwhiteboard summary,
+.cfwhiteboard time, .cfwhiteboard mark, .cfwhiteboard audio, .cfwhiteboard video {
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    outline:0 !important;
+    font-size:100% !important;
+    vertical-align:baseline !important;
+    background:transparent !important;
+}
+
+.cfwhiteboard article, .cfwhiteboard aside, .cfwhiteboard details, .cfwhiteboard figcaption, .cfwhiteboard figure,
+.cfwhiteboard footer, .cfwhiteboard header, .cfwhiteboard hgroup, .cfwhiteboard menu, .cfwhiteboard nav, .cfwhiteboard section { 
+    display:block !important;
+}
+
+.cfwhiteboard blockquote:before, .cfwhiteboard blockquote:after,
+.cfwhiteboard q:before, .cfwhiteboard q:after {
+    content:'' !important;
+    content:none !important;
+}
+
+.cfwhiteboard a {
+    margin:0 !important;
+    padding:0 !important;
+    font-size:100% !important;
+    vertical-align:baseline !important;
+    background:transparent !important;
+}
+
+/* change colours to suit your needs */
+.cfwhiteboard ins {
+    background-color:#ff9 !important;
+    color:#000 !important;
+    text-decoration:none !important;
+}
+
+/* change colours to suit your needs */
+.cfwhiteboard mark {
+    background-color:#ff9 !important;
+    color:#000 !important; 
+    font-style:italic !important;
+    font-weight:bold !important;
+}
+
+.cfwhiteboard del {
+    text-decoration: line-through !important;
+}
+
+.cfwhiteboard abbr[title], .cfwhiteboard dfn[title] {
+    border-bottom:1px dotted !important;
+    cursor:help !important;
+}
+
+.cfwhiteboard table {
+    border-collapse:collapse !important;
+    border-spacing:0 !important;
+}
+
+/* change border colour to suit your needs */
+.cfwhiteboard hr {
+    display:block !important;
+    height:1px !important;
+    border:0 !important;   
+    border-top:1px solid #cccccc !important;
+    margin:1em 0 !important;
+    padding:0 !important;
+}
+
+.cfwhiteboard input, .cfwhiteboard select {
+    vertical-align:middle !important;
+}
+
+
+
+/* 
+ * HTML5 ✰ Boilerplate
+ *
+ * What follows is the result of much research on cross-browser styling. 
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ *
+ * Detailed information about this CSS: h5bp.com/css
+ * 
+ * ==|== normalize ==========================================================
+ */
+
+
+/* =============================================================================
+   HTML5 display definitions
+   ========================================================================== */
+
+.cfwhiteboard article, .cfwhiteboard aside, .cfwhiteboard details, .cfwhiteboard figcaption, .cfwhiteboard figure, .cfwhiteboard footer, .cfwhiteboard header, .cfwhiteboard hgroup, .cfwhiteboard nav, .cfwhiteboard section { display: block !important; }
+.cfwhiteboard audio, .cfwhiteboard canvas, .cfwhiteboard video { display: inline-block !important; *display: inline !important; *zoom: 1 !important; }
+.cfwhiteboard audio:not([controls]) { display: none !important; }
+.cfwhiteboard [hidden] { display: none !important; }
+
+/* =============================================================================
+   Base
+   ========================================================================== */
+
+/*
+ * 1. Correct text resizing oddly in IE6/7 when body font-size is set using em units
+ * 2. Force vertical scrollbar in non-IE
+ * 3. Prevent iOS text size adjust on device orientation change, without disabling user zoom: h5bp.com/g
+ */
+/*
+html { font-size: 100% !important; overflow-y: scroll !important; -webkit-text-size-adjust: 100% !important; -ms-text-size-adjust: 100% !important; }
+
+body { margin: 0 !important; font-size: 13px !important; line-height: 1.231 !important; }
+
+body, button, input, select, textarea { font-family: sans-serif !important; color: #222 !important; }
+*/
+/* 
+ * Remove text-shadow in selection highlight: h5bp.com/i
+ * These selection declarations have to be separate
+ * Also: hot pink! (or customize the background color to match your design)
+ */
+/*
+::-moz-selection { background: #fe57a1 !important; color: #fff !important; text-shadow: none !important; }
+::selection { background: #fe57a1 !important; color: #fff !important; text-shadow: none !important; }
+*/
+
+/* =============================================================================
+   Links
+   ========================================================================== */
+
+.cfwhiteboard a { color: #00e !important; }
+.cfwhiteboard a:visited { color: #551a8b !important; }
+.cfwhiteboard a:hover { color: #06e !important; }
+.cfwhiteboard a:focus { outline: thin dotted !important; }
+
+/* Improve readability when focused and hovered in all browsers: h5bp.com/h */
+.cfwhiteboard a:hover, .cfwhiteboard a:active { outline: 0 !important; }
+
+
+/* =============================================================================
+   Typography
+   ========================================================================== */
+
+.cfwhiteboard abbr[title] { border-bottom: 1px dotted !important; }
+
+.cfwhiteboard b, .cfwhiteboard strong { font-weight: bold !important; }
+
+.cfwhiteboard blockquote { margin: 1em 40px !important; }
+
+.cfwhiteboard dfn { font-style: italic !important; }
+
+.cfwhiteboard hr { display: block !important; height: 1px !important; border: 0 !important; border-top: 1px solid #ccc !important; margin: 1em 0 !important; padding: 0 !important; }
+
+.cfwhiteboard ins { background: #ff9 !important; color: #000 !important; text-decoration: none !important; }
+
+.cfwhiteboard mark { background: #ff0 !important; color: #000 !important; font-style: italic !important; font-weight: bold !important; }
+
+/* Redeclare monospace font family: h5bp.com/j */
+.cfwhiteboard pre, .cfwhiteboard code, .cfwhiteboard kbd, .cfwhiteboard samp { font-family: monospace, monospace !important; _font-family: 'courier new', monospace !important; font-size: 1em !important; }
+
+/* Improve readability of pre-formatted text in all browsers */
+.cfwhiteboard pre { white-space: pre !important; white-space: pre-wrap !important; word-wrap: break-word !important; }
+
+.cfwhiteboard q { quotes: none !important; }
+.cfwhiteboard q:before, .cfwhiteboard q:after { content: "" !important; content: none !important; }
+
+.cfwhiteboard small { font-size: 85% !important; }
+
+/* Position subscript and superscript content without affecting line-height: h5bp.com/k */
+.cfwhiteboard sub, .cfwhiteboard sup { font-size: 75% !important; line-height: 0 !important; position: relative !important; vertical-align: baseline !important; }
+.cfwhiteboard sup { top: -0.5em !important; }
+.cfwhiteboard sub { bottom: -0.25em !important; }
+
+
+/* =============================================================================
+   Lists
+   ========================================================================== */
+
+.cfwhiteboard ul, .cfwhiteboard ol { margin: 1em 0 !important; padding: 0 0 0 40px !important; }
+.cfwhiteboard dd { margin: 0 0 0 40px !important; }
+.cfwhiteboard nav ul, .cfwhiteboard nav ol { list-style: none !important; list-style-image: none !important; margin: 0 !important; padding: 0 !important; }
+
+
+/* =============================================================================
+   Embedded content
+   ========================================================================== */
+
+/*
+ * 1. Improve image quality when scaled in IE7: h5bp.com/d
+ * 2. Remove the gap between images and borders on image containers: h5bp.com/e 
+ */
+
+.cfwhiteboard img { border: 0 !important; -ms-interpolation-mode: bicubic !important; vertical-align: middle !important; }
+
+/*
+ * Correct overflow not hidden in IE9 
+ */
+
+.cfwhiteboard svg:not(:root) { overflow: hidden !important; }
+
+
+/* =============================================================================
+   Figures
+   ========================================================================== */
+
+.cfwhiteboard figure { margin: 0 !important; }
+
+
+/* =============================================================================
+   Forms
+   ========================================================================== */
+
+.cfwhiteboard form { margin: 0 !important; }
+.cfwhiteboard fieldset { border: 0 !important; margin: 0 !important; padding: 0 !important; }
+
+/* Indicate that 'label' will shift focus to the associated form element */
+.cfwhiteboard label { cursor: pointer !important; }
+
+/* 
+ * 1. Correct color not inheriting in IE6/7/8/9 
+ * 2. Correct alignment displayed oddly in IE6/7 
+ */
+
+.cfwhiteboard legend { border: 0 !important; *margin-left: -7px !important; padding: 0 !important; }
+
+/*
+ * 1. Correct font-size not inheriting in all browsers
+ * 2. Remove margins in FF3/4 S5 Chrome
+ * 3. Define consistent vertical alignment display in all browsers
+ */
+
+.cfwhiteboard button, .cfwhiteboard input, .cfwhiteboard select, .cfwhiteboard textarea { font-size: 100% !important; margin: 0 !important; vertical-align: baseline !important; *vertical-align: middle !important; }
+
+/*
+ * 1. Define line-height as normal to match FF3/4 (set using !important in the UA stylesheet)
+ * 2. Correct inner spacing displayed oddly in IE6/7
+ */
+
+.cfwhiteboard button, .cfwhiteboard input { line-height: normal !important; *overflow: visible !important; }
+
+/*
+ * Reintroduce inner spacing in 'table' to avoid overlap and whitespace issues in IE6/7
+ */
+
+.cfwhiteboard table button, .cfwhiteboard table input { *overflow: auto !important; }
+
+/*
+ * 1. Display hand cursor for clickable form elements
+ * 2. Allow styling of clickable form elements in iOS
+ */
+
+.cfwhiteboard button, .cfwhiteboard input[type="button"], .cfwhiteboard input[type="reset"], .cfwhiteboard input[type="submit"] { cursor: pointer !important; -webkit-appearance: button !important; }
+
+/*
+ * Consistent box sizing and appearance
+ */
+
+.cfwhiteboard input[type="checkbox"], .cfwhiteboard input[type="radio"] { box-sizing: border-box !important; }
+.cfwhiteboard input[type="search"] { -webkit-appearance: textfield !important; -moz-box-sizing: content-box !important; -webkit-box-sizing: content-box !important; box-sizing: content-box !important; }
+.cfwhiteboard input[type="search"]::-webkit-search-decoration { -webkit-appearance: none !important; }
+
+/* 
+ * Remove inner padding and border in FF3/4: h5bp.com/l 
+ */
+
+.cfwhiteboard button::-moz-focus-inner, .cfwhiteboard input::-moz-focus-inner { border: 0 !important; padding: 0 !important; }
+
+/* 
+ * 1. Remove default vertical scrollbar in IE6/7/8/9 
+ * 2. Allow only vertical resizing
+ */
+
+.cfwhiteboard textarea { overflow: auto !important; vertical-align: top !important; resize: vertical !important; }
+
+/* Colors for form validity */
+.cfwhiteboard input:valid, .cfwhiteboard textarea:valid {  }
+.cfwhiteboard input:invalid, .cfwhiteboard textarea:invalid { background-color: #f0dddd !important; }
+
+
+/* =============================================================================
+   Tables
+   ========================================================================== */
+
+.cfwhiteboard table { border-collapse: collapse !important; border-spacing: 0 !important; }
+.cfwhiteboard td { vertical-align: top !important; }
+
+
+/* ==|== primary styles =====================================================
+   Author: 
+   ========================================================================== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==|== non-semantic helper classes ========================================
+   Please define your styles before this section.
+   ========================================================================== */
+
+/* For image replacement */
+/*
+.ir { display: block !important; border: 0 !important; text-indent: -999em !important; overflow: hidden !important; background-color: transparent !important; background-repeat: no-repeat !important; text-align: left !important; direction: ltr !important; }
+.ir br { display: none !important; }
+*/
+/* Hide from both screenreaders and browsers: h5bp.com/u */
+/*.cfwhiteboard .hidden { display: none !important !important; visibility: hidden !important; }*/
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+/*
+.visuallyhidden { border: 0 !important; clip: rect(0 0 0 0) !important; height: 1px !important; margin: -1px !important; overflow: hidden !important; padding: 0 !important; position: absolute !important; width: 1px !important; }
+*/
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p */
+/*
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto !important; height: auto !important; margin: 0 !important; overflow: visible !important; position: static !important; width: auto !important; }
+*/
+
+/* Hide visually and from screenreaders, but maintain layout */
+/*
+.invisible { visibility: hidden !important; }
+*/
+
+/* Contain floats: h5bp.com/q */ 
+/*
+.clearfix:before, .clearfix:after { content: "" !important; display: table !important; }
+.clearfix:after { clear: both !important; }
+.clearfix { zoom: 1 !important; }
+*/
+
+
+/* ==|== media queries ======================================================
+   PLACEHOLDER Media Queries for Responsive Design.
+   These override the primary ('mobile first') styles
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 480px) {
+  /* Style adjustments for viewports 480px and over go here */
+
+}
+
+@media only screen and (min-width: 768px) {
+  /* Style adjustments for viewports 768px and over go here */
+
+}
+
+
+
+/* ==|== print styles =======================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+ 
+@media print {
+  * { background: transparent !important !important; color: black !important !important; text-shadow: none !important !important; filter:none !important !important; -ms-filter: none !important !important; } /* Black prints faster: h5bp.com/s */
+  a, a:visited { text-decoration: underline !important; }
+  a[href]:after { content: " (" attr(href) ")" !important; }
+  abbr[title]:after { content: " (" attr(title) ")" !important; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: "" !important; }  /* Don't show links for images, or javascript/internal links */
+  pre, blockquote { border: 1px solid #999 !important; page-break-inside: avoid !important; }
+  thead { display: table-header-group !important; } /* h5bp.com/t */
+  tr, img { page-break-inside: avoid !important; }
+  img { max-width: 100% !important !important; }
+  @page { margin: 0.5cm !important; }
+  p, h2, h3 { orphans: 3 !important; widows: 3 !important; }
+  h2, h3 { page-break-after: avoid !important; }
+}
+/*!
+* CleanSlate
+*   github.com/premasagar/cleanslate
+*
+*//*
+    An extreme CSS reset stylesheet, for normalising the styling of a container element and its children.
+
+    by Premasagar Rose
+        dharmafly.com
+
+    license
+        opensource.org/licenses/mit-license.php
+
+    **
+        
+    v0.9.2
+        
+*/
+
+/* == BLANKET RESET RULES == */
+
+/* HTML 4.01 */
+.cleanslate, .cleanslate h1, .cleanslate h2, .cleanslate h3, .cleanslate h4, .cleanslate h5, .cleanslate h6, .cleanslate p, .cleanslate table tr td, .cleanslate dl, .cleanslate table tr, .cleanslate dt, .cleanslate ol, .cleanslate form, .cleanslate select, .cleanslate option, .cleanslate pre, .cleanslate div, .cleanslate table,  .cleanslate table tr th, .cleanslate table tbody, .cleanslate table tfoot, .cleanslate caption, .cleanslate table thead, .cleanslate ul, .cleanslate li, .cleanslate address, .cleanslate blockquote, .cleanslate dd, .cleanslate fieldset, .cleanslate li, .cleanslate iframe, .cleanslate strong, .cleanslate legend, .cleanslate em, .cleanslate s, .cleanslate cite, .cleanslate span, .cleanslate input, .cleanslate sup, .cleanslate label, .cleanslate dfn, .cleanslate object, .cleanslate big, .cleanslate q, .cleanslate font, .cleanslate samp, .cleanslate acronym, .cleanslate small, .cleanslate img, .cleanslate strike, .cleanslate code, .cleanslate sub, .cleanslate ins, .cleanslate textarea, .cleanslate var, .cleanslate a, .cleanslate abbr, .cleanslate applet, .cleanslate del, .cleanslate kbd, .cleanslate tt, .cleanslate b, .cleanslate i, .cleanslate hr,
+
+/* HTML5 */
+.cleanslate article, .cleanslate aside, .cleanslate dialog, .cleanslate figure, .cleanslate footer, .cleanslate header, .cleanslate hgroup, .cleanslate menu, .cleanslate nav, .cleanslate section, .cleanslate time, .cleanslate mark, .cleanslate audio, .cleanslate video {
+	background-attachment:scroll !important;
+	background-color:transparent !important;
+	background-image:none !important; /* This rule affects the use of pngfix JavaScript http://dillerdesign.com/experiment/DD_BelatedPNG for IE6, which is used to force the browser to recognise alpha-transparent PNGs files that replace the IE6 lack of PNG transparency. (The rule overrides the VML image that is used to replace the given CSS background-image). If you don't know what that means, then you probably haven't used the pngfix script, and this comment may be ignored :) */
+	background-position:0 0 !important;
+	background-repeat:repeat !important;
+	border-color:black !important;
+	border-color:currentColor !important; /* `border-color` should match font color. Modern browsers (incl. IE9) allow the use of "currentColor" to match the current font 'color' value <http://www.w3.org/TR/css3-color/#currentcolor>. For older browsers, a default of 'black' is given before this rule. Guideline to support older browsers: if you haven't already declared a border-color for an element, be sure to do so, e.g. when you first declare the border-width. */
+	border-radius:0 !important;
+	border-style:none !important;
+	border-width:medium !important;
+	bottom:auto !important;
+	-webkit-box-sizing: content-box !important;
+	-moz-box-sizing: content-box !important;
+	box-sizing: content-box !important;
+	clear:none !important;
+/*  clip:auto !important;*/
+	color:inherit !important;
+	counter-increment:none !important;
+	counter-reset:none !important;
+	cursor:auto !important;
+	direction:inherit !important;
+	display:inline !important;
+	float:none !important;
+	font-family: inherit !important; /* As with other inherit values, this needs to be set on the root container element */
+	font-size: inherit !important;
+	font-style:inherit !important;
+	font-variant:normal !important;
+	font-weight:inherit !important;
+	height:auto !important;
+	left:auto !important;
+	letter-spacing:normal !important;
+	line-height:inherit !important;
+	list-style-type: inherit !important; /* Could set list-style-type to none */
+	list-style-position: outside !important;
+	list-style-image: none !important;
+	margin:0 !important;
+	max-height:none !important;
+	max-width:none !important;
+	min-height:0 !important;
+	min-width:0 !important;
+	opacity:1 !important;
+	outline:invert none medium !important;
+	overflow:visible !important;
+	padding:0 !important;
+	position:static !important;
+	quotes: "" "" !important;
+	right:auto !important;
+	table-layout:auto !important;
+	text-align:inherit !important;
+	text-decoration:inherit !important;
+	text-indent:0 !important;
+	text-transform:none !important;
+	top:auto !important;
+	unicode-bidi:normal !important;
+	vertical-align:baseline !important;
+	visibility:inherit !important;
+	white-space:normal !important;
+	width:auto !important;
+	word-spacing:normal !important;
+	z-index:auto !important;
+	
+	/* Proprietary and draft rules */
+    /* This section needs extending */
+	-moz-border-radius:0 !important;
+	-webkit-border-radius:0 !important;
+}
+
+/* == BLOCK-LEVEL == */
+/* Actually, some of these should be inline-block and other values, but block works fine (TODO: rigorously verify this) */
+/* HTML 4.01 */
+.cleanslate, .cleanslate h3, .cleanslate h5, .cleanslate p, .cleanslate h1, .cleanslate dl, .cleanslate dt, .cleanslate h6, .cleanslate ol, .cleanslate form, .cleanslate select, .cleanslate option, .cleanslate pre, .cleanslate div, .cleanslate h2, .cleanslate caption, .cleanslate h4, .cleanslate ul, .cleanslate address, .cleanslate blockquote, .cleanslate dd, .cleanslate fieldset, .cleanslate textarea, .cleanslate hr,
+/* HTML5 new elements */
+.cleanslate article, .cleanslate aside, .cleanslate dialog, .cleanslate figure, .cleanslate footer, .cleanslate header, .cleanslate hgroup, .cleanslate menu, .cleanslate nav, .cleanslate section {
+    display:block !important; 
+}
+.cleanslate table {
+    display: table !important;
+}
+.cleanslate table thead {
+    display: table-header-group !important;
+}
+.cleanslate table tbody {
+    display: table-row-group !important;
+}
+.cleanslate table tfoot {
+    display: table-footer-group !important;
+}
+.cleanslate table tr {
+    display: table-row !important;
+}
+.cleanslate table tr th, .cleanslate table tr td {
+    display: table-cell !important;
+}
+/* == SPECIFIC ELEMENTS == */
+/* Some of these are browser defaults !important; some are just useful resets */
+
+.cleanslate nav ul, .cleanslate nav ol {
+	list-style-type:none !important;
+}
+.cleanslate ul, .cleanslate menu {
+	list-style-type:disc !important;
+}
+.cleanslate ol {
+	list-style-type:decimal !important;
+}
+.cleanslate ol ul, .cleanslate ul ul, .cleanslate menu ul, .cleanslate ol menu, .cleanslate ul menu, .cleanslate menu menu {
+	list-style-type:circle !important;
+}
+.cleanslate ol ol ul, .cleanslate ol ul ul, .cleanslate ol menu ul, .cleanslate ol ol menu, .cleanslate ol ul menu, .cleanslate ol menu menu, .cleanslate ul ol ul, .cleanslate ul ul ul, .cleanslate ul menu ul, .cleanslate ul ol menu, .cleanslate ul ul menu, .cleanslate ul menu menu, .cleanslate menu ol ul, .cleanslate menu ul ul, .cleanslate menu menu ul, .cleanslate menu ol menu, .cleanslate menu ul menu, .cleanslate menu menu menu {
+	list-style-type:square !important;
+}
+.cleanslate li {	
+	display:list-item !important;
+	/* Fixes IE7 issue with positioning of nested bullets */
+	min-height:auto !important;
+	min-width:auto !important;
+}
+.cleanslate strong {
+	font-weight:bold !important;
+}
+.cleanslate em {
+	font-style:italic !important;
+}
+.cleanslate kbd, .cleanslate samp, .cleanslate code {
+  font-family:monospace !important;
+}
+.cleanslate a, .cleanslate a *, .cleanslate input[type=submit], .cleanslate input[type=radio], .cleanslate input[type=checkbox], .cleanslate select {
+	cursor:pointer !important;
+}
+.cleanslate a:hover {
+	text-decoration:none !important;
+}
+.cleanslate button, .cleanslate input[type=submit] {
+  text-align: center !important;
+}
+.cleanslate input[type=hidden] {
+	display:none !important;
+}
+.cleanslate abbr[title], .cleanslate acronym[title], .cleanslate dfn[title] {
+	cursor:help !important;
+    border-bottom-width:1px !important;
+	border-bottom-style:dotted !important;
+}
+.cleanslate ins {
+	background-color:#ff9 !important;
+	color:black !important;
+}
+.cleanslate del {
+	text-decoration: line-through !important;
+}
+.cleanslate blockquote, .cleanslate q  {
+	quotes:none !important; /* HTML5 */
+}
+.cleanslate blockquote:before, .cleanslate blockquote:after, .cleanslate q:before, .cleanslate q:after, .cleanslate li:before, .cleanslate li:after  {
+	content:"" !important;
+}
+.cleanslate input,
+.cleanslate input[type="color"],
+.cleanslate input[type="date"],
+.cleanslate input[type="datetime"],
+.cleanslate input[type="datetime-local"],
+.cleanslate input[type="email"],
+.cleanslate input[type="month"],
+.cleanslate input[type="number"],
+.cleanslate input[type="password"],
+.cleanslate input[type="search"],
+.cleanslate input[type="tel"],
+.cleanslate input[type="text"],
+.cleanslate input[type="time"],
+.cleanslate input[type="week"],
+.cleanslate input[type="url"],
+.cleanslate select,
+.cleanslate textarea {
+	-webkit-box-sizing: content-box !important;
+	-moz-box-sizing: content-box !important;
+	box-sizing: content-box !important;
+	vertical-align: middle !important;
+}
+.cleanslate select, .cleanslate textarea, .cleanslate input {
+	border:1px solid #ccc !important;
+}
+.cleanslate table {
+	border-collapse:collapse !important;
+	border-spacing:0 !important;
+}
+.cleanslate hr {
+	display:block !important;
+	height:1px !important;
+	border:0 !important;
+	border-top:1px solid #ccc !important;
+	margin:1em 0 !important;
+}
+.cleanslate *[dir=rtl] {
+	direction: rtl !important;
+}
+.cleanslate mark {
+	background-color:#ff9 !important;
+	color:black !important;
+	font-style:italic !important;
+	font-weight:bold !important;
+}
+
+
+
+/* == ROOT CONTAINER ELEMENT == */
+/* This contains default values for child elements to inherit  */
+.cleanslate {
+	font-size: medium !important;
+	line-height: 1 !important;
+	direction:ltr !important;
+	text-align:left !important;
+	font-family: "Times New Roman", Times, serif !important; /* Override this with whatever font-family is required */
+	color: black !important;
+	font-style:normal !important;
+	font-weight:normal !important;
+	text-decoration:none !important;
+	list-style-type:disc !important;
+}
+.cfwhiteboard .scrollbarpaper-container
+{
+  position: absolute !important;
+  z-index: 1 !important;
+  /* custom */
+  margin-left: -6px !important;
+  z-index: 99991 !important;
+}
+
+.cfwhiteboard .scrollbarpaper-track
+{
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  /* custom */
+  width: 9px !important;
+  background: #19191e !important;
+  -webkit-border-radius: 6px !important;
+  -moz-border-radius: 6px !important;
+  border-radius: 6px !important;
+  border: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.cfwhiteboard .scrollbarpaper-drag
+{
+  cursor: pointer !important;
+	position: absolute !important;
+  height: 100px !important;
+  /* custom */
+  width: 9px !important;
+  background: #fff !important;
+  -webkit-border-radius: 5px !important;
+  -moz-border-radius: 5px !important;
+  border-radius: 5px !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.cfwhiteboard .scrollbarpaper-drag-top
+{
+  position: absolute !important;
+  top: 0 !important;
+  width: 100% !important;
+}
+
+.cfwhiteboard .scrollbarpaper-drag-bottom
+{
+  position: absolute !important;
+  bottom: 0 !important;
+  width: 100% !important;
+}
+/* whiteboard.css */
+.cleanslate.cfwhiteboard {
+    float: right !important;
+    font-family: Helvetica !important;
+    margin-left: 10px !important;
+    position: relative !important;
+
+    /* break words as needed */
+    -ms-word-break: break-all;
+    word-break: break-all;
+    /* Non standard for webkit */
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    /* end break words */
+
+}
+/* override defaults */
+.cfwhiteboard.position-inline,
+.cfwhiteboard.position-block,
+.cfwhiteboard.position-floatleft {
+    float: none !important;
+    margin: 0 !important;
+}
+.cfwhiteboard.position-inline {
+    display: inline-block !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard.position-block {
+    display: block !important;
+}
+.cfwhiteboard.position-floatleft {
+    float: left !important;
+}
+
+.cfwhiteboard.cfw-display-embed .cfw-pane {
+    display: block !important;
+    position: static !important;
+}
+.cfw-clearer {
+    clear: both !important;
+    display: block !important;
+    height: 0 !important;
+    visibility: hidden !important;
+}
+
+/*
+.cfwhiteboard .cfw-preload-images {
+    position: absolute !important;
+    left: -999999px !important;
+    top: -999999px !important;
+}
+.cfwhiteboard .cfw-preload-images span {
+    display: inline-block !important;
+    height: 1px !important;
+    width: 1px !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-preload-images .cfw-metal-tile-jpg {
+    background: url('images/metal-tile.jpg') no-repeat transparent 1px 1px !important;
+}
+.cfwhiteboard .cfw-preload-images .cfw-whiteboard-background-abstract-blur-dark-jpg {
+    background: url('images/whiteboard-background-abstract-blur-dark.png') no-repeat transparent 1px 1px !important;
+}
+.cfwhiteboard .cfw-preload-images .cfw-loading-gif {
+    background: url('images/loading.gif') no-repeat transparent 1px 1px !important;
+}
+.cfwhiteboard .cfw-preload-images .cfw-profile-link-png {
+    background: url('images/profile-link.png') no-repeat transparent 1px 1px !important;
+}
+*/
+.cfwhiteboard input[type="checkbox"] {
+    -webkit-appearance: checkbox !important;
+}
+.cleanslate.cfwhiteboard > h1, .cleanslate.cfwhiteboard > h1 * {
+    cursor: pointer !important;
+    text-decoration: none !important;
+}
+.cleanslate.cfwhiteboard > h1 {
+    background: url('images/bg-gradient-white-44.png') repeat-x left top #fff !important;
+    background: -moz-linear-gradient(top,  #ffffff 0%, #e0e0e0 100%) !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e0e0e0)) !important;
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#e0e0e0 100%) !important;
+    background: -o-linear-gradient(top,  #ffffff 0%,#e0e0e0 100%) !important;
+    background: linear-gradient(top,  #ffffff 0%,#e0e0e0 100%) !important;
+    -webkit-background-clip: padding-box !important;
+    -moz-background-clip: padding !important;
+    background-clip: padding-box !important;
+    border: 1px solid #aaa !important;
+    border-radius: 3px !important;
+    color: #2f2f2f !important;
+    display: inline-block !important;
+    font-size: 14px !important;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-weight: bold !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+    padding: 10px 10px !important;
+    position: relative !important;
+    text-shadow: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cleanslate.cfwhiteboard > h1:hover {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25),inset 0 0 3px #fff !important;
+    border-color: #777 !important;
+}
+.cfwhiteboard.cfw-active > h1:hover {
+    background: #f5f5f5 !important;
+    box-shadow: none !important;
+}
+.cleanslate.cfwhiteboard > h1:active,
+.cfwhiteboard.cfw-active > h1 {
+    background: -moz-linear-gradient(bottom,  #ffffff 0%, #e0e0e6 100%) !important;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,#ffffff), color-stop(100%,#e0e0e6)) !important;
+    background: -webkit-linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
+    background: -o-linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
+    background: linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
+    box-shadow: inset 0 1px 1px #888 !important;
+    border-color: #777 !important;
+}
+.cfwhiteboard.cfw-active > h1:active {
+    background: -moz-linear-gradient(bottom,  #ffffff 0%, #e0e0e6 100%) !important;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,#ffffff), color-stop(100%,#e0e0e6)) !important;
+    background: -webkit-linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
+    background: -o-linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
+    background: linear-gradient(bottom,  #ffffff 0%,#e0e0e6 100%) !important;
+}
+.cfwhiteboard > h1 .cfw-entry-count-all {
+    background: #01a1ee !important;
+    -webkit-background-clip: padding-box !important;
+    -moz-background-clip: padding !important;
+    background-clip: padding-box !important;
+    /*border: 2px solid #fff !important;*/
+    border-radius: 9px !important;
+    box-shadow: 0 1px 1px rgba(0,0,0,.2) !important;
+    color: #fff !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    padding: 2px 5px !important;
+    position: absolute !important;
+    right: -5px !important;
+    text-shadow: none !important;
+    top: -7px !important;
+}
+
+
+.cfwhiteboard .cfw-pane, .cfwhiteboard .cfw-pane > div, .cfwhiteboard .cfw-window {
+    -webkit-background-clip: padding-box !important;
+    -moz-background-clip: padding !important;
+    background-clip: padding-box !important;
+    border-radius: 5px !important;
+}
+.cfwhiteboard .cfw-pane {
+    /*background: url('images/metal-tile.jpg') repeat top left #4d4d4b !important;*/
+    background: #222229 !important;
+    color: #fff !important;
+	/*border-width: 1px !important;*/
+	/*border-style: solid !important;*/
+	/*border-color: #727471 #3d3c3a #121210 #666865 !important;*/
+    border: 2px solid #fff !important;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+    box-shadow: none !important;
+    display: none !important;
+    opacity: 1 !important;
+    filter: alpha(opacity = 100) !important;
+    position: absolute !important;
+    right: 0 !important;
+    top: 40px !important;
+    -webkit-transition: 300ms all !important;
+    -moz-transition: 300ms all !important;
+    -ms-transition: 300ms all !important;
+    -o-transition: 300ms all !important;
+    transition: 300ms all !important;
+    z-index: 99990 !important;
+
+	/* hardware acceleration ? */
+	-webkit-transform: translateZ(0) !important;
+	transform: translateZ(0) !important;
+	-webkit-backface-visibility: hidden !important;
+	backface-visibility: hidden !important;
+	-webkit-perspective: 1000 !important;
+	perspective: 1000 !important;
+	/* end hardware acceleration */
+
+}
+.cfwhiteboard .cfw-pane > div {
+    overflow: hidden !important;
+}
+.cfwhiteboard.cfw-active .cfw-pane,
+.cfwhiteboard.cfw-postactive .cfw-pane {
+    display: block !important;
+}
+.cfwhiteboard.cfw-active .cfw-pane.cfw-hidden,
+.cfwhiteboard.cfw-postactive .cfw-pane.cfw-hidden {
+    display: none !important;
+}
+.cfwhiteboard.cfw-postactive .cfw-pane {
+    opacity: 0 !important;
+    filter: alpha(opacity = 0) !important;
+}
+
+.cfwhiteboard.position-inline    .cfw-pane,
+.cfwhiteboard.position-block     .cfw-pane,
+.cfwhiteboard.position-floatleft .cfw-pane {
+    right: auto !important;
+    left: 0 !important;
+}
+
+
+.cfwhiteboard .cfw-pane ul.cfw-classes {
+    background: #19191e !important;
+    border-top-left-radius: 4px !important;
+    border-top-right-radius: 4px !important;
+    box-shadow: none !important;
+    list-style: none !important;
+    margin-bottom: -3px !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li {
+    display: inline-block !important;
+    padding: 0 !important;
+    vertical-align: middle !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li > div {
+    border-top-left-radius: 3px !important;
+    border-top-right-radius: 3px !important;
+    margin: 0 !important;
+    padding: 0 0 2px !important;
+    position: relative !important;
+}
+
+.cfwhiteboard .cfw-pane ul.cfw-1-classes li {
+    max-width: 65% !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-2-classes li {
+    width: 50% !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-3-classes li {
+    width: 33.333333% !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-4-classes li {
+    width: 25% !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-5-classes li {
+    width: 20% !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-6-classes li {
+    width: 16.666666% !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-7-classes li {
+    width: 14.285714% !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-8-classes li {
+    width: 12.5% !important;
+}
+
+.cfwhiteboard .cfw-pane ul.cfw-classes li a {
+    border-top-left-radius: 2px !important;
+    border-top-right-radius: 2px !important;
+    color: #bbb !important;
+    display: block !important;
+    font-size: 13px !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    padding: 0 8px 1px !important;
+    text-align: center !important;
+    text-overflow: ellipsis !important;
+    text-shadow: none !important;
+    white-space: nowrap !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li a:hover {
+    color: #e74c3c !important;
+    text-shadow: none !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li .cfw-centered {
+    display: inline-block !important;
+    /*vertical-align: middle !important;*/
+    max-width: 100% !important;
+    padding: 1px 0 0 !important;
+    position: relative !important;
+    white-space: nowrap !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li .cfw-entry-count {
+    color: #01A1EE !important;
+    font-size: 11px !important;
+    font-weight: bold !important;
+    margin-left: 3px !important;
+    padding: 0 !important;
+    position: absolute !important;
+    left: 100% !important;
+    top: 4px !important;
+    white-space: nowrap !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li .cfw-link-text {
+    display: block !important;
+    line-height: 27px !important;
+/*
+    margin-right: 21px !important;
+    max-width: 100% !important;
+*/
+    overflow: hidden !important;
+    text-align: center !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li .cfw-separator {
+    border-bottom: 1px solid #fff !important;
+    border-top: 1px solid #ebebeb !important;
+    bottom: 0px !important;
+    display: none !important;
+    height: 0 !important;
+    left: 0 !important;
+    line-height: 0 !important;
+    position: absolute !important;
+    right: 0 !important;
+    text-shadow: none !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li.cfw-selected .cfw-separator {
+    display: block !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li.cfw-selected > div {
+    background: #fff !important;
+    border-style: none !important;
+    box-shadow: none !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-classes li.cfw-selected a {
+    background: #fff !important;
+    color: #999 !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+.cfwhiteboard .cfw-pane ul.cfw-1-classes li a {
+    padding: 0 20px 3px !important;
+}
+
+
+.cfwhiteboard .cfw-pane .cfw-print {
+    background-color: #ddd !important;
+    border-color: #aaa !important;
+    border-style: none solid solid solid !important;
+    border-width: 1px !important;
+    border-bottom-left-radius: 3px !important;
+    border-bottom-right-radius: 3px !important;
+    bottom: -29px !important;
+    box-shadow: 1px 2px 1px rgba(0,0,0,0.2) !important;
+    color: #444 !important;
+    font-size: 15px !important;
+    left: 10px !important;
+    line-height: 27px !important;
+    padding: 0 8px !important;
+    position:  absolute !important;
+    display: none !important;
+}
+.cfwhiteboard .cfw-pane .cfw-print:hover {
+    background-color: #ccc !important;
+}
+
+.cfwhiteboard .cfw-window {
+    /*box-shadow: inset 0 1px 3px #bbb, inset 0 -1px 1px #000 !important;*/
+    padding: 11px 19px 0 10px !important;
+    position: relative !important;
+/*    width: 300px !important;*/
+}
+.cfwhiteboard .cfw-window h2 {
+    color: #f5f5f5 !important;
+    font-size: 20px !important;
+	font-weight: 300 !important;
+	line-height: 1.3 !important;
+	margin: 0 0 7px !important;
+	padding: 0 !important;
+}
+
+.cfwhiteboard .cfw-window > a.cfw-new-entry {
+    background: none !important;
+    -webkit-background-clip: padding-box !important;
+    -moz-background-clip: padding !important;
+    background-clip: padding-box !important;
+    /*border-color: #fff #ddd #bbb #fafafa !important;*/
+    border-radius: 2px !important;
+    /*border-style: solid !important;*/
+    /*border-width: 1px !important;*/
+    box-shadow: none !important;
+    color: #e74c3c !important;
+    font-size: 20px !important;
+    font-weight: 300 !important;
+    padding: 6px 0 !important;
+    position: absolute !important;
+    right: 19px !important;
+    /*text-shadow: 0 -1px 0 #111 !important;*/
+    top: 8px !important;
+    text-decoration: none !important;
+}
+.cfwhiteboard .cfw-window > a.cfw-new-entry:hover {
+    text-decoration: underline !important;
+}
+.cfwhiteboard .cfw-window > a.cfw-new-entry[disabled] {
+    cursor: default !important;
+    opacity: .45 !important;
+    filter: alpha(opacity = 45) !important;
+    text-decoration: none !important;
+}
+
+
+
+.cfwhiteboard .cfw-window .cfw-classes {
+    width: 300px !important; /* 2px wider than .cfw-contents, because we don't have a border */
+}
+.cfwhiteboard .cfw-window .cfw-contents {
+    /*background: url('images/whiteboard-background-abstract-blur-dark.png') repeat center center #fff !important;*/
+    background: #fff !important;
+    overflow: hidden !important;
+    position: relative !important;
+    white-space: nowrap !important;
+    width: 300px !important; /* this width is also hard-coded for the entry list table */
+}
+.cfwhiteboard .cfw-window .cfw-contents,
+.cfwhiteboard .cfw-window .cfw-contents > * {
+    -webkit-background-clip: padding-box !important;
+    -moz-background-clip: padding !important;
+    background-clip: padding-box !important;
+    border-radius: 3px !important;
+}
+/* 3 components */
+.cfwhiteboard .cfw-window .cfw-classes.cfw-components-3 {
+    width: 404px !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents.cfw-components-3 {
+    width: 402px !important;
+}
+/* 4 components */
+.cfwhiteboard .cfw-window .cfw-classes.cfw-components-4 {
+    width: 508px !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents.cfw-components-4 {
+    width: 506px !important;
+}
+/* 5 components */
+.cfwhiteboard .cfw-window .cfw-classes.cfw-components-5 {
+    width: 612px !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents.cfw-components-5 {
+    width: 610px !important;
+}
+/* 6 components */
+.cfwhiteboard .cfw-window .cfw-classes.cfw-components-6 {
+    width: 716px !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents.cfw-components-6 {
+    width: 714px !important;
+}
+
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page {
+    display: inline-block !important;
+    height: 378px !important;
+    margin: 0 0% 0 -100% !important;
+    min-width: 100% !important;
+    overflow: hidden !important;
+    -webkit-transition: 300ms all !important;
+    -moz-transition: 300ms all !important;
+    -ms-transition: 300ms all !important;
+    -o-transition: 300ms all !important;
+    transition: 300ms all !important;
+    vertical-align: top !important;
+    width: 100% !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+
+    /* hardware acceleration ? */
+    -webkit-transform: translateZ(0) !important;
+    transform: translateZ(0) !important;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-perspective: 1000 !important;
+    perspective: 1000 !important;
+    /* end hardware acceleration */
+
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page.active {
+    margin: 0 0% 0 0% !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page + .cfw-page,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page + .cfw-page + .cfw-page,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page + .cfw-page + .cfw-page + .cfw-page,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page.active + .cfw-page + .cfw-page + .cfw-page + .cfw-page + .cfw-page {
+    margin: 0 -100% 0 0% !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-scrollable {
+    overflow: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
+    padding-right: 20px !important;
+    margin-right: -20px !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page table + .cfw-scrollable {
+    height: 350px !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-page table + .cfw-scrollable table {
+    width: 100% !important;
+}
+
+
+.cfwhiteboard .cfw-window .cfw-contents a {
+    color: #e74c3c !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents a:hover {
+    color: #333 !important;
+}
+
+
+/* entry list view */
+.cfwhiteboard .cfw-window .cfw-page table {
+    border-collapse: separate !important;
+    table-layout: fixed !important;
+    width: 300px !important;
+}
+.cfwhiteboard .cfw-window table thead th {
+    color: #19191e !important;
+    font-size: 12px !important;
+	font-weight: bold !important;
+    border-style: none none solid !important;
+}
+.cfwhiteboard .cfw-window table tbody {
+    font-size: 13px !important;
+    margin: -1px 0 !important;
+}
+
+.cfwhiteboard .cfw-window table tbody tr:hover {
+    background: #fff !important;
+}
+
+.cfwhiteboard .cfw-window table th,
+.cfwhiteboard .cfw-window table td {
+    border-color: #fff transparent #ebebeb !important;
+    border-style: solid none !important;
+    border-width: 1px !important;
+    color: #434343 !important;
+    overflow: hidden !important;
+    padding: 7px 0 !important;
+    text-overflow: ellipsis !important;
+    text-shadow: none !important;
+    vertical-align: middle !important;
+    white-space: nowrap !important;
+
+    /* no text wrap */
+    -ms-word-break: normal;
+    word-break: normal;
+    /* end no text wrap */
+
+}
+.cfwhiteboard .cfw-window table th *,
+.cfwhiteboard .cfw-window table td * {
+    text-shadow: none !important;
+    white-space: nowrap !important;
+}
+.cfwhiteboard .cfw-window table tbody td,
+.cfwhiteboard .cfw-window table tbody td * {
+    cursor: pointer !important;
+}
+
+.cfwhiteboard .cfw-window table tr.cfw-no-entries td {
+    line-height: 1.2 !important;
+    text-align: center !important;
+    white-space: wrap !important;
+}
+.cfwhiteboard .cfw-window table th.cfw-known-as,
+.cfwhiteboard .cfw-window table td.cfw-known-as {
+    text-align: left !important;
+    text-indent: 8px !important;
+    min-width: 85px !important;
+    width: 85px !important;
+    max-width: 85px !important;
+}
+.cfwhiteboard .cfw-window table td.cfw-known-as,
+.cfwhiteboard .cfw-window table td.cfw-known-as a,
+.cfwhiteboard .cfw-window table td.cfw-known-as a:visited,
+.cfwhiteboard .cfw-window table td.cfw-known-as a:hover {
+    color: #19191e !important;
+    text-decoration: none !important;
+}
+.cfwhiteboard .cfw-window table td.cfw-known-as {
+    padding: 2px 0 0 !important;
+}
+.cfwhiteboard .cfw-window table td.cfw-known-as a {
+    -webkit-background-clip: padding-box !important;
+    -moz-background-clip: padding !important;
+    background-clip: padding-box !important;
+    border: none !important;
+    border-radius: 2px !important;
+    display: inline-block !important;
+    margin-left: -4px !important;
+    max-width: 80px !important;
+    overflow: hidden !important;
+    padding: 5px 22px 4px 5px !important;
+    text-overflow: ellipsis !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-window table tr:hover td.cfw-known-as a {
+    background: #71D2FE !important;
+    box-shadow: none !important;
+    max-width: 52px !important;
+    text-shadow: none !important;
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+.cfwhiteboard .cfw-window table tr td.cfw-known-as a:hover {
+    color: #fff !important;
+}
+
+
+/* multi-component columns */
+.cfwhiteboard .cfw-window table th.cfw-component,
+.cfwhiteboard .cfw-window table td.cfw-component {
+    text-align: left !important;
+    text-indent: 10px !important;
+    min-width: 104px !important;
+    width: 104px !important;
+    max-width: 104px !important;
+}
+
+/* single component column */
+.cfwhiteboard .cfw-window table.cfw-components-1 th.cfw-component {
+    text-align: center !important;
+    text-indent: 0 !important;
+    min-width: 213px !important;
+    width: 213px !important;
+    max-width: 213px !important;
+}
+
+/* sortable component columns */
+.cfwhiteboard .cfw-window thead th {
+    cursor: pointer !important;
+}
+.cfwhiteboard .cfw-window thead th:hover,
+.cfwhiteboard .cfw-window thead th.cfw-sort-active {
+    border-bottom-color: #01a1ee !important;
+}
+.cfwhiteboard .cfw-window table th .cfw-icon-sort-asc,
+.cfwhiteboard .cfw-window table th .cfw-icon-sort-desc {
+    background: #999 !important;
+    cursor: pointer !important;
+    display: inline-block !important; *zoom:1 !important; *display: inline !important;
+    float: right !important;
+    height: 8px !important;
+    margin: 0 0 0 3px !important;
+    padding: 0 !important;
+    width: 12px !important;
+}
+.cfwhiteboard .cfw-window table th.cfw-sort-active .cfw-icon-sort-asc,
+.cfwhiteboard .cfw-window table th.cfw-sort-active .cfw-icon-sort-desc {
+    background: #0f5 !important;
+}
+
+.cfwhiteboard .cfw-window table .cfw-result {
+    color: #e74c3c !important;
+}
+.cfwhiteboard .cfw-window table td.cfw-result {
+    text-align: right !important;
+    text-indent: 10px !important;
+    min-width: 104px !important;
+    width: 104px !important;
+    max-width: 104px !important;
+}
+.cfwhiteboard .cfw-window table .cfw-mods {
+    color: #6d6a63 !important;
+}
+.cfwhiteboard .cfw-window table td.cfw-mods {
+    padding: 0 !important;
+    text-align: left !important;
+    text-indent: 10px !important;
+    vertical-align: middle !important;
+    min-width: 109px !important;
+    width: 109px !important;
+    max-width: 109px !important;
+}
+
+/* 2 components */
+.cfwhiteboard .cfw-window table.cfw-components-2 th.cfw-component + th.cfw-component,
+.cfwhiteboard .cfw-window table.cfw-components-2 td.cfw-component + td.cfw-component,
+/* 3 components */
+.cfwhiteboard .cfw-window table.cfw-components-3 th.cfw-component + th.cfw-component + th.cfw-component,
+.cfwhiteboard .cfw-window table.cfw-components-3 td.cfw-component + td.cfw-component + td.cfw-component,
+/* 4 components */
+.cfwhiteboard .cfw-window table.cfw-components-4 th.cfw-component + th.cfw-component + th.cfw-component + th.cfw-component,
+.cfwhiteboard .cfw-window table.cfw-components-4 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component,
+/* 5 components */
+.cfwhiteboard .cfw-window table.cfw-components-5 th.cfw-component + th.cfw-component + th.cfw-component + th.cfw-component + th.cfw-component,
+.cfwhiteboard .cfw-window table.cfw-components-5 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component,
+/* 6 components */
+.cfwhiteboard .cfw-window table.cfw-components-6 th.cfw-component + th.cfw-component + th.cfw-component + th.cfw-component + th.cfw-component + th.cfw-component,
+.cfwhiteboard .cfw-window table.cfw-components-6 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component {
+    text-align: left !important;
+    text-indent: 10px !important;
+    min-width: 109px !important;
+    width: 109px !important;
+    max-width: 109px !important;
+}
+/* 2 components */
+.cfwhiteboard .cfw-window table.cfw-components-2 td.cfw-component + td.cfw-component,
+/* 3 components */
+.cfwhiteboard .cfw-window table.cfw-components-3 td.cfw-component + td.cfw-component + td.cfw-component,
+/* 4 components */
+.cfwhiteboard .cfw-window table.cfw-components-4 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component,
+/* 5 components */
+.cfwhiteboard .cfw-window table.cfw-components-5 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component,
+/* 6 components */
+.cfwhiteboard .cfw-window table.cfw-components-6 td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component + td.cfw-component {
+    padding: 0 !important;
+}
+
+/* Rx */
+.cfwhiteboard .cfw-window table td.cfw-component > div,
+.cfwhiteboard .cfw-window table td.cfw-mods > div {
+    margin: 0 !important;
+    min-height: 13px !important;
+    overflow: hidden !important;
+    padding: 5px 8px 5px 0 !important;
+    position: relative !important;
+    text-indent: 10px !important;
+    text-overflow: ellipsis !important;
+}
+.cfwhiteboard .cfw-window table td.cfw-component strong,
+.cfwhiteboard .cfw-window table td.cfw-mods strong {
+    border: 1px solid !important;
+    font-size: 11px !important;
+    font-weight: bold !important;
+    padding: 1px 2px 0 !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+.cfwhiteboard .cfw-window table td.cfw-component strong:after,
+.cfwhiteboard .cfw-window table td.cfw-mods strong:after {
+    bottom: -2px !important;
+    border: 1px solid #fff !important;
+    left: -1px !important;
+    position: absolute !important;
+    right: -1px !important;
+    top: 0 !important;
+    z-index: -1 !important;
+}
+
+/* facebook icon / link to fb post */
+.cfwhiteboard .cfw-window table tr a.cfw-view-facebook-post {
+    position: absolute !important;
+    right: 15px !important;
+    text-decoration: none !important;
+    top: 5px !important;
+    z-index: 1 !important;
+}
+.cfwhiteboard .cfw-window table tr .cfw-facebook-icon {
+    background: url('images/facebook-icon-sprite-13.png') no-repeat 0 -20px transparent !important;
+    display: inline-block !important;
+    height: 13px !important;
+    text-indent: -1000px !important;
+    overflow: hidden !important;
+    width: 13px !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-window table tr a:hover .cfw-facebook-icon {
+    background-position: 0 0 !important;
+}
+
+/* dot dot dot */
+.cfwhiteboard .cfw-window table tr span.cfw-more {
+    background: url('images/chevron-right-show-detail-sprite.png') no-repeat 0 0 transparent !important;
+    height: 11px !important;
+    opacity: 0 !important;
+    filter: alpha(opacity = 0) !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    right: 3px !important;
+    text-indent: -1000px !important;
+    top: 6px !important;
+    -webkit-transition: 300ms opacity !important;
+    -moz-transition: 300ms opacity !important;
+    -ms-transition: 300ms opacity !important;
+    -o-transition: 300ms opacity !important;
+    transition: 300ms opacity !important;
+    width: 8px !important;
+    z-index: 1 !important;
+
+    /* hardware acceleration ? */
+    -webkit-transform: translateZ(0) !important;
+    transform: translateZ(0) !important;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-perspective: 1000 !important;
+    perspective: 1000 !important;
+    /* end hardware acceleration */
+
+}
+.cfwhiteboard .cfw-window table tr span.cfw-more.cfw-notes-hint {
+    opacity: .5 !important;
+    filter: alpha(opacity = 50) !important;
+}
+.cfwhiteboard .cfw-window table tbody:hover span.cfw-more {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+.cfwhiteboard .cfw-window table tr:hover span.cfw-more {
+    opacity: 1 !important;
+    filter: alpha(opacity = 100) !important;
+}
+.cfwhiteboard .cfw-window table tr.cfw-selected span.cfw-more {
+    background-position: 0 -20px !important;
+    opacity: 1 !important;
+    filter: alpha(opacity = 100) !important;
+}
+
+.cfwhiteboard .cfw-window table tbody tr.cfw-highlighted-transition,
+.cfwhiteboard .cfw-window table tbody tr.cfw-highlighted-transition td,
+.cfwhiteboard .cfw-window table tbody tr.cfw-highlighted-transition td * {
+    -webkit-transition: 5s linear all !important;
+    -moz-transition: 5s linear all !important;
+    -ms-transition: 5s linear all !important;
+    -o-transition: 5s linear all !important;
+    transition: 5s linear all !important;
+}
+.cfwhiteboard .cfw-window table tbody tr.cfw-highlighted {
+    background: #0bb1fe !important;
+}
+.cfwhiteboard .cfw-window table tbody tr.cfw-highlighted td {
+    border-color: #48c5fe transparent #018BCB !important;
+}
+.cfwhiteboard .cfw-window table tbody tr.cfw-highlighted td,
+.cfwhiteboard .cfw-window table tbody tr.cfw-highlighted td * {
+    text-shadow: none !important;
+}
+
+
+/* entry detail view */
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail {
+    line-height: 1.3 !important;
+    padding: 0 !important;
+    position: relative !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail a.cfw-back,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail a.cfw-edit {
+    position: absolute !important;
+    top: 0 !important;
+    padding: 8px !important;
+    background: #fff !important;
+    border-width: 1px !important;
+    border-color: #ccc #d5d5d5 !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail a.cfw-back {
+    border-bottom-right-radius: 6px !important;
+    border-style: none solid solid none !important;
+    left: 0 !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail a.cfw-edit {
+    background-image: url('images/locked.png') !important;
+    background-repeat: no-repeat !important;
+    background-position: 38px 6px !important;
+    border-bottom-left-radius: 6px !important;
+    border-style: none none solid solid !important;
+    padding-right: 28px !important;
+    right: 0 !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dl {
+    padding: 39px 20px 14px 0px !important;
+    height: 330px !important;
+    text-align: center !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dt,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd {
+    padding: 0 8px !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dt {
+    font-size: 12px !important;
+    font-weight: 300 !important;
+    padding-top: 10px !important;
+    color: #19191e !important;
+    text-align: left !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail * + dt {
+    border-top: 1px solid #fff !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd {
+    border-bottom: 1px solid #ddd !important;
+    font-size: 20px !important;
+    padding-bottom: 10px !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd.cfw-known-as {
+    color: #19191e !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd.cfw-known-as a,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd.cfw-known-as a:visited {
+    background: #71D2FE !important;
+    -webkit-background-clip: padding-box !important;
+    -moz-background-clip: padding !important;
+    background-clip: padding-box !important;
+    border: none !important;
+    border-radius: 2px !important;
+    box-shadow: none !important;
+    color: #19191e !important;
+    display: inline-block !important;
+    font-size: 12px !important;
+    font-weight: normal !important;
+    height: 24px !important;
+    line-height: 24px !important;
+    margin: 0 !important;
+    padding: 1px 6px !important;
+    text-align: left !important;
+    text-decoration: none !important;
+    vertical-align: bottom !important;
+    width: 78px !important;
+    white-space: nowrap !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd.cfw-known-as a:hover {
+    background-position: 69px -20px !important;
+    color: white !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd.cfw-component {
+    padding-top: 5px !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd .cfw-result {
+    color: #e74c3c !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd .cfw-mods {
+    color: #6d6a63 !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd .cfw-mods strong {
+    border: 2px solid !important;
+    display: inline-block !important;
+    font-size: 16px !important;
+    padding: 2px 3px 0 !important;
+    position: relative !important;
+    vertical-align: baseline !important;
+    z-index: 1 !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd .cfw-mods strong:after {
+    bottom: -2px !important;
+    border: 1px solid #fff !important;
+    left: -2px !important;
+    position: absolute !important;
+    right: -2px !important;
+    top: 0 !important;
+    z-index: -1 !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-entry-detail dd.cfw-notes {
+    border-bottom: none !important;
+    color: #6d6a63 !important;
+    white-space: pre-wrap !important;
+}
+
+
+/* CFW.ModalView */
+.cfwhiteboard .cfw-window .cfw-modal {
+    /*background: url('images/whiteboard-background-abstract-blur-dark.png') repeat center center #fff !important;*/
+    background: #fff !important;
+    bottom: 0px !important;
+    /*display: none !important;*/
+    /*height: 362px !important;*/
+    left: 0 !important;
+    position: absolute !important;
+    right: 0 !important;
+    top: 400px !important;
+    -webkit-transition: 300ms all !important;
+    -moz-transition: 300ms all !important;
+    -ms-transition: 300ms all !important;
+    -o-transition: 300ms all !important;
+    transition: 300ms all !important;
+    width: 300px !important;
+    z-index: 1000 !important;
+
+    /* hardware acceleration ? */
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-perspective: 1000 !important;
+    perspective: 1000 !important;
+    /* end hardware acceleration */
+
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-modal.cfw-scrollable {
+    padding-right: 20px !important;
+}
+.cfwhiteboard .cfw-window .cfw-modal.cfw-translate3d {
+    -webkit-transform: translate3d(0,-400,0) !important;
+    -moz-transform: translate3d(0,-400,0) !important;
+    -ms-transform: translate3d(0,-400,0) !important;
+    -o-transform: translate3d(0,-400,0) !important;
+    transform: translate3d(0,-400,0) !important;
+}
+.cfwhiteboard .cfw-window .cfw-modal.cfw-translate {
+    -webkit-transform: translate(0,-400) !important;
+    -moz-transform: translate(0,-400) !important;
+    -ms-transform: translate(0,-400) !important;
+    -o-transform: translate(0,-400) !important;
+    transform: translate(0,-400) !important;
+}
+.cfwhiteboard .cfw-window .cfw-modal.cfw-translate-oldfashioned {
+    /*bottom: 0px !important;*/
+    top: 0px !important;
+}
+
+
+/* entry form view */
+.cfwhiteboard .cfw-window form fieldset {
+    padding: 8px 8px 6px !important;
+    border-bottom: 1px solid #ccc !important;
+    margin: 0 !important;
+}
+.cfwhiteboard .cfw-window form fieldset + fieldset {
+    border-top: 1px solid #fff !important;
+    padding-top: 4px !important;
+}
+.cfwhiteboard .cfw-window form fieldset.cfw-last {
+    border-bottom: none !important;
+    padding-bottom: 10px !important;
+}
+.cfwhiteboard .cfw-window form h2,
+.cfwhiteboard .cfw-window form h2 label {
+    color: #606060 !important;
+    font-size: 15px !important;
+    font-weight: bold !important;
+    line-height: 23px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    text-overflow: ellipsis !important;
+    text-shadow: none !important;
+    white-space: nowrap !important;
+    width: 282px !important;
+}
+.cfwhiteboard .cfw-window form h2 {
+    margin: 0 0 3px !important;
+}
+.cfwhiteboard .cfw-window form h2 label {
+    margin: 0 !important;
+}
+.cfwhiteboard .cfw-window form .cfw-result-notes,
+.cfwhiteboard .cfw-window form .cfw-email-display,
+.cfwhiteboard .cfw-window form .cfw-field-errors {
+    color: #606060 !important;
+    font-size: 15px !important;
+    line-height: 23px !important;
+    margin: 0 0 3px !important;
+    padding: 0 !important;
+    text-shadow: none !important;
+    width: 282px !important;
+}
+.cfwhiteboard .cfw-window form .cfw-field-errors {
+    color: #e74c3c !important;
+    font-weight: normal !important;
+}
+.cfwhiteboard .cfw-window form .cfw-field-errors.cfw-muted {
+    color: #909090 !important;
+}
+.cfwhiteboard .cfw-window form .cfw-email-display {
+    overflow: hidden !important;
+    white-space: nowrap !important;
+}
+.cfwhiteboard .cfw-window form label,
+.cfwhiteboard .cfw-window form input,
+.cfwhiteboard .cfw-window form textarea,
+.cfwhiteboard .cfw-window form .cfw-dropdown-toggle {
+    display: block !important;
+    font-size: 15px !important;
+    width: 274px !important;
+}
+.cfwhiteboard .cfw-window form [type="checkbox"],
+.cfwhiteboard .cfw-window form [type="radio"] {
+    display: inline !important;
+    width: auto !important;
+}
+.cfwhiteboard .cfw-window form input,
+.cfwhiteboard .cfw-window form textarea,
+.cfwhiteboard .cfw-window form .cfw-dropdown-toggle {
+    padding: 3px !important;
+}
+.cfwhiteboard .cfw-window form label {
+    color: #6d6a63 !important;
+    font-size: 13px !important;
+    margin: 3px 0 0 !important;
+    padding: 4px 4px 3px !important;
+    text-shadow: none !important;
+}
+.cfwhiteboard .cfw-window form input[type="checkbox"] {
+    font-size: 16px !important;
+    margin: 7px 3px 7px 5px !important;
+}
+.cfwhiteboard .cfw-window form em {
+    color: #888 !important;
+    font-style: italic !important;
+}
+.cfwhiteboard .cfw-window form .cfw-half {
+    display: inline-block !important;
+    width: 131px !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-window form .cfw-minority {
+    display: inline-block !important;
+    width: 41px !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-window form input.cfw-minority[type="checkbox"] {
+    vertical-align: top !important;
+    width: 18px !important;
+}
+.cfwhiteboard .cfw-window form input.cfw-minority[type="checkbox"] + span {
+    color: #919191 !important;
+    display: inline-block !important;
+    font-size: 11px !important;
+    font-style: italic !important;
+    line-height: 29px !important;
+    margin-right: 2px !important;
+    text-align: center !important;
+    text-shadow: none !important;
+    vertical-align: top !important;
+    width: 21px !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-window form .cfw-majority {
+    display: inline-block !important;
+    width: 221px !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-window form input[type="text"],
+.cfwhiteboard .cfw-window form input[type="password"],
+.cfwhiteboard .cfw-window form input[type="email"],
+.cfwhiteboard .cfw-window form textarea,
+.cfwhiteboard .cfw-window form .cfw-dropdown-toggle {
+    background: #fff !important;
+    border-color: #8D8A83 !important;
+    border-style: solid !important;
+    border-width: 1px !important;
+    box-shadow: none !important;
+    color: #19191e !important;
+    cursor: text !important;
+    font-size: 15px !important;
+    line-height: normal !important;
+    margin: 0 0 6px !important;
+    padding-top: 4px !important;
+    padding-bottom: 5px !important;
+}
+.cfwhiteboard .cfw-window form input[type="password"] {
+    font-size: 24px !important;
+}
+.cfwhiteboard .cfw-window form input[type="text"]::-webkit-input-placeholder,
+.cfwhiteboard .cfw-window form input[type="password"]::-webkit-input-placeholder,
+.cfwhiteboard .cfw-window form input[type="email"]::-webkit-input-placeholder,
+.cfwhiteboard .cfw-window form textarea::-webkit-input-placeholder { /* WebKit browsers */
+    color: #aaa !important;
+}
+.cfwhiteboard .cfw-window form input[type="text"]:-moz-placeholder,
+.cfwhiteboard .cfw-window form input[type="password"]:-moz-placeholder,
+.cfwhiteboard .cfw-window form input[type="email"]:-moz-placeholder,
+.cfwhiteboard .cfw-window form textarea:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #aaa !important;
+}
+.cfwhiteboard .cfw-window form input[type="text"]::-moz-placeholder,
+.cfwhiteboard .cfw-window form input[type="password"]::-moz-placeholder,
+.cfwhiteboard .cfw-window form input[type="email"]::-moz-placeholder,
+.cfwhiteboard .cfw-window form textarea::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #aaa !important;
+}
+.cfwhiteboard .cfw-window form input[type="text"]:-ms-input-placeholder,
+.cfwhiteboard .cfw-window form input[type="password"]:-ms-input-placeholder,
+.cfwhiteboard .cfw-window form input[type="email"]:-ms-input-placeholder,
+.cfwhiteboard .cfw-window form textarea:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #aaa !important;
+}
+.cfwhiteboard .cfw-window form input[disabled="disabled"] {
+    cursor: default !important;
+    opacity: 0.45 !important;
+    filter: alpha(opacity = 45) !important;
+}
+.cfwhiteboard .cfw-window form input[type="text"],
+.cfwhiteboard .cfw-window form input[type="password"],
+.cfwhiteboard .cfw-window form input[type="email"],
+.cfwhiteboard .cfw-window form .cfw-dropdown-toggle {
+    height: 21px !important;
+}
+.cfwhiteboard .cfw-window form .cfw-half + .cfw-half,
+.cfwhiteboard .cfw-window form label.cfw-majority,
+.cfwhiteboard .cfw-window form input.cfw-majority {
+    margin-left: 4px !important;
+}
+.cfwhiteboard .cfw-window form label.cfw-inline {
+    display: inline-block !important;
+    line-height: 21px !important;
+    margin-top: 0 !important;
+    padding-left: 2px !important;
+    padding-right: 20px !important;
+    vertical-align: top !important;
+    width: auto !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-window form .cfw-dropdown {
+    display: inline-block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    vertical-align: top !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-window form .cfw-dropdown-toggle {
+    background: url('images/bg-gradient-white-44.png') repeat-x left top #fff !important;
+    border-color: #ccc !important;
+    margin-bottom: 0 !important;
+    text-decoration: none !important;
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+    width: auto !important;
+}
+.cfwhiteboard .cfw-window form .cfw-dropdown-toggle:hover {
+    border-color: #8D8A83 !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.25),inset 0 0 3px #fff !important;
+}
+.cfwhiteboard .cfw-window form .cfw-dropdown-toggle:active,
+.cfwhiteboard .cfw-window form .open .cfw-dropdown-toggle {
+    border-color: #8D8A83 !important;
+    box-shadow: inset 0 1px 1px #888 !important;
+}
+.cfwhiteboard .cfw-window form .cfw-dropdown-menu li a {
+    color: #19191e !important;
+}
+.cfwhiteboard .cfw-window form .cfw-dropdown-menu li a:hover {
+    color: #fff !important;
+}
+.cfwhiteboard .cfw-window form div.cfw-footer {
+    padding-top: 3px !important;
+    text-align: right !important;
+    width: 282px !important;
+}
+.cfwhiteboard .cfw-window form input[type="checkbox"] + label {
+    display: inline !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn.cfw-btn-block,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn.cfw-btn-block:hover {
+    display: block !important;
+}
+.cfwhiteboard .cfw-window form input[type="submit"],
+.cfwhiteboard .cfw-window form input[type="submit"]:hover,
+.cfwhiteboard .cfw-window form input[type="reset"],
+.cfwhiteboard .cfw-window form input[type="reset"]:hover,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn:hover {
+    background: #95a5a6 !important;
+    -webkit-background-clip: padding-box !important;
+    -moz-background-clip: padding !important;
+    background-clip: padding-box !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 3px !important;
+    color: #fff !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    font-size: 15px !important;
+    font-weight: 300 !important;
+    margin: 0 !important;
+    padding: 9px 12px !important;
+    text-align: center !important;
+    text-shadow: none !important;
+    width: auto !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-window form .cfw-footer input[type="submit"],
+.cfwhiteboard .cfw-window form .cfw-footer input[type="reset"] {
+    margin-left: 10px !important;
+}
+.cfwhiteboard .cfw-window form input[type="submit"]:active,
+.cfwhiteboard .cfw-window form input[type="submit"].loading,
+.cfwhiteboard .cfw-window form input[type="reset"]:active,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn:active,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn.loading {
+    box-shadow: inset 0 2px 6px 1px rgba(0,0,0,.2) !important;
+}
+.cfwhiteboard .cfw-window form input[type="submit"],
+.cfwhiteboard .cfw-window form input[type="submit"]:hover,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-primary,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-primary:hover {
+    background: #01a1ee !important;
+}
+.cfwhiteboard .cfw-window form input[type="reset"] {
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-danger,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-danger:hover {
+    background: #e74c3c !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-orange,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-orange:hover {
+    background: #e74c3c !important;
+    color: #fff !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-orange-text,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-orange-text:hover {
+    /*background: #2c3e50 !important;*/
+    color: #fff !important;
+    /*text-shadow: 0 -1px 0 #100 !important;*/
+}
+/*
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-orange-text:active {
+    box-shadow: inset 0 2px 6px 1px rgba(0,0,0,.9) !important;
+}
+*/
+.cfwhiteboard .cfw-window form .cfw-footer input[type="reset"] {
+    margin-left: 1px !important;
+}
+.cfwhiteboard .cfw-window form input[type="submit"].loading,
+.cfwhiteboard .cfw-window form input[type="submit"].loading:hover {
+    background-image: url(data:image/gif;base64,R0lGODlhEAALAPQAAAGh7iw+UAaS1weO0AOY4So/Uyw+UCRPbBVwoBtiiguFwyZKZB9ZfRRzpRpkjQuHxiVMZys/UR5bgASW3gaR1QGc5yJTcgWT2AKb5QyEwBB7sgmMzQKZ5AAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCwAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQJCwAAACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQJCwAAACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQJCwAAACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAkLAAAALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkECQsAAAAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAkLAAAALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkECQsAAAAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7AAAAAAAAAAAA) !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    color: transparent !important;
+    text-shadow: none !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-danger.loading,
+.cfwhiteboard .cfw-window .cfw-contents .cfw-btn-danger.loading:hover {
+    background-image: url(data:image/gif;base64,R0lGODlhEAALAPQAAOdMPCw+UMxJPsRJP9dKPS89Tyw+UE0/S4tERXJCR7RHQEQ/TWJBSZFFRHRCR7dHQEc/TC4+TmRBSdVJPcpJPt5LPFRAS81JPd5KPLFHQKFFQsBIP9pKPQAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCwAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQJCwAAACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQJCwAAACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQJCwAAACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAkLAAAALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkECQsAAAAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAkLAAAALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkECQsAAAAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7AAAAAAAAAAAA) !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    color: transparent !important;
+    text-shadow: none !important;
+}
+
+.cfwhiteboard .cfw-window form label.cfw-invalid {
+    color: #e74c3c !important;
+}
+.cfwhiteboard .cfw-window form input.cfw-invalid,
+.cfwhiteboard .cfw-window form input:invalid {
+    border-color: #e74c3c !important;
+}
+
+.cfwhiteboard .cfw-hidden {
+    display: none !important;
+}
+.cfwhiteboard .cfw-nobr {
+    white-space: nowrap !important;
+}
+.cfwhiteboard .cfw-window form .cfw-notes textarea {
+    resize: vertical !important;
+    white-space: pre-wrap !important;
+}
+.cfwhiteboard .cfw-window form .cfw-notes {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    filter: alpha(opacity = 0) !important;
+    overflow: hidden !important;
+    -webkit-transition: 200ms all !important;
+    -moz-transition: 200ms all !important;
+    -ms-transition: 200ms all !important;
+    -o-transition: 200ms all !important;
+    transition: 200ms all !important;
+    width: 282px !important;
+
+    /* hardware acceleration ? */
+    -webkit-transform: translateZ(0) !important;
+    transform: translateZ(0) !important;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-perspective: 1000 !important;
+    perspective: 1000 !important;
+    /* end hardware acceleration */
+
+}
+.cfwhiteboard .cfw-window form .cfw-notes.cfw-open {
+    max-height: 320px !important;
+}
+.cfwhiteboard .cfw-window form .cfw-notes.cfw-opaque {
+    opacity: 1 !important;
+    filter: alpha(opacity = 100) !important;
+}
+.cfwhiteboard .cfw-window form a.cfw-forget-me,
+.cfwhiteboard .cfw-window form a.cfw-add-notes,
+.cfwhiteboard .cfw-window form a.cfw-reset-password {
+    color: #6d6a63 !important;
+    display: inline-block !important;
+    float: left !important;
+    font-size: 13px !important;
+    line-height: 31px !important;
+    margin-left: 4px !important;
+    opacity: 1 !important;
+    filter: alpha(opacity = 100) !important;
+    -webkit-transition: 200ms all !important;
+    -moz-transition: 200ms all !important;
+    -ms-transition: 200ms all !important;
+    -o-transition: 200ms all !important;
+    transition: 200ms all !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+.cfwhiteboard .cfw-window form a.cfw-forget-me:hover,
+.cfwhiteboard .cfw-window form a.cfw-add-notes:hover,
+.cfwhiteboard .cfw-window form a.cfw-reset-password:hover {
+    color: #e74c3c !important;
+    text-decoration: none !important;
+}
+.cfwhiteboard .cfw-window form a.cfw-add-notes.cfw-transparent {
+    opacity: 0 !important;
+    filter: alpha(opacity = 0) !important;
+}
+.cfwhiteboard .cfw-window form a.cfw-add-notes.cfw-hidden {
+    display: none !important;
+}
+.cfwhiteboard .cfw-window form a.cfw-add-notes label {
+    color: inherit !important;
+    display: inline !important;
+}
+.cfwhiteboard .cfw-window form a.cfw-add-notes strong {
+    font-size: 115% !important;
+    font-weight: normal !important;
+}
+
+.cfwhiteboard .cfw-window > .cfw-footer {
+    text-align: center !important;
+    color: #999 !important;
+}
+.cfwhiteboard .cfw-window > .cfw-footer a {
+    color: #999 !important;
+    display: inline-block !important;
+    font-size: 12px !important;
+    margin: 3px 0 0 !important;
+    padding: 3px 6px 6px !important;
+    text-shadow: none !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+}
+/*.cfwhiteboard .cfw-window > .cfw-footer a + a {
+    float: right !important;
+}*/
+.cfwhiteboard .cfw-window > .cfw-footer a:hover {
+    color: #fff !important;
+}
+
+
+
+/* Entry Share View */
+.cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-card {
+    background: #86a3c5 !important;
+    background: -moz-linear-gradient(top,  #86A3C5 0%, #5D72A7 80.95%) !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#86a3c5), color-stop(80.95%,#5d72a7)) !important;
+    background: -webkit-linear-gradient(top,  #86A3C5 0%,#5D72A7 80.95%) !important;
+    background: -o-linear-gradient(top,  #86a3c5 0%,#5d72a7 80.95%) !important;
+    background: -ms-linear-gradient(top,  #86a3c5 0%,#5d72a7 80.95%) !important;
+    background: linear-gradient(to bottom,  #86a3c5 0%,#5d72a7 80.95%) !important;
+    -webkit-background-clip: padding-box !important;
+    -moz-background-clip: padding !important;
+    background-clip: padding-box !important;
+    border: 1px solid #617193 !important;
+    border-radius: 3px !important;
+    box-shadow: inset 0 1px 0 #adc2d7, 0 1px 1px #aaa !important;
+    height: 117px !important;
+    padding: 51px 28px 0 !important;
+    position: relative !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-card p {
+    text-align: right !important;
+    padding-bottom: 12px !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-card a {
+    display: inline-block !important;
+    *zoom: 1 !important;
+    *display: inline !important;
+    font-family: 'lucida grande', tahoma, verdana, arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: bold !important;
+    line-height: 23px !important;
+    text-align: center !important;
+    width: 137px !important;
+    white-space: nowrap !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-card a.cfw-fb-action {
+    background: #637bad !important;
+    background: -moz-linear-gradient(top, #637bad 0%, #5872a7 100%) !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #637bad), color-stop(100%, #5872a7)) !important;
+    background: -webkit-linear-gradient(top, #637bad 0%, #5872a7 100%) !important;
+    background: -o-linear-gradient(top, #637bad 0%, #5872a7 100%) !important;
+    background: -ms-linear-gradient(top, #637bad 0%, #5872a7 100%) !important;
+    background: linear-gradient(to bottom, #637bad 0%, #5872a7 100%) !important;
+    border: 1px solid #29447e !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .3), inset 0 1px 0 #8a9cc2 !important;
+    color: #fff !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-card a.cfw-fb-action:active {
+    background: #4f6aa3 !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .3) !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-card a.cfw-fb-inaction {
+    background: #f5f6f6 !important;
+    background: -moz-linear-gradient(top, #f5f6f6 0%, #e0e0df 100%) !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f5f6f6), color-stop(100%, #e0e0df)) !important;
+    background: -webkit-linear-gradient(top, #f5f6f6 0%, #e0e0df 100%) !important;
+    background: -o-linear-gradient(top, #f5f6f6 0%, #e0e0df 100%) !important;
+    background: -ms-linear-gradient(top, #f5f6f6 0%, #e0e0df 100%) !important;
+    background: linear-gradient(to bottom, #f5f6f6 0%, #e0e0df 100%) !important;
+    border: 1px solid #464646 !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .3), inset 0 1px 0 #fff !important;
+    color: #333 !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-card a.cfw-fb-inaction:active {
+    background: #ddd !important;
+    box-shadow: 0 1px 1px rgba(0,0,0,.3) !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-card .cfw-fb-footer {
+    background: #7a8fba !important;
+    border-top: 1px solid #899bc1 !important;
+    bottom:  0 !important;
+    height: 31px !important;
+    left: 0 !important;
+    right:  0 !important;
+    position: absolute !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-card .cfw-fb-logo {
+    background: url('images/f.png') no-repeat center bottom transparent !important;
+    bottom: -1px !important;
+    left: 28px !important;
+    height: 142px !important;
+    position: absolute !important;
+    width: 68px !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-links {
+    padding-top: 1px !important;
+    text-align: center !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-links a {
+    color: #3b5998 !important;
+    font-size: 11px !important;
+    line-height: 16px !important;
+    text-decoration: none !important;
+}
+.cfwhiteboard .cfw-window .cfw-contents .cfw-facebook-links a:hover {
+    text-decoration: underline !important;
+}
+
+
+
+
+/*!
+ * Bootstrap v2.1.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+.cfwhiteboard .cfw-dropdown {
+  position: relative !important;
+}
+.cfwhiteboard .cfw-dropdown-toggle {
+  *margin-bottom: -3px !important;
+}
+.cfwhiteboard .cfw-dropdown-toggle:active,
+.cfwhiteboard .open .cfw-dropdown-toggle {
+  outline: 0 !important;
+}
+.cfwhiteboard .cfw-caret {
+  display: inline-block !important;
+  width: 0 !important;
+  height: 0 !important;
+  vertical-align: top !important;
+  border-top: 4px solid #19191e !important;
+  border-right: 4px solid transparent !important;
+  border-left: 4px solid transparent !important;
+  content: "" !important;
+}
+.cfwhiteboard .cfw-dropdown .cfw-caret {
+  margin-top: 8px !important;
+  margin-left: 2px !important;
+}
+.cfwhiteboard .cfw-dropdown-menu {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  z-index: 1000 !important;
+  display: none !important;
+  float: left !important;
+  min-width: 160px !important;
+  padding: 5px 0 !important;
+  margin: 2px 0 0 !important;
+  list-style: none !important;
+  background-color: #ffffff !important;
+  -webkit-background-clip: padding-box !important;
+  -moz-background-clip: padding !important;
+  background-clip: padding-box !important;
+  border: 1px solid #ccc !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  *border-right-width: 2px !important;
+  *border-bottom-width: 2px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !important;
+  -webkit-background-clip: padding-box !important;
+  -moz-background-clip: padding !important;
+  background-clip: padding-box !important;
+}
+.cfwhiteboard .cfw-dropdown-menu.pull-right {
+  right: 0 !important;
+  left: auto !important;
+}
+.cfwhiteboard .cfw-dropdown-menu .cfw-divider {
+  *width: 100% !important;
+  height: 1px !important;
+  margin: 9px 1px !important;
+  *margin: -5px 0 5px !important;
+  overflow: hidden !important;
+  background-color: #e5e5e5 !important;
+  border-bottom: 1px solid #ffffff !important;
+}
+.cfwhiteboard .cfw-dropdown-menu a {
+  display: block !important;
+  padding: 3px 20px !important;
+  clear: both !important;
+  font-weight: normal !important;
+  line-height: 20px !important;
+  color: #333333 !important;
+  white-space: nowrap !important;
+}
+.cfwhiteboard .cfw-dropdown-menu li > a:hover,
+.cfwhiteboard .cfw-dropdown-menu li > a:focus,
+.cfwhiteboard .cfw-dropdown-submenu:hover > a {
+  text-decoration: none !important;
+  color: #ffffff !important;
+  background-color: #0088cc !important;
+  background-color: #0081c2 !important;
+  background-image: -moz-linear-gradient(top, #0088cc, #0077b3) !important;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3)) !important;
+  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3) !important;
+  background-image: -o-linear-gradient(top, #0088cc, #0077b3) !important;
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3) !important;
+  background-repeat: repeat-x !important;
+}
+.cfwhiteboard .cfw-dropdown-menu .active > a,
+.cfwhiteboard .cfw-dropdown-menu .active > a:hover {
+  color: #ffffff !important;
+  text-decoration: none !important;
+  outline: 0 !important;
+  background-color: #0088cc !important;
+  background-color: #0081c2 !important;
+  background-image: -moz-linear-gradient(top, #0088cc, #0077b3) !important;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3)) !important;
+  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3) !important;
+  background-image: -o-linear-gradient(top, #0088cc, #0077b3) !important;
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3) !important;
+  background-repeat: repeat-x !important;
+}
+.cfwhiteboard .cfw-dropdown-menu .disabled > a,
+.cfwhiteboard .cfw-dropdown-menu .disabled > a:hover {
+  color: #999999 !important;
+}
+.cfwhiteboard .cfw-dropdown-menu .disabled > a:hover {
+  text-decoration: none !important;
+  background-color: transparent !important;
+  cursor: default !important;
+}
+.cfwhiteboard .open {
+  *z-index: 1000 !important;
+}
+.cfwhiteboard .open  > .cfw-dropdown-menu {
+  display: block !important;
+}
+.cfwhiteboard .pull-right > .cfw-dropdown-menu {
+  right: 0 !important;
+  left: auto !important;
+}
+.cfwhiteboard .cfw-dropdown-submenu {
+  position: relative !important;
+}
+.cfwhiteboard .cfw-dropdown-submenu > .cfw-dropdown-menu {
+    -webkit-background-clip: padding-box !important;
+    -moz-background-clip: padding !important;
+    background-clip: padding-box !important;
+  top: 0 !important;
+  left: 100% !important;
+  margin-top: -6px !important;
+  margin-left: -1px !important;
+  border-radius: 0 6px 6px 6px !important;
+}
+.cfwhiteboard .cfw-dropdown-submenu:hover .cfw-dropdown-menu {
+  display: block !important;
+}
+.cfwhiteboard .cfw-dropdown-submenu > a:after {
+  display: block !important;
+  content: " " !important;
+  float: right !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-color: transparent !important;
+  border-style: solid !important;
+  border-width: 5px 0 5px 5px !important;
+  border-left-color: #cccccc !important;
+  margin-top: 5px !important;
+  margin-right: -10px !important;
+}
+.cfwhiteboard .cfw-dropdown-submenu:hover > a:after {
+  border-left-color: #ffffff !important;
+}
+.cfwhiteboard .cfw-dropdown .cfw-dropdown-menu .cfw-nav-header {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
