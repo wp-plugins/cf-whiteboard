@@ -2,27 +2,27 @@
 
 	// Get the URL to this script file (as JavaScript is loaded in order)
 	// (http://stackoverflow.com/questions/2255689/how-to-get-the-file-path-of-the-currenctly-executing-javascript-code)
-	var scripts = document.getElementsByTagName("script"),
-	src = scripts[scripts.length-1].src;
-	
+	var scripts = document.getElementsByTagName("script");
+	var src = scripts[scripts.length-1].src;
+
 	if ( scripts.length ) {
-	
+
 		for ( i in scripts ) {
 
 			var scriptSrc = '';
-			
+
 			if ( typeof scripts[i].src != 'undefined' ) { scriptSrc = scripts[i].src; } // End IF Statement
 
 			var txt = scriptSrc.search( 'cfwhiteboard-post-editor' );
-			
+
 			if ( txt != -1 ) {
-			
+
 				src = scripts[i].src;
-			
+
 			} // End IF Statement
-		
+
 		} // End FOR Loop
-	
+
 	} // End IF Statement
 
 
@@ -42,7 +42,7 @@
 			// t._resizeIframe(ed, tbId, -28);
 			editor.settings.wordpress_adv_hidden = 0;
 			// setUserSetting('hidetb', '1');
-			
+
 			// editor.settings.plugins += ',paste';
 			// editor.settings.paste_auto_cleanup_on_paste = true;
 			// var old_paste_preprocess = editor.settings.paste_preprocess;
@@ -73,7 +73,7 @@
 		// 		editor.execCommand('WP_Adv');
 		// 	}
 		// },
-			
+
 		createControl: function(name, controlManager) {
 			if (name != "cfwhiteboard_button") return null;
 
@@ -110,7 +110,7 @@
 					classes.push( tempClass );
 				});
 
-                var footerText = classes.length > 0 ? CFW.newlineToBr('Post your scores to the <a href="javascript://" onclick="window.top.CFW.goToHash(\'#cfwhiteboard-'+window.top.CFW.postId+'\');">Whiteboard</a>.\n\n') : '';
+                var footerText = classes.length > 0 ? CFW.newlineToBr('Post your scores to <span class="cfw-link-to-whiteboard" data-post-id="'+CFW.postId+'" style="border-bottom: 1px dotted;">the Whiteboard</span>.\n\n') : '';
 
 				if (!classes.length) {
 					// no classes entered, provide link to CFW meta box
@@ -160,7 +160,7 @@
 				this.$cfwButton.find('img').remove();
 				this.$cfwButton.append('<span style="position:absolute; top:0; right:0; bottom:0; left:0; background: url('+ icon_url +') no-repeat 1px center transparent;"></span>');
 
-                this.$cfwButton.attr('data-toggle','dropdown');
+                this.$cfwButton.attr('data-toggle','bsdropdown');
                 this.$cfwButton.attr('data-target','.cfw-dummy-selector');
 				this.$cfwButton.wrap('<div class="dropdown" style="display:inline-block; vertical-align:top; *zoom:1; *display:inline;"></div>');
 				this.$cfwButton.closest('.dropdown').wrap('<span class="cfw-twb"></span>');
@@ -177,7 +177,7 @@
 
 		/*
 		addImmediate:function(d,e,a){d.add({title:e,onclick:function(){tinyMCE.activeEditor.execCommand( "mceInsertContent",false,a)}})},
-		
+
 		addWithDialog:function(d,e,a){d.add({title:e,onclick:function(){tinyMCE.activeEditor.execCommand( "cfwOpenDialog",false,{title:e,identifier:a})}})},
 		*/
 
@@ -189,6 +189,6 @@
 			};
 		}
 	});
-	
+
 	tinymce.PluginManager.add("cfwhiteboard", tinymce.plugins.cfwhiteboard);
 })();
